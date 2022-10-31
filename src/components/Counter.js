@@ -8,7 +8,8 @@ import {
 import { useDispatch } from 'react-redux'
 
 import { TiDeleteOutline } from 'react-icons/ti'
-import { Box, Button, TextField, Typography } from '@mui/material'
+import { Box, TextField, Typography } from '@mui/material'
+import IconButton from '@mui/material/IconButton'
 
 import RemoveIcon from '@mui/icons-material/Remove'
 import AddIcon from '@mui/icons-material/Add'
@@ -45,18 +46,16 @@ function Counter({ cart }) {
           alignItems: 'center',
         }}
       >
-        <Button
-          field='quantity'
-          variant='contained'
+        <IconButton
+          color='primary'
           onClick={() => {
             minusFromCartFunc()
           }}
           disabled={cart.count === 1}
         >
           <RemoveIcon />
-        </Button>
+        </IconButton>
         <TextField
-          field='quantity'
           label='Count'
           value={cart.count}
           onChange={onQuantityChanged}
@@ -64,33 +63,30 @@ function Counter({ cart }) {
             width: '60px',
           }}
         />
-        <Button
-          field='quantity'
-          variant='contained'
+        <IconButton
+          color='primary'
           onClick={() => {
             addToCartFunc()
           }}
         >
           <AddIcon />
-        </Button>
+        </IconButton>
       </Box>
-
       <Box
         sx={{
-          marginBottom: '20px',
+          ml: '16px',
+          mt: '15px',
           display: 'flex',
           flexDirection: 'row',
           alignItems: 'center',
         }}
       >
-        <Box>
-          <Typography variant='h5'> ${cart.count * cart.price}</Typography>
-        </Box>
-        <Box onClick={() => removeFromCartFunc()} sx={{ marginLeft: '20px' }}>
+        <Typography variant='h5'> ${cart.count * cart.price}</Typography>
+        <IconButton color='error' onClick={() => removeFromCartFunc()}>
           <TiDeleteOutline
             style={{ cursor: 'pointer', width: '30px', height: '30px' }}
           />
-        </Box>
+        </IconButton>
       </Box>
     </>
   )

@@ -69,11 +69,8 @@ function CartPage() {
                     Price: {cart.price}
                   </Typography>
                 </CardContent>
-                <Box sx={{ pl: 1, pb: 1 }}>
-                  <Box>
-                    <Counter cart={cart} />
-                  </Box>
-                </Box>
+
+                <Counter cart={cart} />
               </Box>
               <CardMedia
                 component='img'
