@@ -83,7 +83,6 @@ function CardPost({
         <Typography gutterBottom variant='h5' component='div'>
           {title}
         </Typography>
-
         <Typography gutterBottom variant='h5' component='div'>
           ${price}
         </Typography>

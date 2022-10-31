@@ -36,6 +36,7 @@ function RelatedPosts({ relatedPosts, postId }) {
                         height='140'
                         image={item.imageFile}
                         alt='green iguana'
+                        sx={{ objectFit: 'fill' }}
                       />
                       <CardContent>
                         <Typography gutterBottom variant='h5' component='div'>
