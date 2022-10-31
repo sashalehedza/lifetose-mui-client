@@ -1,0 +1,288 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+}
+
+body {
+  box-sizing: border-box;
+}
+
+.alert__container {
+  position: fixed;
+  padding: 4px;
+  top: 1rem;
+  right: 1rem;
+  z-index: 500;
+  width: 20rem;
+}
+
+.alert__top-right {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.alert {
+  padding: 1.5rem;
+  width: 20rem;
+  min-height: 3rem;
+  background-color: salmon;
+  color: #fff;
+  font-size: 1.25rem;
+}
+
+.auth-box {
+  max-height: 60vh;
+  padding: 2rem;
+  -moz-box-shadow: 0 0 5px #333;
+  -webkit-box-shadow: 0 0 5px #333;
+  box-shadow: 0 0 5px #333;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+}
+
+.auth-box a {
+  font-size: 1.25rem;
+  margin-top: 1rem;
+  display: inline-block;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.25rem;
+}
+
+.form h2 {
+  align-self: center;
+}
+
+.form__group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.5rem;
+}
+
+.form__label {
+  margin-bottom: 0.6rem;
+}
+
+.form__control {
+  width: 25rem;
+  height: 2.75rem;
+  padding: 0.5rem;
+  border: 1px solid #333;
+  border-radius: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.form__control:focus {
+  outline: none;
+  border: 2px solid #6200ee;
+}
+
+.btn {
+  padding: 0.5rem;
+  border: none;
+  background: #6200ee;
+  border: 1px solid #6200ee;
+  border-radius: 0.3rem;
+  color: #fff;
+  cursor: pointer;
+}
+
+.btn-secondary {
+  background: #ff0505;
+  border: 1px solid #ff0505;
+}
+
+.btn:disabled {
+  background-color: #999;
+  cursor: not-allowed;
+}
+
+.form__btn {
+  margin-top: 0.5rem;
+}
+
+.main-content {
+  padding-top: 2rem;
+}
+
+.loading__container {
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
+.lds-ring {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.lds-ring div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border: 8px solid #6200ee;
+  border-radius: 50%;
+  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: #6200ee transparent transparent transparent;
+}
+.lds-ring div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+.lds-ring div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.lds-ring div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.paper {
+  width: 100%;
+  background-color: white;
+  padding: 1rem;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+}
+
+.comments {
+  list-style: none;
+}
+
+.comments__item {
+  list-style: none;
+  margin: 0.8rem 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(153, 153, 153, 0.521);
+}
+.comment__top {
+  display: flex;
+  align-items: center;
+}
+.comment__by {
+  font-size: 1.4rem;
+}
+.comment__text {
+  font-size: 1.3rem;
+  margin-left: 0.5rem;
+}
+
+.comment__link {
+  margin-left: 0.5rem;
+}
+
+.comment__at {
+  margin-left: 1rem;
+  font-size: 1rem;
+  color: #999;
+}
+
+.addcomment {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.addcomment__label {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.2rem;
+}
+.addcomment__control {
+  height: 7rem;
+  padding: 1rem;
+  font-size: 1.25rem;
+  font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+  margin-bottom: 0.5rem;
+}
+.addcomment__btn {
+  align-self: flex-end;
+}
+
+.addcomment__paper {
+  margin-bottom: 0.8rem;
+}
+
+.reply {
+  display: flex;
+  padding-bottom: 0.5rem;
+}
+
+.reply__btn {
+  margin-left: 0.5rem;
+}
+
+.edit-comment__btn {
+  margin: 0 0.5rem;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 5rem;
+  background: #6200ee;
+}
+
+.topbar__user {
+  margin-left: 1rem;
+  color: #fff;
+}
+
+.topbar__link {
+  margin-right: 1rem;
+  color: #fff;
+  font-size: 1.25rem;
+}
+.topbar__link:hover {
+  cursor: pointer;
+}
+
+.notificationbox {
+  min-height: 5rem;
+  width: 20rem;
+  padding: 1.5rem;
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  animation: moveLeft 0.5s ease-in;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  background-color: #fff;
+}
+.notificationbox__message {
+  font-size: 1.25rem;
+}
+
+@keyframes moveLeft {
+  0% {
+    transform: translateX(-6rem);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(1);
+    opacity: 1;
+  }
+}
