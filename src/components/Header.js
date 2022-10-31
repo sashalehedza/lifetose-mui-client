@@ -20,6 +20,7 @@ import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
 import { Badge } from '@mui/material'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
+import { clearCart } from '../redux/features/postSlice'
 
 import LIFETOSE from '../images/LIFETOSE.PNG'
 
@@ -44,6 +45,7 @@ function Header() {
 
   const handleLogout = () => {
     dispatch(setLogout())
+    dispatch(clearCart())
   }
 
   const [anchorElNav, setAnchorElNav] = React.useState(null)
@@ -63,6 +65,7 @@ function Header() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null)
   }
+
   const cartElementsCount = cart.reduce((price, product) => {
     return price + product.count
   }, 0)

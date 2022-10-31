@@ -180,6 +180,9 @@ const postSlice = createSlice({
         post.count = count
       }
     },
+    clearCart: (state, action) => {
+      state.cart = []
+    },
   },
   extraReducers: {
     [getPosts.pending]: (state, action) => {
@@ -286,7 +289,12 @@ export const selectPostById = (state, postId) =>
 
 export const selectAllCart = (state) => state.post.cart
 
-export const { addToCart, minusFromCart, removeFromCart, replaceInCart } =
-  postSlice.actions
+export const {
+  addToCart,
+  minusFromCart,
+  removeFromCart,
+  replaceInCart,
+  clearCart,
+} = postSlice.actions
 
 export default postSlice.reducer
