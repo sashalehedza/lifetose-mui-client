@@ -38,12 +38,6 @@ function Counter({ cart }) {
   }
   return (
     <>
-      <TextField
-        field='quantity'
-        label='Count'
-        value={cart.count}
-        onChange={onQuantityChanged}
-      />
       <Box
         sx={{
           display: 'flex',
@@ -61,6 +55,15 @@ function Counter({ cart }) {
         >
           <RemoveIcon />
         </Button>
+        <TextField
+          field='quantity'
+          label='Count'
+          value={cart.count}
+          onChange={onQuantityChanged}
+          sx={{
+            width: '60px',
+          }}
+        />
         <Button
           field='quantity'
           variant='contained'

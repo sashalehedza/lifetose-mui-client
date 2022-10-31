@@ -18,8 +18,6 @@ import { Formik, Form } from 'formik'
 import * as yup from 'yup'
 import InputField from '../components/InputField'
 
-// import Spinner from '../components/Spinner'
-
 import DefaultFilmImage from '../images/default_film_image.jpeg'
 
 const validationSchema = yup.object({

@@ -2,7 +2,6 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 import Card from '@mui/material/Card'
-import CardActions from '@mui/material/CardActions'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 
@@ -31,7 +30,7 @@ function RelatedPosts({ relatedPosts, postId }) {
                 .splice(0, 3)
                 .map((item) => (
                   <Grid item xs={4} sm={4} md={4} key={item._id}>
-                    <Card sx={{ maxWidth: 345 }}>
+                    <Card>
                       <CardMedia
                         component='img'
                         height='140'
@@ -56,7 +55,6 @@ function RelatedPosts({ relatedPosts, postId }) {
                           </Link>
                         ))}
                       </CardContent>
-                      <CardActions></CardActions>
                     </Card>
                   </Grid>
                 ))}

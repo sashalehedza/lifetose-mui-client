@@ -7,7 +7,6 @@ import { getRelatedPosts, getPost } from '../redux/features/postSlice'
 import RelatedPosts from '../components/RelatedPosts'
 
 import Card from '@mui/material/Card'
-import CardActions from '@mui/material/CardActions'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
@@ -48,42 +47,57 @@ function SinglePost() {
       {!post ? (
         <Spinner />
       ) : (
-        <>
+        <Box>
           <Divider sx={{ marginTop: '20px', marginBottom: '20px' }}>
             Post Page - {post ? post.title : ''}
           </Divider>
-          <Card sx={{ maxWidth: 345 }}>
-            <CardMedia
-              component='img'
-              height='140'
-              image={post.imageFile}
-              alt='green iguana'
-              sx={{ objectFit: 'fill' }}
-            />
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              mb: '10px',
+            }}
+          >
+            <Card sx={{ minWidth: 345 }}>
+              <CardMedia
+                component='img'
+                height='140'
+                image={post.imageFile}
+                alt='green iguana'
+                sx={{ objectFit: 'fill' }}
+              />
+              <CardContent>
+                <Typography gutterBottom variant='h5' component='div'>
+                  {post.title}
+                </Typography>
+                {tags.map((tag, index) => (
+                  <Link
+                    key={index}
+                    to={`/posts/tag/${tag}`}
+                    style={{
+                      color: 'blue',
+                      textDecoration: 'none',
+                      marginRight: '10px',
+                    }}
+                  >
+                    #{tag}
+                  </Link>
+                ))}
+              </CardContent>
+            </Card>
+          </Box>
+          <Card sx={{ minWidth: 345 }}>
             <CardContent>
               <Typography gutterBottom variant='h5' component='div'>
-                {post.title}
+                Description: {post.description}
               </Typography>
-              {tags.map((tag, index) => (
-                <Link
-                  key={index}
-                  to={`/posts/tag/${tag}`}
-                  style={{
-                    color: 'blue',
-                    textDecoration: 'none',
-                    marginRight: '10px',
-                  }}
-                >
-                  #{tag}
-                </Link>
-              ))}
             </CardContent>
-            <CardActions></CardActions>
           </Card>
           <Box>
             <Comments />
           </Box>
-        </>
+        </Box>
       )}
       {!relatedPosts || !post ? (
         <Spinner />
