@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import * as api from '../api'
+import { extractErrorMessage } from '../utils'
 
 export const login = createAsyncThunk(
   'auth/login',
@@ -9,7 +10,7 @@ export const login = createAsyncThunk(
       navigate('/')
       return response.data
     } catch (err) {
-      return rejectWithValue(err.response.data)
+      return rejectWithValue(extractErrorMessage(err))
     }
   }
 )
@@ -22,7 +23,7 @@ export const register = createAsyncThunk(
       navigate('/')
       return response.data
     } catch (err) {
-      return rejectWithValue(err.response.data)
+      return rejectWithValue(extractErrorMessage(err))
     }
   }
 )
