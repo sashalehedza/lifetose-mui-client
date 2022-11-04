@@ -208,6 +208,7 @@ const postSlice = createSlice({
       state.post = null
       state.tagPosts = null
       state.relatedPosts = null
+      state.error = ''
     },
     [getPosts.fulfilled]: (state, action) => {
       state.posts = action.payload
@@ -216,7 +217,9 @@ const postSlice = createSlice({
       state.error = action.payload
     },
 
-    [getPost.pending]: (state, action) => {},
+    [getPost.pending]: (state, action) => {
+      state.error = ''
+    },
     [getPost.fulfilled]: (state, action) => {
       state.post = action.payload
     },
@@ -224,7 +227,9 @@ const postSlice = createSlice({
       state.error = action.payload
     },
 
-    [getPostsByUser.pending]: (state, action) => {},
+    [getPostsByUser.pending]: (state, action) => {
+      state.error = ''
+    },
     [getPostsByUser.fulfilled]: (state, action) => {
       state.userPosts = action.payload
     },
