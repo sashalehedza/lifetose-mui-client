@@ -44,25 +44,28 @@ function Dashboard() {
 
   return (
     <Container>
-      <Divider sx={{ marginTop: '20px', marginBottom: '20px' }}>
-        Dashboard: {user?.result?.name}
-      </Divider>
       {error ? (
         <Box
           sx={{
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
+            color: 'red',
+            mt: '15px',
           }}
         >
           {error}
         </Box>
       ) : (
         <>
+          {' '}
           {!userPosts ? (
             <Spinner />
           ) : (
             <>
+              <Divider sx={{ marginTop: '20px', marginBottom: '20px' }}>
+                Dashboard: {user?.result?.name}
+              </Divider>
               {userPosts.length ? (
                 userPosts.map((item) => (
                   <Card

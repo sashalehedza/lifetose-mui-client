@@ -38,15 +38,14 @@ function SinglePost() {
 
   return (
     <Container>
-      <Divider sx={{ marginTop: '20px', marginBottom: '20px' }}>
-        {post ? `Post Title - ${post.title}` : 'Post loading Error'}
-      </Divider>
       {error ? (
         <Box
           sx={{
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
+            color: 'red',
+            mt: '15px',
           }}
         >
           {error}
@@ -57,6 +56,9 @@ function SinglePost() {
             <Spinner />
           ) : (
             <Box>
+              <Divider sx={{ marginTop: '20px', marginBottom: '20px' }}>
+                {post ? `Post Title - ${post.title}` : 'Post loading Error'}
+              </Divider>
               <Box
                 sx={{
                   display: 'flex',
@@ -106,7 +108,7 @@ function SinglePost() {
             </Box>
           )}
           {!relatedPosts || !post ? (
-            <Spinner />
+            <></>
           ) : (
             <Box>
               <RelatedPosts relatedPosts={relatedPosts} postId={id} />

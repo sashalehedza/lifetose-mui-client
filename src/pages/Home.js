@@ -55,13 +55,14 @@ function Home() {
 
   return (
     <Container>
-      <Divider sx={{ marginTop: '20px', marginBottom: '20px' }}>Home</Divider>
       {error ? (
         <Box
           sx={{
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
+            color: 'red',
+            mt: '15px',
           }}
         >
           {error}
@@ -72,6 +73,9 @@ function Home() {
             <Spinner />
           ) : (
             <>
+              <Divider sx={{ marginTop: '20px', marginBottom: '20px' }}>
+                Home
+              </Divider>
               <Box
                 sx={{
                   flexGrow: 1,

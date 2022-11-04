@@ -25,12 +25,12 @@ export const getPost = createAsyncThunk(
     } catch (err) {
       if (err.response.status === 404) {
         toast.error('Post not found')
-        navigate('/notfound')
+        // navigate('/notfound')
         return rejectWithValue('Post not found')
       }
       if (err.message === 'Network Error') {
-        toast.error('Server Error')
-        return rejectWithValue('Server Error')
+        toast.error('Network Error')
+        return rejectWithValue('Network Error')
       }
     }
   }
@@ -213,6 +213,7 @@ const postSlice = createSlice({
     },
     [getPosts.fulfilled]: (state, action) => {
       state.posts = action.payload
+      state.error = ''
     },
     [getPosts.rejected]: (state, action) => {
       state.error = action.payload
@@ -234,6 +235,7 @@ const postSlice = createSlice({
     },
     [getPostsByUser.fulfilled]: (state, action) => {
       state.userPosts = action.payload
+      state.error = ''
     },
     [getPostsByUser.rejected]: (state, action) => {
       state.error = action.payload
