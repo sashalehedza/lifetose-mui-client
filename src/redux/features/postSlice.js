@@ -18,12 +18,18 @@ export const getPosts = createAsyncThunk(
 
 export const getPost = createAsyncThunk(
   'post/getPost',
-  async (id, { rejectWithValue }) => {
+  async ({ id, navigate }, { rejectWithValue }) => {
     try {
       const response = await api.getPost(id)
       return response.data
     } catch (err) {
-      toast.error(extractErrorMessage(err))
+      if (err.response.status === 404) {
+        toast.error('Post not found')
+        navigate('/notfound')
+      }
+      if (err.message === 'Network Error') {
+        toast.error('Server Error')
+      }
       return rejectWithValue(extractErrorMessage(err))
     }
   }
@@ -144,6 +150,7 @@ const postSlice = createSlice({
     tagPosts: null,
     relatedPosts: null,
     cart: [],
+    error: '',
   },
   reducers: {
     addToCart: (state, action) => {
@@ -205,19 +212,25 @@ const postSlice = createSlice({
     [getPosts.fulfilled]: (state, action) => {
       state.posts = action.payload
     },
-    [getPosts.rejected]: (state, action) => {},
+    [getPosts.rejected]: (state, action) => {
+      state.error = action.payload
+    },
 
     [getPost.pending]: (state, action) => {},
     [getPost.fulfilled]: (state, action) => {
       state.post = action.payload
     },
-    [getPost.rejected]: (state, action) => {},
+    [getPost.rejected]: (state, action) => {
+      state.error = action.payload
+    },
 
     [getPostsByUser.pending]: (state, action) => {},
     [getPostsByUser.fulfilled]: (state, action) => {
       state.userPosts = action.payload
     },
-    [getPostsByUser.rejected]: (state, action) => {},
+    [getPostsByUser.rejected]: (state, action) => {
+      state.error = action.payload
+    },
 
     [createPost.pending]: (state, action) => {
       state.posts = null

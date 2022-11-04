@@ -20,7 +20,7 @@ function useQuery() {
 }
 
 function Home() {
-  const { posts } = useSelector((state) => ({
+  const { posts, error } = useSelector((state) => ({
     ...state.post,
   }))
 
@@ -56,50 +56,64 @@ function Home() {
   return (
     <Container>
       <Divider sx={{ marginTop: '20px', marginBottom: '20px' }}>Home</Divider>
-      <Box
-        sx={{
-          flexGrow: 1,
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'center',
-          marginY: '20px',
-        }}
-      >
-        <TextField
-          onChange={(e) => setSearch(e.target.value)}
-          value={search}
-          label='Search...'
+      {error ? (
+        <Box
           sx={{
-            width: '250px',
-            backgroundColor: 'white',
-            marginRight: '10px',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
           }}
-          variant='filled'
-        />
-        <Button onClick={handleSubmit}>
-          <SearchIcon />
-        </Button>
-      </Box>
-      {!posts ? (
-        <Spinner />
+        >
+          {error}
+        </Box>
       ) : (
         <>
-          {posts.length === 0 && location.pathname === '/' && (
-            <Typography>No Posts Found</Typography>
-          )}
-          {posts.length === 0 && location.pathname !== '/' && (
-            <Typography>
-              We couldn't find any matches for "{searchQuery}"
-            </Typography>
-          )}
-          {posts.length !== 0 && (
-            <Grid container spacing={4}>
-              {posts.map((post) => (
-                <Grid item xs={12} sm={6} md={4} key={post._id}>
-                  <CardPost {...post} />
+          {!posts ? (
+            <Spinner />
+          ) : (
+            <>
+              <Box
+                sx={{
+                  flexGrow: 1,
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  marginY: '20px',
+                }}
+              >
+                <TextField
+                  onChange={(e) => setSearch(e.target.value)}
+                  value={search}
+                  label='Search...'
+                  sx={{
+                    width: '250px',
+                    backgroundColor: 'white',
+                    marginRight: '10px',
+                  }}
+                  variant='filled'
+                />
+                <Button onClick={handleSubmit}>
+                  <SearchIcon />
+                </Button>
+              </Box>
+              {posts.length === 0 && location.pathname === '/' && (
+                <Typography>No Posts Found</Typography>
+              )}
+              {posts.length === 0 && location.pathname !== '/' && (
+                <Typography>
+                  We couldn't find any matches for "{searchQuery}"
+                </Typography>
+              )}
+              {posts.length !== 0 && (
+                <Grid container spacing={4}>
+                  {posts.map((post) => (
+                    <Grid item xs={12} sm={6} md={4} key={post._id}>
+                      <CardPost {...post} />
+                    </Grid>
+                  ))}
                 </Grid>
-              ))}
-            </Grid>
+              )}
+            </>
           )}
         </>
       )}

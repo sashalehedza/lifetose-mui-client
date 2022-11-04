@@ -19,7 +19,9 @@ function SinglePost() {
   const { id } = useParams()
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { post, relatedPosts } = useSelector((state) => ({ ...state.post }))
+  const { post, relatedPosts, error } = useSelector((state) => ({
+    ...state.post,
+  }))
   const tags = post?.tags
 
   useEffect(() => {
@@ -29,82 +31,88 @@ function SinglePost() {
 
   useEffect(() => {
     if (id) {
-      dispatch(getPost(id))
-        .unwrap()
-        .then(() => {
-          // handle result here
-        })
-        .catch(() => {
-          // handle error here
-          navigate('/notfound')
-        })
+      dispatch(getPost({ id, navigate }))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id])
 
   return (
     <Container>
-      {!post ? (
-        <Spinner />
-      ) : (
-        <Box>
-          <Divider sx={{ marginTop: '20px', marginBottom: '20px' }}>
-            Post Page - {post ? post.title : ''}
-          </Divider>
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              mb: '10px',
-            }}
-          >
-            <Card sx={{ minWidth: 345 }}>
-              <CardMedia
-                component='img'
-                height='140'
-                image={post.imageFile}
-                alt='green iguana'
-                sx={{ objectFit: 'fill' }}
-              />
-              <CardContent>
-                <Typography gutterBottom variant='h5' component='div'>
-                  {post.title}
-                </Typography>
-                {tags.map((tag, index) => (
-                  <Link
-                    key={index}
-                    to={`/posts/tag/${tag}`}
-                    style={{
-                      color: 'blue',
-                      textDecoration: 'none',
-                      marginRight: '10px',
-                    }}
-                  >
-                    #{tag}
-                  </Link>
-                ))}
-              </CardContent>
-            </Card>
-          </Box>
-          <Card sx={{ minWidth: 345 }}>
-            <CardContent>
-              <Typography gutterBottom variant='h5' component='div'>
-                Description: {post.description}
-              </Typography>
-            </CardContent>
-          </Card>
-          <Box>
-            <Comments />
-          </Box>
+      <Divider sx={{ marginTop: '20px', marginBottom: '20px' }}>
+        {post ? `Post Title - ${post.title}` : 'Post loading Error'}
+      </Divider>
+      {error ? (
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          {error}
         </Box>
-      )}
-      {!relatedPosts || !post ? (
-        <Spinner />
       ) : (
-        <Box>
-          <RelatedPosts relatedPosts={relatedPosts} postId={id} />
-        </Box>
+        <>
+          {!post ? (
+            <Spinner />
+          ) : (
+            <Box>
+              <Box
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  mb: '10px',
+                }}
+              >
+                <Card sx={{ minWidth: 345 }}>
+                  <CardMedia
+                    component='img'
+                    height='140'
+                    image={post.imageFile}
+                    alt='green iguana'
+                    sx={{ objectFit: 'fill' }}
+                  />
+                  <CardContent>
+                    <Typography gutterBottom variant='h5' component='div'>
+                      {post.title}
+                    </Typography>
+                    {tags.map((tag, index) => (
+                      <Link
+                        key={index}
+                        to={`/posts/tag/${tag}`}
+                        style={{
+                          color: 'blue',
+                          textDecoration: 'none',
+                          marginRight: '10px',
+                        }}
+                      >
+                        #{tag}
+                      </Link>
+                    ))}
+                  </CardContent>
+                </Card>
+              </Box>
+              <Card sx={{ minWidth: 345 }}>
+                <CardContent>
+                  <Typography gutterBottom variant='h5' component='div'>
+                    Description: {post.description}
+                  </Typography>
+                </CardContent>
+              </Card>
+              <Box>
+                <Comments />
+              </Box>
+            </Box>
+          )}
+          {!relatedPosts || !post ? (
+            <Spinner />
+          ) : (
+            <Box>
+              <RelatedPosts relatedPosts={relatedPosts} postId={id} />
+            </Box>
+          )}
+        </>
       )}
     </Container>
   )
