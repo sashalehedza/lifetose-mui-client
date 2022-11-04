@@ -31,10 +31,10 @@ function SinglePost() {
     if (id) {
       dispatch(getPost(id))
         .unwrap()
-        .then((originalPromiseResult) => {
+        .then(() => {
           // handle result here
         })
-        .catch((rejectedValueOrSerializedError) => {
+        .catch(() => {
           // handle error here
           navigate('/notfound')
         })

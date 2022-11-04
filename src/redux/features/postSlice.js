@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import * as api from '../api'
 import { extractErrorMessage } from '../utils'
+import { toast } from 'react-toastify'
 
 export const getPosts = createAsyncThunk(
   'post/getPosts',
@@ -9,6 +10,7 @@ export const getPosts = createAsyncThunk(
       const response = await api.getPosts()
       return response.data
     } catch (err) {
+      toast.error(extractErrorMessage(err))
       return rejectWithValue(extractErrorMessage(err))
     }
   }
@@ -21,6 +23,7 @@ export const getPost = createAsyncThunk(
       const response = await api.getPost(id)
       return response.data
     } catch (err) {
+      toast.error(extractErrorMessage(err))
       return rejectWithValue(extractErrorMessage(err))
     }
   }
@@ -33,6 +36,7 @@ export const likePost = createAsyncThunk(
       const response = await api.likePost(_id)
       return response.data
     } catch (err) {
+      toast.error(extractErrorMessage(err))
       return rejectWithValue(extractErrorMessage(err))
     }
   }
@@ -45,6 +49,7 @@ export const getPostsByUser = createAsyncThunk(
       const response = await api.getPostsByUser(userId)
       return response.data
     } catch (err) {
+      toast.error(extractErrorMessage(err))
       return rejectWithValue(extractErrorMessage(err))
     }
   }
@@ -58,6 +63,7 @@ export const createPost = createAsyncThunk(
       navigate('/')
       return response.data
     } catch (err) {
+      toast.error(extractErrorMessage(err))
       return rejectWithValue(extractErrorMessage(err))
     }
   }
@@ -71,6 +77,7 @@ export const updatePost = createAsyncThunk(
       navigate('/')
       return response.data
     } catch (err) {
+      toast.error(extractErrorMessage(err))
       return rejectWithValue(extractErrorMessage(err))
     }
   }
@@ -83,6 +90,7 @@ export const deletePost = createAsyncThunk(
       const response = await api.deletePost(id)
       return response.data
     } catch (err) {
+      toast.error(extractErrorMessage(err))
       return rejectWithValue(extractErrorMessage(err))
     }
   }
@@ -95,6 +103,7 @@ export const searchPosts = createAsyncThunk(
       const response = await api.getPostsBySearch(searchQuery)
       return response.data
     } catch (err) {
+      toast.error(extractErrorMessage(err))
       return rejectWithValue(extractErrorMessage(err))
     }
   }
@@ -107,6 +116,7 @@ export const getPostsByTag = createAsyncThunk(
       const response = await api.getTagPosts(tag)
       return response.data
     } catch (err) {
+      toast.error(extractErrorMessage(err))
       return rejectWithValue(extractErrorMessage(err))
     }
   }
@@ -119,6 +129,7 @@ export const getRelatedPosts = createAsyncThunk(
       const response = await api.getRelatedPosts(tags)
       return response.data
     } catch (err) {
+      toast.error(extractErrorMessage(err))
       return rejectWithValue(extractErrorMessage(err))
     }
   }
