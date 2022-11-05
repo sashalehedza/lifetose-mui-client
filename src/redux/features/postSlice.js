@@ -25,7 +25,7 @@ export const getPost = createAsyncThunk(
     } catch (err) {
       if (err.response.status === 404) {
         toast.error('Post not found')
-        // navigate('/notfound')
+        navigate('/notfound')
         return rejectWithValue('Post not found')
       }
       if (err.message === 'Network Error') {
@@ -227,7 +227,9 @@ const postSlice = createSlice({
       state.error = ''
     },
     [getPost.rejected]: (state, action) => {
-      state.error = action.payload
+      if (action.payload !== 'Post not found') {
+        state.error = action.payload
+      }
     },
 
     [getPostsByUser.pending]: (state, action) => {
