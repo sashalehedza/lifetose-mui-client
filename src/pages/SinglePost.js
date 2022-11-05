@@ -45,7 +45,7 @@ function SinglePost() {
             justifyContent: 'center',
             alignItems: 'center',
             color: 'red',
-            mt: '15px',
+            height: '200px',
           }}
         >
           {error}
