@@ -23,7 +23,8 @@ export const getPost = createAsyncThunk(
       const response = await api.getPost(id)
       return response.data
     } catch (err) {
-      if (err.response.status === 404) {
+      console.log(err)
+      if (err.message === 'Request failed with status code 404') {
         toast.error('Post not found')
         navigate('/notfound')
         return rejectWithValue('Post not found')

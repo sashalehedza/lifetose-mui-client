@@ -45,10 +45,10 @@ function SinglePost() {
             justifyContent: 'center',
             alignItems: 'center',
             color: 'red',
-            height: '200px',
+            height: '100px',
           }}
         >
-          {error}
+          <Typography variant='h4'>{error}</Typography>
         </Box>
       ) : (
         <>
@@ -105,13 +105,13 @@ function SinglePost() {
               <Box>
                 <Comments />
               </Box>
-            </Box>
-          )}
-          {!relatedPosts || !post ? (
-            <></>
-          ) : (
-            <Box>
-              <RelatedPosts relatedPosts={relatedPosts} postId={id} />
+              {!relatedPosts || !post ? (
+                <Spinner />
+              ) : (
+                <Box>
+                  <RelatedPosts relatedPosts={relatedPosts} postId={id} />
+                </Box>
+              )}
             </Box>
           )}
         </>

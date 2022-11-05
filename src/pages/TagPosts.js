@@ -37,10 +37,10 @@ function TagPosts() {
             justifyContent: 'center',
             alignItems: 'center',
             color: 'red',
-            height: '200px',
+            height: '100px',
           }}
         >
-          {error}
+          <Typography variant='h4'>{error}</Typography>
         </Box>
       ) : (
         <>
