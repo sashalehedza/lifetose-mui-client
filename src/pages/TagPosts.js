@@ -16,7 +16,7 @@ import { Container, Divider } from '@mui/material'
 import Spinner from '../components/Spinner'
 
 function TagPosts() {
-  const { tagPosts } = useSelector((state) => ({ ...state.post }))
+  const { tagPosts, error } = useSelector((state) => ({ ...state.post }))
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { tag } = useParams()
@@ -30,67 +30,88 @@ function TagPosts() {
 
   return (
     <Container>
-      <Divider sx={{ marginTop: '20px', marginBottom: '20px' }}>
-        Posts with tag: {tag}
-      </Divider>
-      {!tagPosts ? (
-        <Spinner />
+      {error ? (
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            color: 'red',
+            height: '200px',
+          }}
+        >
+          {error}
+        </Box>
       ) : (
         <>
-          {tagPosts.length === 0 && (
-            <Typography sx={{ marginTop: '20px', marginBottom: '20px' }}>
-              No Posts Found with tag: {tag}
-            </Typography>
-          )}
-          {tagPosts &&
-            tagPosts.map((item) => (
-              <Card
-                sx={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'flex-start',
-                  width: '100%',
-                  height: '200px',
-                  marginBottom: '20px',
-                }}
-                key={item._id}
-              >
-                <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                  <CardContent>
-                    <Typography component='div' variant='h5'>
-                      {item.title}
-                    </Typography>
-                    <Typography
-                      variant='subtitle1'
-                      color='text.secondary'
-                      component='div'
-                    >
-                      {excerpt(item.description, 40)}
-                    </Typography>
-                  </CardContent>
-                  <Box
-                    sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}
+          {!tagPosts ? (
+            <Spinner />
+          ) : (
+            <>
+              <Divider sx={{ marginTop: '20px', marginBottom: '20px' }}>
+                Posts with tag: {tag}
+              </Divider>
+              {tagPosts.length === 0 && (
+                <Typography sx={{ marginTop: '20px', marginBottom: '20px' }}>
+                  No Posts Found with tag: {tag}
+                </Typography>
+              )}
+              {tagPosts &&
+                tagPosts.map((item) => (
+                  <Card
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'flex-start',
+                      width: '100%',
+                      height: '200px',
+                      marginBottom: '20px',
+                    }}
+                    key={item._id}
                   >
-                    <Button
-                      size='small'
-                      onClick={() => navigate(`/post/${item._id}`)}
-                    >
-                      Read More
-                    </Button>
-                  </Box>
-                </Box>
-                <CardMedia
-                  component='img'
-                  sx={{
-                    width: 171,
-                    height: '100%',
-                    objectFit: 'fill',
-                  }}
-                  image={item.imageFile}
-                  alt={item.title}
-                />
-              </Card>
-            ))}
+                    <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                      <CardContent>
+                        <Typography component='div' variant='h5'>
+                          {item.title}
+                        </Typography>
+                        <Typography
+                          variant='subtitle1'
+                          color='text.secondary'
+                          component='div'
+                        >
+                          {excerpt(item.description, 40)}
+                        </Typography>
+                      </CardContent>
+                      <Box
+                        sx={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          pl: 1,
+                          pb: 1,
+                        }}
+                      >
+                        <Button
+                          size='small'
+                          onClick={() => navigate(`/post/${item._id}`)}
+                        >
+                          Read More
+                        </Button>
+                      </Box>
+                    </Box>
+                    <CardMedia
+                      component='img'
+                      sx={{
+                        width: 171,
+                        height: '100%',
+                        objectFit: 'fill',
+                      }}
+                      image={item.imageFile}
+                      alt={item.title}
+                    />
+                  </Card>
+                ))}
+            </>
+          )}
         </>
       )}
     </Container>

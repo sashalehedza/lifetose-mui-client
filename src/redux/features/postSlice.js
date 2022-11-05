@@ -303,11 +303,15 @@ const postSlice = createSlice({
       state.post = null
       state.relatedPosts = null
       state.tagPosts = null
+      state.error = ''
     },
     [getPostsByTag.fulfilled]: (state, action) => {
       state.tagPosts = action.payload
+      state.error = ''
     },
-    [getPostsByTag.rejected]: (state, action) => {},
+    [getPostsByTag.rejected]: (state, action) => {
+      state.error = action.payload
+    },
 
     [getRelatedPosts.pending]: (state, action) => {},
     [getRelatedPosts.fulfilled]: (state, action) => {
