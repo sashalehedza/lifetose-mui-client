@@ -10,7 +10,7 @@ function NotFound() {
         justifyContent: 'center',
       }}
     >
-      <img src='/images/404.jpg' alt='Not Found' />
+      <img src='/images/404.png' alt='Not Found' />
     </Box>
   )
 }
