@@ -23,13 +23,16 @@ export const getPost = createAsyncThunk(
       const response = await api.getPost(id)
       return response.data
     } catch (err) {
-      console.log(err)
+      if (err.message === 'Network Error') {
+        console.log(err)
+        toast.error(extractErrorMessage(err))
+        return rejectWithValue(extractErrorMessage(err))
+      }
       if (err.response.data.message === 'Post not found') {
         navigate('/notfound')
         toast.error(extractErrorMessage(err))
+        return rejectWithValue(extractErrorMessage(err))
       }
-
-      return rejectWithValue(extractErrorMessage(err))
     }
   }
 )
