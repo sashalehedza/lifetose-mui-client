@@ -8,12 +8,15 @@ import CardPost from '../components/CardPost'
 
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
-import { Button, Divider, Typography } from '@mui/material'
-import { TextField } from '@mui/material'
+import { Divider, Typography } from '@mui/material'
 
-import SearchIcon from '@mui/icons-material/Search'
 import { Container } from '@mui/system'
 import Spinner from '../components/Spinner'
+
+import Paper from '@mui/material/Paper'
+import InputBase from '@mui/material/InputBase'
+import IconButton from '@mui/material/IconButton'
+import SearchIcon from '@mui/icons-material/Search'
 
 function useQuery() {
   return new URLSearchParams(useLocation().search)
@@ -53,6 +56,18 @@ function Home() {
     }
   }
 
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      if (search) {
+        dispatch(searchPosts(search))
+        navigate(`/posts/search?searchQuery=${search}`)
+        setSearch('')
+      } else {
+        dispatch(searchPosts(''))
+        navigate('/')
+      }
+    }
+  }
   return (
     <Container>
       {error ? (
@@ -85,20 +100,30 @@ function Home() {
                   marginY: '20px',
                 }}
               >
-                <TextField
-                  onChange={(e) => setSearch(e.target.value)}
-                  value={search}
-                  label='Search...'
+                <Paper
                   sx={{
-                    width: '250px',
-                    backgroundColor: 'white',
-                    marginRight: '10px',
+                    p: '2px 4px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    width: 300,
                   }}
-                  variant='filled'
-                />
-                <Button onClick={handleSubmit}>
-                  <SearchIcon />
-                </Button>
+                >
+                  <InputBase
+                    sx={{ ml: 1, flex: 1 }}
+                    placeholder='Search posts'
+                    inputProps={{ 'aria-label': 'search posts' }}
+                    onChange={(e) => setSearch(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                  />
+                  <IconButton
+                    type='button'
+                    sx={{ p: '10px' }}
+                    aria-label='search'
+                    onClick={handleSubmit}
+                  >
+                    <SearchIcon />
+                  </IconButton>
+                </Paper>
               </Box>
               {posts.length === 0 && location.pathname === '/' && (
                 <Typography>No Posts Found</Typography>
