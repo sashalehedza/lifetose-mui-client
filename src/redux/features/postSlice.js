@@ -24,15 +24,12 @@ export const getPost = createAsyncThunk(
       return response.data
     } catch (err) {
       console.log(err)
-      if (err.message === 'Request failed with status code 404') {
-        toast.error('Post not found')
+      if (err.response.data.message === 'Post not found') {
         navigate('/notfound')
-        return rejectWithValue('Post not found')
+        toast.error(extractErrorMessage(err))
       }
-      if (err.message === 'Network Error') {
-        toast.error('Network Error')
-        return rejectWithValue('Network Error')
-      }
+
+      return rejectWithValue(extractErrorMessage(err))
     }
   }
 )
