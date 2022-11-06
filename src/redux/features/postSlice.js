@@ -24,7 +24,6 @@ export const getPost = createAsyncThunk(
       return response.data
     } catch (err) {
       if (err.message === 'Network Error') {
-        console.log(err)
         toast.error(extractErrorMessage(err))
         return rejectWithValue(extractErrorMessage(err))
       }
