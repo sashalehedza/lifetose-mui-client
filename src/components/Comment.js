@@ -128,7 +128,7 @@ const Comment = ({ comment, depth }) => {
         collapsedReply={collapsedReply}
       />
       {!collapsed && (
-        <div style={{ marginLeft: `${depth * 2}rem`, marginTop: '1rem' }}>
+        <div style={{ marginLeft: `${depth * 2}rem` }}>
           <Replies
             commentId={data?._id}
             loggedInUser={!!user?.result?._id}
