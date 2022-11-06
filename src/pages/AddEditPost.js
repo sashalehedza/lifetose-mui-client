@@ -14,11 +14,14 @@ import Chip from '@mui/material/Chip'
 
 import FileBase from 'react-file-base64'
 
+import { toast } from 'react-toastify'
+
 import { Formik, Form } from 'formik'
 import * as yup from 'yup'
 import InputField from '../components/InputField'
 
 import DefaultFilmImage from '../images/default_film_image.jpeg'
+import { extractErrorMessage } from '../redux/utils'
 
 const validationSchema = yup.object({
   title: yup
@@ -51,11 +54,17 @@ function AddEditPost() {
   useEffect(() => {
     if (id) {
       const fetchPost = async () => {
-        const post = await getPost(id)
-        setPost(post.data)
-        setReceivers(post.data.tags)
-        setFile(post.data.imageFile)
-        setLoading(false)
+        try {
+          const post = await getPost(id)
+          setPost(post.data)
+          setReceivers(post.data.tags)
+          setFile(post.data.imageFile)
+          setLoading(false)
+        } catch (err) {
+          navigate('/notfound')
+          toast.error(extractErrorMessage(err))
+          setLoading(false)
+        }
       }
       fetchPost()
     }
@@ -69,6 +78,7 @@ function AddEditPost() {
       setFile(DefaultFilmImage)
       setLoading(false)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id])
 
   return (
