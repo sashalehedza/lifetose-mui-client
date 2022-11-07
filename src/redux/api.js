@@ -48,3 +48,6 @@ export const getAllReply = (commentId) =>
 export const createOrder = (orderData) => API.post('/orders/create', orderData)
 export const getOrders = () => API.get('/orders')
 export const getMyOrders = () => API.get('/orders/userOrders')
+
+export const orderPaid = (id) => API.patch(`/orders/paid/${id}`)
+export const orderDelivered = (id) => API.patch(`/orders/delivered/${id}`)

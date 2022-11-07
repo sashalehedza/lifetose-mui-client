@@ -11,6 +11,7 @@ import Button from '@mui/material/Button'
 
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
+import { orderDelivered, orderPaid } from '../redux/api'
 
 function Orders() {
   const { orders } = useSelector((state) => ({
@@ -95,6 +96,20 @@ function Orders() {
                         </Box>
                       ))}
                     </Box>
+                  </Box>
+                  <Box>
+                    <Button
+                      variant='contained'
+                      onClick={() => orderPaid(order._id)}
+                    >
+                      Paid
+                    </Button>
+                    <Button
+                      variant='contained'
+                      onClick={() => orderDelivered(order._id)}
+                    >
+                      Delivered
+                    </Button>
                   </Box>
                   <Box>
                     <Typography component='div' variant='h5'>
