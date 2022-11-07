@@ -49,5 +49,7 @@ export const createOrder = (orderData) => API.post('/orders/create', orderData)
 export const getOrders = () => API.get('/orders')
 export const getMyOrders = () => API.get('/orders/userOrders')
 
-export const orderPaid = (id) => API.patch(`/orders/paid/${id}`)
-export const orderDelivered = (id) => API.patch(`/orders/delivered/${id}`)
+export const orderPaid = (updatedOrderData, id) =>
+  API.patch(`/orders/paid/${id}`, updatedOrderData)
+export const orderDelivered = (updatedOrderData, id) =>
+  API.patch(`/orders/delivered/${id}`, updatedOrderData)

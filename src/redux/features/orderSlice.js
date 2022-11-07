@@ -42,6 +42,32 @@ export const getMyOrders = createAsyncThunk(
   }
 )
 
+export const orderPaid = createAsyncThunk(
+  'order/orderPaid',
+  async ({ id, updatedOrderData }, { rejectWithValue }) => {
+    try {
+      const response = await api.orderPaid(updatedOrderData, id)
+      return response.data
+    } catch (err) {
+      toast.error(extractErrorMessage(err))
+      return rejectWithValue(extractErrorMessage(err))
+    }
+  }
+)
+
+export const orderDelivered = createAsyncThunk(
+  'order/orderDelivered',
+  async ({ id, updatedOrderData }, { rejectWithValue }) => {
+    try {
+      const response = await api.orderDelivered(updatedOrderData, id)
+      return response.data
+    } catch (err) {
+      toast.error(extractErrorMessage(err))
+      return rejectWithValue(extractErrorMessage(err))
+    }
+  }
+)
+
 const orderSlice = createSlice({
   name: 'order',
   initialState: {
@@ -49,6 +75,10 @@ const orderSlice = createSlice({
   },
 
   extraReducers: {
+    [createOrder.pending]: (state, action) => {},
+    [createOrder.fulfilled]: (state, action) => {},
+    [createOrder.rejected]: (state, action) => {},
+
     [getAllOrders.pending]: (state, action) => {},
     [getAllOrders.fulfilled]: (state, action) => {
       state.orders = action.payload
@@ -61,9 +91,31 @@ const orderSlice = createSlice({
     },
     [getMyOrders.rejected]: (state, action) => {},
 
-    [createOrder.pending]: (state, action) => {},
-    [createOrder.fulfilled]: (state, action) => {},
-    [createOrder.rejected]: (state, action) => {},
+    [orderPaid.pending]: (state, action) => {},
+    [orderPaid.fulfilled]: (state, action) => {
+      const {
+        arg: { id },
+      } = action.meta
+      if (id) {
+        state.orders = state.orders.map((item) =>
+          item._id === id ? action.payload : item
+        )
+      }
+    },
+    [orderPaid.rejected]: (state, action) => {},
+
+    [orderDelivered.pending]: (state, action) => {},
+    [orderDelivered.fulfilled]: (state, action) => {
+      const {
+        arg: { id },
+      } = action.meta
+      if (id) {
+        state.orders = state.orders.map((item) =>
+          item._id === id ? action.payload : item
+        )
+      }
+    },
+    [orderDelivered.rejected]: (state, action) => {},
   },
 })
 

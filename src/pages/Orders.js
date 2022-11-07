@@ -1,7 +1,11 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Spinner from '../components/Spinner'
-import { getAllOrders } from '../redux/features/orderSlice'
+import {
+  getAllOrders,
+  orderDelivered,
+  orderPaid,
+} from '../redux/features/orderSlice'
 import { Box, Container, Divider } from '@mui/material'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
@@ -11,7 +15,7 @@ import Button from '@mui/material/Button'
 
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
-import { orderDelivered, orderPaid } from '../redux/api'
+//import { orderDelivered, orderPaid } from '../redux/api'
 
 function Orders() {
   const { orders } = useSelector((state) => ({
@@ -24,18 +28,34 @@ function Orders() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  const handleOrderPaid = (id, order) => {
+    const updatedOrderData = {
+      ...order,
+      isPaid: !order.isPaid,
+    }
+    dispatch(orderPaid({ id: id, updatedOrderData: updatedOrderData }))
+  }
+
+  const handleOrderDelivered = (id, order) => {
+    const updatedOrderData = {
+      ...order,
+      isDelivered: !order.isDelivered,
+    }
+    dispatch(orderDelivered({ id: id, updatedOrderData: updatedOrderData }))
+  }
+
   return (
     <Container>
       {!orders ? (
         <Spinner />
       ) : (
         <Box>
-          {orders.length ? (
+          {orders?.length ? (
             <>
               <Divider sx={{ marginTop: '20px', marginBottom: '20px' }}>
                 Orders
               </Divider>
-              {orders.map((order) => (
+              {orders?.map((order) => (
                 <Card
                   sx={{
                     display: 'flex',
@@ -46,7 +66,7 @@ function Orders() {
                     marginBottom: '20px',
                     p: 2,
                   }}
-                  key={order._id}
+                  key={order?._id}
                 >
                   <Box
                     sx={{
@@ -56,13 +76,13 @@ function Orders() {
                   >
                     <Box>
                       <Typography component='div' variant='h5'>
-                        Order id - {order._id}
+                        Order id - {order?._id}
                       </Typography>
                       <Typography component='div' variant='h5'>
-                        User id - {order.user}
+                        User id - {order?.user}
                       </Typography>
                       <Typography component='div' variant='h5'>
-                        Total price - {order.totalPrice}
+                        Total price - {order?.totalPrice}
                       </Typography>
                     </Box>
 
@@ -82,16 +102,16 @@ function Orders() {
                         display: 'flex',
                       }}
                     >
-                      {order.orderItems.map((orderItem) => (
-                        <Box key={orderItem._id} sx={{ mr: 2 }}>
+                      {order?.orderItems?.map((orderItem) => (
+                        <Box key={orderItem?._id} sx={{ mr: 2 }}>
                           <Typography component='div' variant='h5'>
-                            Title - {orderItem.title}
+                            Title - {orderItem?.title}
                           </Typography>
                           <Typography component='div' variant='h5'>
-                            Price - {orderItem.price}
+                            Price - {orderItem?.price}
                           </Typography>
                           <Typography component='div' variant='h5'>
-                            Count - {orderItem.count}
+                            Count - {orderItem?.count}
                           </Typography>
                         </Box>
                       ))}
@@ -100,23 +120,23 @@ function Orders() {
                   <Box>
                     <Button
                       variant='contained'
-                      onClick={() => orderPaid(order._id)}
+                      onClick={() => handleOrderPaid(order?._id, order)}
                     >
                       Paid
                     </Button>
                     <Button
                       variant='contained'
-                      onClick={() => orderDelivered(order._id)}
+                      onClick={() => handleOrderDelivered(order?._id, order)}
                     >
                       Delivered
                     </Button>
                   </Box>
                   <Box>
                     <Typography component='div' variant='h5'>
-                      {order.isPaid ? 'Paid' : 'Not Paid'}
+                      {order?.isPaid ? 'Paid' : 'Not Paid'}
                     </Typography>
                     <Typography component='div' variant='h5'>
-                      {order.isDelivered ? 'Delivered' : 'Not Delivered'}
+                      {order?.isDelivered ? 'Delivered' : 'Not Delivered'}
                     </Typography>
                   </Box>
                 </Card>
