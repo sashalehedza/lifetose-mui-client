@@ -5,11 +5,16 @@ import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
-import { Container, Divider } from '@mui/material'
+import { Button, Container, Divider } from '@mui/material'
 
 import { useSelector } from 'react-redux'
 import { selectAllCart } from '../redux/features/postSlice'
 import Counter from '../components/Counter'
+
+import { clearCart } from '../redux/features/postSlice'
+
+import { useDispatch } from 'react-redux'
+import { createOrder } from '../redux/api'
 
 const radioValues = [
   { id: 1, text: 'Flat rate $10', value: 10 },
@@ -21,6 +26,7 @@ const radioValues = [
 
 function CartPage() {
   const carts = useSelector(selectAllCart)
+  const dispatch = useDispatch()
 
   const [checkedShipping, setCheckedShipping] = useState(2)
 
@@ -34,6 +40,16 @@ function CartPage() {
 
   function setCheckedShippingFunc(id) {
     setCheckedShipping(id)
+  }
+
+  function makeOrder() {
+    let orderData = {
+      orderItems: carts,
+      shippingPrice: subtotalPrice,
+      totalPrice: totalPrice,
+    }
+    createOrder(orderData)
+    dispatch(clearCart())
   }
 
   return (
@@ -139,6 +155,9 @@ function CartPage() {
                 </Box>
                 <Box>
                   <Typography>{totalPrice}</Typography>
+                </Box>
+                <Box>
+                  <Button onClick={makeOrder}>Make Order</Button>
                 </Box>
               </Box>
             </Box>

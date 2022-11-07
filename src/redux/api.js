@@ -44,3 +44,6 @@ export const reply = (commentData, commentId) =>
   API.post(`/comments/${commentId}/reply`, commentData)
 export const getAllReply = (commentId) =>
   API.get(`/comments/${commentId}/reply`)
+
+export const createOrder = (orderData) => API.post('/orders/create', orderData)
+export const getOrders = () => API.get('/orders')
