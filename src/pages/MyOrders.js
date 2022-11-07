@@ -1,25 +1,19 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Spinner from '../components/Spinner'
-import { getAllOrders } from '../redux/features/orderSlice'
+import { getMyOrders } from '../redux/features/orderSlice'
 import { Box, Container, Divider } from '@mui/material'
 import Card from '@mui/material/Card'
-import CardContent from '@mui/material/CardContent'
-import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
-import Button from '@mui/material/Button'
 
-import DeleteIcon from '@mui/icons-material/Delete'
-import EditIcon from '@mui/icons-material/Edit'
-
-function Orders() {
+function MyOrders() {
   const { orders } = useSelector((state) => ({
     ...state.order,
   }))
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(getAllOrders())
+    dispatch(getMyOrders())
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -116,4 +110,4 @@ function Orders() {
   )
 }
 
-export default Orders
+export default MyOrders

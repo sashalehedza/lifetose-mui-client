@@ -47,3 +47,4 @@ export const getAllReply = (commentId) =>
 
 export const createOrder = (orderData) => API.post('/orders/create', orderData)
 export const getOrders = () => API.get('/orders')
+export const getMyOrders = () => API.get('/orders/userOrders')

@@ -157,7 +157,9 @@ function CartPage() {
                   <Typography>{totalPrice}</Typography>
                 </Box>
                 <Box>
-                  <Button onClick={makeOrder}>Make Order</Button>
+                  <Button variant='contained' onClick={makeOrder}>
+                    Make Order
+                  </Button>
                 </Box>
               </Box>
             </Box>

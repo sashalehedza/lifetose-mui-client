@@ -62,6 +62,11 @@ const ROUTES = [
         admin: true,
       },
       {
+        path: '/my-orders',
+        Component: lazy(() => import('./pages/MyOrders')),
+        protected: true,
+      },
+      {
         path: 'notfound',
         Component: lazy(() => import('./pages/NotFound')),
       },

@@ -194,28 +194,15 @@ function Header() {
                   </Typography>
                   <Button
                     variant='contained'
-                    color='purple'
+                    color='error'
                     onClick={handleCloseNavMenu}
                     style={{ margin: '10px' }}
                   >
                     <Link
-                      to='/addPost'
+                      to='/my-orders'
                       style={{ color: 'white', textDecoration: 'none' }}
                     >
-                      <Typography textAlign='center'>Add Post</Typography>
-                    </Link>
-                  </Button>
-                  <Button
-                    variant='contained'
-                    color='success'
-                    onClick={handleCloseNavMenu}
-                    style={{ margin: '10px' }}
-                  >
-                    <Link
-                      to='/dashboard'
-                      style={{ color: 'white', textDecoration: 'none' }}
-                    >
-                      <Typography textAlign='center'>Dashboard</Typography>
+                      <Typography textAlign='center'>My Orders</Typography>
                     </Link>
                   </Button>
                 </Box>
@@ -241,6 +228,32 @@ function Header() {
                         style={{ color: 'white', textDecoration: 'none' }}
                       >
                         <Typography textAlign='center'>Orders</Typography>
+                      </Link>
+                    </Button>
+                    <Button
+                      variant='contained'
+                      color='purple'
+                      onClick={handleCloseNavMenu}
+                      style={{ margin: '10px' }}
+                    >
+                      <Link
+                        to='/addPost'
+                        style={{ color: 'white', textDecoration: 'none' }}
+                      >
+                        <Typography textAlign='center'>Add Post</Typography>
+                      </Link>
+                    </Button>
+                    <Button
+                      variant='contained'
+                      color='success'
+                      onClick={handleCloseNavMenu}
+                      style={{ margin: '10px' }}
+                    >
+                      <Link
+                        to='/dashboard'
+                        style={{ color: 'white', textDecoration: 'none' }}
+                      >
+                        <Typography textAlign='center'>Dashboard</Typography>
                       </Link>
                     </Button>
                   </Box>
@@ -322,6 +335,19 @@ function Header() {
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 <Link
+                  to='/my-orders'
+                  style={{ color: 'white', textDecoration: 'none' }}
+                >
+                  My Orders
+                </Link>
+              </Button>
+            )}
+            {user?.result?._id && user?.result?.isAdmin && (
+              <Button
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                <Link
                   to='/addPost'
                   style={{ color: 'white', textDecoration: 'none' }}
                 >
@@ -329,7 +355,7 @@ function Header() {
                 </Link>
               </Button>
             )}
-            {user?.result?._id && (
+            {user?.result?._id && user?.result?.isAdmin && (
               <Button
                 onClick={handleCloseNavMenu}
                 sx={{
