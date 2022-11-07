@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom'
 import Layout from './components/Layout'
 
 import PrivateRoute from './components/PrivateRoute'
+import PrivateRouteAdmin from './components/PrivateRouteAdmin'
 
 const ROUTES = [
   {
@@ -28,6 +29,8 @@ const ROUTES = [
       {
         path: '/posts/tag/:tag',
         Component: lazy(() => import('./pages/TagPosts')),
+        protected: true,
+        admin: true,
       },
       {
         path: '/cart',
@@ -53,6 +56,12 @@ const ROUTES = [
         protected: true,
       },
       {
+        path: '/orders',
+        Component: lazy(() => import('./pages/Orders')),
+        protected: true,
+        admin: true,
+      },
+      {
         path: 'notfound',
         Component: lazy(() => import('./pages/NotFound')),
       },
@@ -70,6 +79,7 @@ const renderRoutes = (routes) => {
       <Routes>
         {routes.map((route) => {
           const Protected = route.protected ? PrivateRoute : Fragment
+          const Admin = route.admin ? PrivateRouteAdmin : Fragment
           const Component = route.Component
           const Layout = route.Layout || Fragment
 
@@ -78,11 +88,17 @@ const renderRoutes = (routes) => {
               path={route.path}
               key={route.path}
               element={
-                <Protected>
-                  <Layout>
-                    {route.routes ? renderRoutes(route.routes) : <Component />}
-                  </Layout>
-                </Protected>
+                <Admin>
+                  <Protected>
+                    <Layout>
+                      {route.routes ? (
+                        renderRoutes(route.routes)
+                      ) : (
+                        <Component />
+                      )}
+                    </Layout>
+                  </Protected>
+                </Admin>
               }
             />
           )
