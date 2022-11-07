@@ -7,7 +7,7 @@ import Card from '@mui/material/Card'
 import Typography from '@mui/material/Typography'
 
 function MyOrders() {
-  const { orders } = useSelector((state) => ({
+  const { myorders } = useSelector((state) => ({
     ...state.order,
   }))
   const dispatch = useDispatch()
@@ -19,16 +19,16 @@ function MyOrders() {
 
   return (
     <Container>
-      {!orders ? (
+      {!myorders ? (
         <Spinner />
       ) : (
         <Box>
-          {orders.length ? (
+          {myorders.length ? (
             <>
               <Divider sx={{ marginTop: '20px', marginBottom: '20px' }}>
                 Orders
               </Divider>
-              {orders.map((order) => (
+              {myorders.map((order) => (
                 <Card
                   sx={{
                     display: 'flex',
@@ -91,11 +91,24 @@ function MyOrders() {
                     </Box>
                   </Box>
                   <Box>
-                    <Typography component='div' variant='h5'>
-                      {order.isPaid ? 'Paid' : 'Not Paid'}
+                    <Typography
+                      component='div'
+                      variant='h5'
+                      sx={{
+                        backgroundColor: order?.isPaid ? 'green' : 'red',
+                        mb: 2,
+                      }}
+                    >
+                      {order?.isPaid ? 'Paid' : 'Not Paid'}
                     </Typography>
-                    <Typography component='div' variant='h5'>
-                      {order.isDelivered ? 'Delivered' : 'Not Delivered'}
+                    <Typography
+                      component='div'
+                      variant='h5'
+                      sx={{
+                        backgroundColor: order?.isDelivered ? 'green' : 'red',
+                      }}
+                    >
+                      {order?.isDelivered ? 'Delivered' : 'Not Delivered'}
                     </Typography>
                   </Box>
                 </Card>

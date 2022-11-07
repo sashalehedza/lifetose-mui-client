@@ -30,7 +30,7 @@ export const getAllOrders = createAsyncThunk(
 )
 
 export const getMyOrders = createAsyncThunk(
-  'order/getOrders',
+  'order/getMyOrders',
   async (_, { rejectWithValue }) => {
     try {
       const response = await api.getMyOrders()
@@ -72,6 +72,7 @@ const orderSlice = createSlice({
   name: 'order',
   initialState: {
     orders: null,
+    myorders: null,
   },
 
   extraReducers: {
@@ -87,7 +88,7 @@ const orderSlice = createSlice({
 
     [getMyOrders.pending]: (state, action) => {},
     [getMyOrders.fulfilled]: (state, action) => {
-      state.orders = action.payload
+      state.myorders = action.payload
     },
     [getMyOrders.rejected]: (state, action) => {},
 

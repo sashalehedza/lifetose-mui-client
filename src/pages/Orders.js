@@ -62,7 +62,7 @@ function Orders() {
                     justifyContent: 'space-between',
                     alignItems: 'flex-start',
                     width: '100%',
-                    height: '200px',
+                    minHeight: '200px',
                     marginBottom: '20px',
                     p: 2,
                   }}
@@ -117,25 +117,46 @@ function Orders() {
                       ))}
                     </Box>
                   </Box>
-                  <Box>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                    }}
+                  >
                     <Button
                       variant='contained'
                       onClick={() => handleOrderPaid(order?._id, order)}
+                      sx={{
+                        mb: 2,
+                      }}
                     >
-                      Paid
+                      {order?.isPaid ? 'Not Paid' : 'Paid'}
                     </Button>
                     <Button
                       variant='contained'
                       onClick={() => handleOrderDelivered(order?._id, order)}
                     >
-                      Delivered
+                      {order?.isDelivered ? 'Not Delivered' : 'Delivered'}
                     </Button>
                   </Box>
                   <Box>
-                    <Typography component='div' variant='h5'>
+                    <Typography
+                      component='div'
+                      variant='h5'
+                      sx={{
+                        backgroundColor: order?.isPaid ? 'green' : 'red',
+                        mb: 2,
+                      }}
+                    >
                       {order?.isPaid ? 'Paid' : 'Not Paid'}
                     </Typography>
-                    <Typography component='div' variant='h5'>
+                    <Typography
+                      component='div'
+                      variant='h5'
+                      sx={{
+                        backgroundColor: order?.isDelivered ? 'green' : 'red',
+                      }}
+                    >
                       {order?.isDelivered ? 'Delivered' : 'Not Delivered'}
                     </Typography>
                   </Box>
