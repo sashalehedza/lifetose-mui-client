@@ -104,6 +104,7 @@ function MyOrders() {
                       variant='h5'
                       sx={{
                         backgroundColor: order?.isPaid ? 'green' : 'red',
+                        color: 'white',
                         mb: 2,
                       }}
                     >
@@ -114,6 +115,7 @@ function MyOrders() {
                       variant='h5'
                       sx={{
                         backgroundColor: order?.isDelivered ? 'green' : 'red',
+                        color: 'white',
                       }}
                     >
                       {order?.isDelivered ? 'Delivered' : 'Not Delivered'}
