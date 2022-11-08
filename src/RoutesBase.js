@@ -29,8 +29,6 @@ const ROUTES = [
       {
         path: '/posts/tag/:tag',
         Component: lazy(() => import('./pages/TagPosts')),
-        protected: true,
-        admin: true,
       },
       {
         path: '/cart',
