@@ -35,6 +35,7 @@ function CartPage() {
   }, 0)
 
   const checkedMethodValue = radioValues[checkedShipping - 1].value
+  const checkedMethodText = radioValues[checkedShipping - 1].text
 
   const totalPrice = subtotalPrice + checkedMethodValue
 
@@ -45,7 +46,9 @@ function CartPage() {
   function makeOrder() {
     let orderData = {
       orderItems: carts,
-      shippingPrice: subtotalPrice,
+      subtotalPrice: subtotalPrice,
+      shippingMethod: checkedMethodText,
+      shippingPrice: checkedMethodValue,
       totalPrice: totalPrice,
     }
     createOrder(orderData)

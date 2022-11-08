@@ -8,14 +8,9 @@ import {
 } from '../redux/features/orderSlice'
 import { Box, Container, Divider } from '@mui/material'
 import Card from '@mui/material/Card'
-import CardContent from '@mui/material/CardContent'
-import CardMedia from '@mui/material/CardMedia'
+
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
-
-import DeleteIcon from '@mui/icons-material/Delete'
-import EditIcon from '@mui/icons-material/Edit'
-//import { orderDelivered, orderPaid } from '../redux/api'
 
 function Orders() {
   const { orders } = useSelector((state) => ({
@@ -82,6 +77,15 @@ function Orders() {
                         User id - {order?.user}
                       </Typography>
                       <Typography component='div' variant='h5'>
+                        Subtotal Price - {order?.subtotalPrice}
+                      </Typography>
+                      <Typography component='div' variant='h5'>
+                        Shipping Method - {order?.shippingMethod}
+                      </Typography>
+                      <Typography component='div' variant='h5'>
+                        Shipping Price - {order?.shippingPrice}
+                      </Typography>
+                      <Typography component='div' variant='h5'>
                         Total price - {order?.totalPrice}
                       </Typography>
                     </Box>
@@ -123,8 +127,18 @@ function Orders() {
                       flexDirection: 'column',
                     }}
                   >
+                    <Typography
+                      component='div'
+                      variant='h5'
+                      sx={{
+                        mb: 2,
+                      }}
+                    >
+                      Change Status
+                    </Typography>
                     <Button
                       variant='contained'
+                      color={order?.isPaid ? 'error' : 'success'}
                       onClick={() => handleOrderPaid(order?._id, order)}
                       sx={{
                         mb: 2,
@@ -134,6 +148,7 @@ function Orders() {
                     </Button>
                     <Button
                       variant='contained'
+                      color={order?.isDelivered ? 'error' : 'success'}
                       onClick={() => handleOrderDelivered(order?._id, order)}
                     >
                       {order?.isDelivered ? 'Not Delivered' : 'Delivered'}
@@ -144,7 +159,17 @@ function Orders() {
                       component='div'
                       variant='h5'
                       sx={{
+                        mb: 2,
+                      }}
+                    >
+                      Status
+                    </Typography>
+                    <Typography
+                      component='div'
+                      variant='h5'
+                      sx={{
                         backgroundColor: order?.isPaid ? 'green' : 'red',
+                        color: 'white',
                         mb: 2,
                       }}
                     >
@@ -155,6 +180,7 @@ function Orders() {
                       variant='h5'
                       sx={{
                         backgroundColor: order?.isDelivered ? 'green' : 'red',
+                        color: 'white',
                       }}
                     >
                       {order?.isDelivered ? 'Delivered' : 'Not Delivered'}
