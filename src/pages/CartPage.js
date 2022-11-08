@@ -14,7 +14,9 @@ import Counter from '../components/Counter'
 import { clearCart } from '../redux/features/postSlice'
 
 import { useDispatch } from 'react-redux'
-import { createOrder } from '../redux/api'
+// import { createOrder } from '../redux/api'
+import { useNavigate } from 'react-router-dom'
+import { createOrder } from '../redux/features/orderSlice'
 
 const radioValues = [
   { id: 1, text: 'Flat rate $10', value: 10 },
@@ -27,6 +29,7 @@ const radioValues = [
 function CartPage() {
   const carts = useSelector(selectAllCart)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const [checkedShipping, setCheckedShipping] = useState(2)
 
@@ -51,7 +54,7 @@ function CartPage() {
       shippingPrice: checkedMethodValue,
       totalPrice: totalPrice,
     }
-    createOrder(orderData)
+    dispatch(createOrder({ orderData, navigate }))
     dispatch(clearCart())
   }
 

@@ -5,9 +5,10 @@ import { toast } from 'react-toastify'
 
 export const createOrder = createAsyncThunk(
   'order/createOrder',
-  async (_, { rejectWithValue }) => {
+  async ({ orderData, navigate }, { rejectWithValue }) => {
     try {
-      const response = await api.createOrder()
+      const response = await api.createOrder(orderData)
+      navigate('/my-orders')
       return response.data
     } catch (err) {
       toast.error(extractErrorMessage(err))
@@ -76,7 +77,9 @@ const orderSlice = createSlice({
   },
 
   extraReducers: {
-    [createOrder.pending]: (state, action) => {},
+    [createOrder.pending]: (state, action) => {
+      state.myorders = null
+    },
     [createOrder.fulfilled]: (state, action) => {},
     [createOrder.rejected]: (state, action) => {},
 
