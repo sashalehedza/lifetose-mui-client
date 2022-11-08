@@ -49,16 +49,24 @@ function MyOrders() {
                   >
                     <Box>
                       <Typography component='div' variant='h5'>
-                        Order id - {order._id}
+                        Order id - {order?._id}
                       </Typography>
                       <Typography component='div' variant='h5'>
-                        User id - {order.user}
+                        User id - {order?.user}
                       </Typography>
                       <Typography component='div' variant='h5'>
-                        Total price - {order.totalPrice}
+                        Subtotal Price - {order?.subtotalPrice}
+                      </Typography>
+                      <Typography component='div' variant='h5'>
+                        Shipping Method - {order?.shippingMethod}
+                      </Typography>
+                      <Typography component='div' variant='h5'>
+                        Shipping Price - {order?.shippingPrice}
+                      </Typography>
+                      <Typography component='div' variant='h5'>
+                        Total price - {order?.totalPrice}
                       </Typography>
                     </Box>
-
                     <Box
                       sx={{
                         display: 'flex',
