@@ -42,16 +42,19 @@ const ROUTES = [
         path: '/addPost',
         Component: lazy(() => import('./pages/AddEditPost')),
         protected: true,
+        admin: true,
       },
       {
         path: '/editPost/:id',
         Component: lazy(() => import('./pages/AddEditPost')),
         protected: true,
+        admin: true,
       },
       {
         path: '/dashboard',
         Component: lazy(() => import('./pages/Dashboard')),
         protected: true,
+        admin: true,
       },
       {
         path: '/orders',
