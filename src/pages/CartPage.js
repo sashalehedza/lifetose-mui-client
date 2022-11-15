@@ -48,8 +48,9 @@ function CartPage() {
   }
 
   function makeOrder() {
+    const filteredItems = carts.map(({ imageFile, ...item }) => item)
     let orderData = {
-      orderItems: carts,
+      orderItems: filteredItems,
       subtotalPrice: subtotalPrice,
       shippingMethod: checkedMethodText,
       shippingPrice: checkedMethodValue,
