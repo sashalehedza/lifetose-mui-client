@@ -27,6 +27,7 @@ const radioValues = [
 ]
 
 function CartPage() {
+  const { user } = useSelector((state) => ({ ...state.auth }))
   const carts = useSelector(selectAllCart)
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -53,6 +54,7 @@ function CartPage() {
       shippingMethod: checkedMethodText,
       shippingPrice: checkedMethodValue,
       totalPrice: totalPrice,
+      name: user?.result?.name,
     }
     dispatch(createOrder({ orderData, navigate }))
     dispatch(clearCart())

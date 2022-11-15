@@ -77,6 +77,9 @@ function Orders() {
                         User id - {order?.user}
                       </Typography>
                       <Typography component='div' variant='h5'>
+                        User name - {order?.name}
+                      </Typography>
+                      <Typography component='div' variant='h5'>
                         Subtotal Price - {order?.subtotalPrice}
                       </Typography>
                       <Typography component='div' variant='h5'>
