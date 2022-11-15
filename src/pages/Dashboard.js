@@ -2,7 +2,11 @@ import React, { useEffect } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { deletePost, getPostsByUser } from '../redux/features/postSlice'
+import {
+  deletePost,
+  getPosts,
+  // getPostsByUser,
+} from '../redux/features/postSlice'
 
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
@@ -18,14 +22,17 @@ import Spinner from '../components/Spinner'
 
 function Dashboard() {
   const { user } = useSelector((state) => ({ ...state.auth }))
-  const { userPosts, error } = useSelector((state) => ({ ...state.post }))
+  const { posts, userPosts, error } = useSelector((state) => ({
+    ...state.post,
+  }))
   const userId = user?.result?._id
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (userId) {
-      dispatch(getPostsByUser(userId))
-    }
+    // if (userId) {
+    //   dispatch(getPostsByUser(userId))
+    // }
+    dispatch(getPosts())
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId])
 
@@ -58,16 +65,15 @@ function Dashboard() {
         </Box>
       ) : (
         <>
-          {' '}
-          {!userPosts ? (
+          {!posts ? (
             <Spinner />
           ) : (
             <>
               <Divider sx={{ marginTop: '20px', marginBottom: '20px' }}>
                 Dashboard: {user?.result?.name}
               </Divider>
-              {userPosts.length ? (
-                userPosts.map((item) => (
+              {posts.length ? (
+                posts.map((item) => (
                   <Card
                     sx={{
                       display: 'flex',
