@@ -48,7 +48,12 @@ function CartPage() {
   }
 
   function makeOrder() {
-    const filteredItems = carts.map(({ imageFile, ...item }) => item)
+    const filteredItems = carts.map((item) => ({
+      _id: item._id,
+      title: item.title,
+      price: item.price,
+      count: item.count,
+    }))
     let orderData = {
       orderItems: filteredItems,
       subtotalPrice: subtotalPrice,
