@@ -40,6 +40,7 @@ const validationSchema = yup.object({
     .min(1, 'Description should be of minimum 1 characters length')
     .required('Description is required'),
   price: yup.number().min(0).required('Price is required'),
+  discount: yup.number(),
 })
 
 function AddEditPost() {
@@ -51,6 +52,7 @@ function AddEditPost() {
     title: '',
     description: '',
     price: 0,
+    discount: 0,
   })
   const [receivers, setReceivers] = useState([])
   const [file, setFile] = useState('')
@@ -89,6 +91,7 @@ function AddEditPost() {
         title: '',
         description: '',
         price: 0,
+        discount: 0,
       })
       setReceivers([])
       setFile(DefaultFilmImage)
@@ -178,6 +181,11 @@ function AddEditPost() {
                         name='price'
                         placeholder='Enter your price'
                         label='price'
+                      />
+                      <InputField
+                        name='discount'
+                        placeholder='Enter your discount'
+                        label='discount'
                       />
                       <Autocomplete
                         onChange={(e, value) => setReceivers((state) => value)}

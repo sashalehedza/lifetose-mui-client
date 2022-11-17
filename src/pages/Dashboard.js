@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import {
   deletePost,
   getPosts,
-  // getPostsByUser,
+  getPostsByUser,
 } from '../redux/features/postSlice'
 
 import Box from '@mui/material/Box'
@@ -25,16 +25,20 @@ function Dashboard() {
   const { posts, userPosts, error } = useSelector((state) => ({
     ...state.post,
   }))
-  const userId = user?.result?._id
+  // const userId = user?.result?._id
   const dispatch = useDispatch()
 
   useEffect(() => {
-    // if (userId) {
-    //   dispatch(getPostsByUser(userId))
-    // }
     dispatch(getPosts())
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userId])
+  }, [])
+
+  // useEffect(() => {
+  //   if (userId) {
+  //     dispatch(getPostsByUser(userId))
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [userId])
 
   const excerpt = (str) => {
     if (str.length > 40) {

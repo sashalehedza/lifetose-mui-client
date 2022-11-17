@@ -35,7 +35,27 @@ function CartPage() {
   const [checkedShipping, setCheckedShipping] = useState(2)
 
   const subtotalPrice = carts.reduce((price, product) => {
-    return price + product.price * product.count
+    if (product.discount && Number(product.discount) !== 0) {
+      if (product.count > 2) {
+        return (
+          price +
+          (Number(product.price) - Number(product.discount)) *
+            product.count *
+            0.9
+        )
+      } else {
+        return (
+          price +
+          (Number(product.price) - Number(product.discount)) * product.count
+        )
+      }
+    } else {
+      if (product.count > 2) {
+        return price + product.price * product.count * 0.9
+      } else {
+        return price + product.price * product.count
+      }
+    }
   }, 0)
 
   const checkedMethodValue = radioValues[checkedShipping - 1].value
@@ -51,7 +71,10 @@ function CartPage() {
     const filteredItems = carts.map((item) => ({
       _id: item._id,
       title: item.title,
-      price: item.price,
+      price:
+        item.discount && Number(item.discount) !== 0
+          ? Number(item.price) - Number(item.discount)
+          : Number(item.price),
       count: item.count,
     }))
     let orderData = {
@@ -95,12 +118,50 @@ function CartPage() {
                   <Typography component='div' variant='h5'>
                     {cart.title}
                   </Typography>
-                  <Typography component='div' variant='h5'>
-                    Price: {cart.price}
-                  </Typography>
+
+                  <Box
+                    sx={{
+                      display: 'flex',
+                    }}
+                  >
+                    {cart.discount && Number(cart.discount) !== 0 ? (
+                      <Typography
+                        gutterBottom
+                        variant='h5'
+                        component='div'
+                        sx={{ mr: '10px' }}
+                      >
+                        {cart.discount && Number(cart.discount)
+                          ? `$${Number(cart.price) - Number(cart.discount)}`
+                          : `$${Number(cart.price)}`}
+                      </Typography>
+                    ) : null}
+                    <Typography
+                      gutterBottom
+                      variant='h5'
+                      component='div'
+                      sx={{
+                        color:
+                          cart.discount && Number(cart.discount) ? 'red' : null,
+                        textDecoration:
+                          cart.discount && Number(cart.discount)
+                            ? 'line-through'
+                            : null,
+                      }}
+                    >
+                      ${Number(cart.price)}
+                    </Typography>
+                  </Box>
                 </CardContent>
 
                 <Counter cart={cart} />
+                <Box>
+                  {cart.count > 2 ? (
+                    <></>
+                  ) : (
+                    <>Get discount 10% with 3 or more items</>
+                  )}
+                </Box>
               </Box>
               <CardMedia
                 component='img'

@@ -22,8 +22,8 @@ function CardPost({
   price,
   tags,
   _id,
-  name,
   likes,
+  discount,
 }) {
   const { user } = useSelector((state) => ({ ...state.auth }))
   const [postCount] = useState(1)
@@ -83,9 +83,37 @@ function CardPost({
         <Typography gutterBottom variant='h5' component='div'>
           {title}
         </Typography>
-        <Typography gutterBottom variant='h5' component='div'>
-          ${price}
-        </Typography>
+        <Box
+          sx={{
+            display: 'flex',
+          }}
+        >
+          {discount && Number(discount) !== 0 ? (
+            <Typography
+              gutterBottom
+              variant='h5'
+              component='div'
+              sx={{ mr: '10px' }}
+            >
+              {discount
+                ? `$${Number(price) - Number(discount)}`
+                : `$${Number(price)}`}
+            </Typography>
+          ) : null}
+          <Typography
+            gutterBottom
+            variant='h5'
+            component='div'
+            sx={{
+              color: discount && Number(discount) !== 0 ? 'red' : null,
+              textDecoration:
+                discount && Number(discount) !== 0 ? 'line-through' : null,
+            }}
+          >
+            ${Number(price)}
+          </Typography>
+        </Box>
+
         <Box>
           <Button
             variant='contained'

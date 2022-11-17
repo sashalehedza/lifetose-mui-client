@@ -81,7 +81,20 @@ function Counter({ cart }) {
           alignItems: 'center',
         }}
       >
-        <Typography variant='h5'> ${cart.count * cart.price}</Typography>
+        {/* <Typography variant='h5'> ${cart.count * cart.price}</Typography> */}
+        <Typography variant='h5'>
+          {cart.discount && Number(cart.discount) !== 0
+            ? cart.count > 2
+              ? `$${
+                  (Number(cart.price) - Number(cart.discount)) *
+                  Number(cart.count) *
+                  0.9
+                }`
+              : `$${(Number(cart.price) - Number(cart.discount)) * cart.count}`
+            : cart.count > 2
+            ? `$${Number(cart.price) * Number(cart.count) * 0.9}`
+            : `$${Number(cart.price) * Number(cart.count)}`}
+        </Typography>
         <IconButton color='error' onClick={() => removeFromCartFunc()}>
           <TiDeleteOutline
             style={{ cursor: 'pointer', width: '30px', height: '30px' }}
