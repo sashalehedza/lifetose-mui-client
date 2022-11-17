@@ -73,7 +73,11 @@ function CartPage() {
       title: item.title,
       price:
         item.discount && Number(item.discount) !== 0
-          ? Number(item.price) - Number(item.discount)
+          ? item.count > 2
+            ? (Number(item.price) - Number(item.discount)) * 0.9
+            : Number(item.price) - Number(item.discount)
+          : item.count > 2
+          ? Number(item.price) * 0.9
           : Number(item.price),
       count: item.count,
     }))
