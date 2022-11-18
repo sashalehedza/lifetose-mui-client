@@ -14,9 +14,9 @@ import Counter from '../components/Counter'
 import { clearCart } from '../redux/features/postSlice'
 
 import { useDispatch } from 'react-redux'
-// import { createOrder } from '../redux/api'
 import { useNavigate } from 'react-router-dom'
 import { createOrder } from '../redux/features/orderSlice'
+import { discountCalc } from '../utility'
 
 const radioValues = [
   { id: 1, text: 'Flat rate $10', value: 10 },
@@ -34,28 +34,10 @@ function CartPage() {
 
   const [checkedShipping, setCheckedShipping] = useState(2)
 
-  const subtotalPrice = carts.reduce((price, product) => {
-    if (product.discount && Number(product.discount) !== 0) {
-      if (product.count > 2) {
-        return (
-          price +
-          (Number(product.price) - Number(product.discount)) *
-            product.count *
-            0.9
-        )
-      } else {
-        return (
-          price +
-          (Number(product.price) - Number(product.discount)) * product.count
-        )
-      }
-    } else {
-      if (product.count > 2) {
-        return price + product.price * product.count * 0.9
-      } else {
-        return price + product.price * product.count
-      }
-    }
+  const subtotalPrice = carts.reduce((accumulator, product) => {
+    return (
+      accumulator + discountCalc(product.price, product.discount, product.count)
+    )
   }, 0)
 
   const checkedMethodValue = radioValues[checkedShipping - 1].value
@@ -71,14 +53,7 @@ function CartPage() {
     const filteredItems = carts.map((item) => ({
       _id: item._id,
       title: item.title,
-      price:
-        item.discount && Number(item.discount) !== 0
-          ? item.count > 2
-            ? (Number(item.price) - Number(item.discount)) * 0.9
-            : Number(item.price) - Number(item.discount)
-          : item.count > 2
-          ? Number(item.price) * 0.9
-          : Number(item.price),
+      price: discountCalc(item.price, item.discount, item.count),
       count: item.count,
     }))
     let orderData = {

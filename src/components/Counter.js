@@ -13,6 +13,7 @@ import IconButton from '@mui/material/IconButton'
 
 import RemoveIcon from '@mui/icons-material/Remove'
 import AddIcon from '@mui/icons-material/Add'
+import { discountCalc } from '../utility'
 
 function Counter({ cart }) {
   const dispatch = useDispatch()
@@ -83,17 +84,7 @@ function Counter({ cart }) {
       >
         {/* <Typography variant='h5'> ${cart.count * cart.price}</Typography> */}
         <Typography variant='h5'>
-          {cart.discount && Number(cart.discount) !== 0
-            ? cart.count > 2
-              ? `$${
-                  (Number(cart.price) - Number(cart.discount)) *
-                  Number(cart.count) *
-                  0.9
-                }`
-              : `$${(Number(cart.price) - Number(cart.discount)) * cart.count}`
-            : cart.count > 2
-            ? `$${Number(cart.price) * Number(cart.count) * 0.9}`
-            : `$${Number(cart.price) * Number(cart.count)}`}
+          {discountCalc(cart.price, cart.discount, cart.count)}
         </Typography>
         <IconButton color='error' onClick={() => removeFromCartFunc()}>
           <TiDeleteOutline
