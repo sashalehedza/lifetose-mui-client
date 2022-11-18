@@ -16,7 +16,7 @@ import { clearCart } from '../redux/features/postSlice'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { addCoupon, createOrder } from '../redux/features/orderSlice'
-import { discountCalc } from '../utility'
+import { discountCalc, subtotalCalc } from '../utility'
 import { getCoupons } from '../redux/api'
 
 const radioValues = [
@@ -40,39 +40,11 @@ function CartPage() {
   const [couponState, setCouponState] = useState('')
   const [checkedShipping, setCheckedShipping] = useState(2)
   const [subtotalPrice, setSubtotalPrice] = useState(
-    couponname
-      ? carts.reduce((accumulator, product) => {
-          return (
-            accumulator +
-            discountCalc(product.price, product.discount, product.count)
-          )
-        }, 0) *
-          ((100 - couponpercent) / 100)
-      : carts.reduce((accumulator, product) => {
-          return (
-            accumulator +
-            discountCalc(product.price, product.discount, product.count)
-          )
-        }, 0)
+    subtotalCalc(couponname, couponpercent, carts)
   )
 
   useEffect(() => {
-    setSubtotalPrice(
-      couponname
-        ? carts.reduce((accumulator, product) => {
-            return (
-              accumulator +
-              discountCalc(product.price, product.discount, product.count)
-            )
-          }, 0) *
-            ((100 - couponpercent) / 100)
-        : carts.reduce((accumulator, product) => {
-            return (
-              accumulator +
-              discountCalc(product.price, product.discount, product.count)
-            )
-          }, 0)
-    )
+    setSubtotalPrice(subtotalCalc(couponname, couponpercent, carts))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [carts])
 

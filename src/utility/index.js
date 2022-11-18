@@ -14,3 +14,20 @@ export const discountCalc = (price, discount, count) => {
     ? Number(price) * Number(count) * 0.9
     : Number(price) * Number(count)
 }
+
+export const subtotalCalc = (couponname, couponpercent, carts) => {
+  return couponname
+    ? carts.reduce((accumulator, product) => {
+        return (
+          accumulator +
+          discountCalc(product.price, product.discount, product.count)
+        )
+      }, 0) *
+        ((100 - couponpercent) / 100)
+    : carts.reduce((accumulator, product) => {
+        return (
+          accumulator +
+          discountCalc(product.price, product.discount, product.count)
+        )
+      }, 0)
+}
