@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
-import { Button, Container, Divider } from '@mui/material'
+import { Button, Container, Divider, TextField } from '@mui/material'
 
 import { useSelector } from 'react-redux'
 import { selectAllCart } from '../redux/features/postSlice'
@@ -15,8 +15,9 @@ import { clearCart } from '../redux/features/postSlice'
 
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { createOrder } from '../redux/features/orderSlice'
+import { addCoupon, createOrder } from '../redux/features/orderSlice'
 import { discountCalc } from '../utility'
+import { getCoupons } from '../redux/api'
 
 const radioValues = [
   { id: 1, text: 'Flat rate $10', value: 10 },
@@ -28,17 +29,61 @@ const radioValues = [
 
 function CartPage() {
   const { user } = useSelector((state) => ({ ...state.auth }))
+  const { couponname, couponpercent } = useSelector((state) => ({
+    ...state.order,
+  }))
   const carts = useSelector(selectAllCart)
+
   const dispatch = useDispatch()
   const navigate = useNavigate()
-
+  const [coupons, setCoupons] = useState(null)
+  const [couponState, setCouponState] = useState('')
   const [checkedShipping, setCheckedShipping] = useState(2)
+  const [subtotalPrice, setSubtotalPrice] = useState(
+    couponname
+      ? carts.reduce((accumulator, product) => {
+          return (
+            accumulator +
+            discountCalc(product.price, product.discount, product.count)
+          )
+        }, 0) *
+          ((100 - couponpercent) / 100)
+      : carts.reduce((accumulator, product) => {
+          return (
+            accumulator +
+            discountCalc(product.price, product.discount, product.count)
+          )
+        }, 0)
+  )
 
-  const subtotalPrice = carts.reduce((accumulator, product) => {
-    return (
-      accumulator + discountCalc(product.price, product.discount, product.count)
+  useEffect(() => {
+    setSubtotalPrice(
+      couponname
+        ? carts.reduce((accumulator, product) => {
+            return (
+              accumulator +
+              discountCalc(product.price, product.discount, product.count)
+            )
+          }, 0) *
+            ((100 - couponpercent) / 100)
+        : carts.reduce((accumulator, product) => {
+            return (
+              accumulator +
+              discountCalc(product.price, product.discount, product.count)
+            )
+          }, 0)
     )
-  }, 0)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [carts])
+
+  useEffect(() => {
+    const fetchPost = async () => {
+      const coupons = await getCoupons()
+      setCoupons(coupons.data)
+    }
+    fetchPost()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const checkedMethodValue = radioValues[checkedShipping - 1].value
   const checkedMethodText = radioValues[checkedShipping - 1].text
@@ -66,6 +111,32 @@ function CartPage() {
     }
     dispatch(createOrder({ orderData, navigate }))
     dispatch(clearCart())
+  }
+
+  function applyCouponFunc() {
+    if (!couponname && coupons) {
+      let findCoupon = coupons.filter((item) => item.name === couponState)
+      console.log(findCoupon)
+      if (findCoupon.length === 1) {
+        let subtotalPriceWithCoupon =
+          subtotalPrice * ((100 - findCoupon[0].percent) / 100)
+        setSubtotalPrice(subtotalPriceWithCoupon)
+        dispatch(
+          addCoupon({
+            name: findCoupon[0].name,
+            percent: findCoupon[0].percent,
+          })
+        )
+        setCouponState('')
+        console.log('success')
+      } else {
+        setCouponState('')
+        console.log('no coupon found')
+      }
+    } else {
+      setCouponState('')
+      console.log('already applied')
+    }
   }
 
   return (
@@ -154,9 +225,27 @@ function CartPage() {
               />
             </Card>
           ))}
-          <Box className='payment'>
+          <Box>
             <Box>
               <Box style={{ paddingTop: '20px' }}>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                  }}
+                >
+                  <TextField
+                    label='Enter Coupon'
+                    value={couponState}
+                    onChange={(e) => {
+                      setCouponState(e.target.value)
+                    }}
+                  />
+                  <Button variant='contained' onClick={applyCouponFunc}>
+                    Apply
+                  </Button>
+                </Box>
+                <Box>{couponname ? <>{couponname} is applied</> : null}</Box>
                 <Box>
                   <Box>
                     <Typography>Cart Subtotal: </Typography>

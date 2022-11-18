@@ -53,3 +53,7 @@ export const orderPaid = (updatedOrderData, id) =>
   API.patch(`/orders/paid/${id}`, updatedOrderData)
 export const orderDelivered = (updatedOrderData, id) =>
   API.patch(`/orders/delivered/${id}`, updatedOrderData)
+
+export const createCoupon = (couponData) =>
+  API.post('/coupons/create', couponData)
+export const getCoupons = () => API.get('/coupons')

@@ -74,6 +74,15 @@ const orderSlice = createSlice({
   initialState: {
     orders: null,
     myorders: null,
+    couponname: null,
+    couponpercent: null,
+  },
+  reducers: {
+    addCoupon: (state, action) => {
+      const { name, percent } = action.payload
+      state.couponname = name
+      state.couponpercent = percent
+    },
   },
 
   extraReducers: {
@@ -122,5 +131,7 @@ const orderSlice = createSlice({
     [orderDelivered.rejected]: (state, action) => {},
   },
 })
+
+export const { addCoupon } = orderSlice.actions
 
 export default orderSlice.reducer
