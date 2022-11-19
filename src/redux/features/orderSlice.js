@@ -83,6 +83,10 @@ const orderSlice = createSlice({
       state.couponname = name
       state.couponpercent = percent
     },
+    deleteCoupon: (state, action) => {
+      state.couponname = null
+      state.couponpercent = null
+    },
   },
 
   extraReducers: {
@@ -132,6 +136,6 @@ const orderSlice = createSlice({
   },
 })
 
-export const { addCoupon } = orderSlice.actions
+export const { addCoupon, deleteCoupon } = orderSlice.actions
 
 export default orderSlice.reducer

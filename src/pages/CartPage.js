@@ -15,7 +15,11 @@ import { clearCart } from '../redux/features/postSlice'
 
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { addCoupon, createOrder } from '../redux/features/orderSlice'
+import {
+  addCoupon,
+  deleteCoupon,
+  createOrder,
+} from '../redux/features/orderSlice'
 import { discountCalc, subtotalCalc } from '../utility'
 import { getCoupons } from '../redux/api'
 
@@ -83,6 +87,7 @@ function CartPage() {
     }
     dispatch(createOrder({ orderData, navigate }))
     dispatch(clearCart())
+    dispatch(deleteCoupon())
   }
 
   function applyCouponFunc() {
