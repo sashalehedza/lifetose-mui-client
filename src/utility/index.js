@@ -5,13 +5,21 @@ export const excerpt = (str, count) => {
   return str
 }
 
-export const discountCalc = (price, discount, count) => {
-  return Number(discount) && Number(discount) !== 0
-    ? Number(count) > 2
-      ? (Number(price) - Number(discount)) * Number(count) * ((100 - 10) / 100)
-      : (Number(price) - Number(discount)) * Number(count)
-    : Number(count) > 2
-    ? Number(price) * Number(count) * ((100 - 10) / 100)
+export const wholesale = ['Macbook', 'Iphone']
+
+export const discountCalc = (title, price, discount, count) => {
+  return wholesale.includes(title)
+    ? Number(discount) && Number(discount) !== 0
+      ? Number(count) > 2
+        ? (Number(price) - Number(discount)) *
+          Number(count) *
+          ((100 - 10) / 100)
+        : (Number(price) - Number(discount)) * Number(count)
+      : Number(count) > 2
+      ? Number(price) * Number(count) * ((100 - 10) / 100)
+      : Number(price) * Number(count)
+    : Number(discount) && Number(discount) !== 0
+    ? (Number(price) - Number(discount)) * Number(count)
     : Number(price) * Number(count)
 }
 

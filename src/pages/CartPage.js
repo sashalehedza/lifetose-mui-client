@@ -20,7 +20,7 @@ import {
   deleteCoupon,
   createOrder,
 } from '../redux/features/orderSlice'
-import { discountCalc, subtotalCalc } from '../utility'
+import { discountCalc, subtotalCalc, wholesale } from '../utility'
 import { getCoupons } from '../redux/api'
 
 const radioValues = [
@@ -74,7 +74,7 @@ function CartPage() {
     const filteredItems = carts.map((item) => ({
       _id: item._id,
       title: item.title,
-      price: discountCalc(item.price, item.discount, item.count),
+      price: discountCalc(item.title, item.price, item.discount, item.count),
       count: item.count,
     }))
     let orderData = {
@@ -180,11 +180,15 @@ function CartPage() {
 
                 <Counter cart={cart} />
                 <Box>
-                  {cart.count > 2 ? (
-                    <></>
-                  ) : (
-                    <>Get discount 10% with 3 or more items</>
-                  )}
+                  {wholesale.includes(cart.title) ? (
+                    <>
+                      {cart.count > 2 ? (
+                        <></>
+                      ) : (
+                        <>Get discount 10% with 3 or more items</>
+                      )}
+                    </>
+                  ) : null}
                 </Box>
               </Box>
               <CardMedia
