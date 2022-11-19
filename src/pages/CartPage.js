@@ -180,12 +180,26 @@ function CartPage() {
 
                 <Counter cart={cart} />
                 <Box>
-                  {wholesale.includes(cart.title) ? (
+                  {wholesale.find((item) => item.title === cart.title) ? (
                     <>
-                      {cart.count > 2 ? (
+                      {cart.count >=
+                      wholesale.find((item) => item.title === cart.title)
+                        .saleCount ? (
                         <></>
                       ) : (
-                        <>Get discount 10% with 3 or more items</>
+                        <>
+                          Get discount{' '}
+                          {
+                            wholesale.find((item) => item.title === cart.title)
+                              .saleDiscount
+                          }
+                          % with{' '}
+                          {
+                            wholesale.find((item) => item.title === cart.title)
+                              .saleCount
+                          }{' '}
+                          or more items
+                        </>
                       )}
                     </>
                   ) : null}
