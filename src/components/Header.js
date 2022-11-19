@@ -210,52 +210,86 @@ function Header() {
               {user?.result?._id && user?.result?.isAdmin && (
                 <Box>
                   <Typography textAlign='center'>Admin Panel</Typography>
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      justifyContent: 'center',
-                    }}
-                    onClick={handleCloseNavMenu}
-                  >
-                    <Button
-                      variant='contained'
-                      color='error'
-                      onClick={handleCloseNavMenu}
-                      style={{ margin: '10px' }}
+                  <Box>
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                      }}
                     >
-                      <Link
-                        to='/orders'
-                        style={{ color: 'white', textDecoration: 'none' }}
+                      <Button
+                        variant='contained'
+                        color='error'
+                        onClick={handleCloseNavMenu}
+                        style={{ margin: '10px' }}
                       >
-                        <Typography textAlign='center'>Orders</Typography>
-                      </Link>
-                    </Button>
-                    <Button
-                      variant='contained'
-                      color='purple'
-                      onClick={handleCloseNavMenu}
-                      style={{ margin: '10px' }}
+                        <Link
+                          to='/orders'
+                          style={{ color: 'white', textDecoration: 'none' }}
+                        >
+                          <Typography textAlign='center'>Orders</Typography>
+                        </Link>
+                      </Button>
+                      <Button
+                        variant='contained'
+                        color='error'
+                        onClick={handleCloseNavMenu}
+                        style={{ margin: '10px' }}
+                      >
+                        <Link
+                          to='/coupons'
+                          style={{ color: 'white', textDecoration: 'none' }}
+                        >
+                          <Typography textAlign='center'>Coupons</Typography>
+                        </Link>
+                      </Button>
+                      <Button
+                        variant='contained'
+                        color='purple'
+                        onClick={handleCloseNavMenu}
+                        style={{ margin: '10px' }}
+                      >
+                        <Link
+                          to='/addCoupon'
+                          style={{ color: 'white', textDecoration: 'none' }}
+                        >
+                          <Typography textAlign='center'>Add Coupon</Typography>
+                        </Link>
+                      </Button>
+                    </Box>
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                      }}
                     >
-                      <Link
-                        to='/addPost'
-                        style={{ color: 'white', textDecoration: 'none' }}
+                      <Button
+                        variant='contained'
+                        color='purple'
+                        onClick={handleCloseNavMenu}
+                        style={{ margin: '10px' }}
                       >
-                        <Typography textAlign='center'>Add Post</Typography>
-                      </Link>
-                    </Button>
-                    <Button
-                      variant='contained'
-                      color='success'
-                      onClick={handleCloseNavMenu}
-                      style={{ margin: '10px' }}
-                    >
-                      <Link
-                        to='/dashboard'
-                        style={{ color: 'white', textDecoration: 'none' }}
+                        <Link
+                          to='/addPost'
+                          style={{ color: 'white', textDecoration: 'none' }}
+                        >
+                          <Typography textAlign='center'>Add Post</Typography>
+                        </Link>
+                      </Button>
+                      <Button
+                        variant='contained'
+                        color='success'
+                        onClick={handleCloseNavMenu}
+                        style={{ margin: '10px' }}
                       >
-                        <Typography textAlign='center'>Dashboard</Typography>
-                      </Link>
-                    </Button>
+                        <Link
+                          to='/dashboard'
+                          style={{ color: 'white', textDecoration: 'none' }}
+                        >
+                          <Typography textAlign='center'>Dashboard</Typography>
+                        </Link>
+                      </Button>
+                    </Box>
                   </Box>
                 </Box>
               )}
@@ -386,6 +420,40 @@ function Header() {
                   style={{ color: 'white', textDecoration: 'none' }}
                 >
                   Orders
+                </Link>
+              </Button>
+            )}
+            {user?.result?._id && user?.result?.isAdmin && (
+              <Button
+                onClick={handleCloseNavMenu}
+                sx={{
+                  my: 2,
+                  color: 'white',
+                  display: 'block',
+                }}
+              >
+                <Link
+                  to='/coupons'
+                  style={{ color: 'white', textDecoration: 'none' }}
+                >
+                  Coupons
+                </Link>
+              </Button>
+            )}
+            {user?.result?._id && user?.result?.isAdmin && (
+              <Button
+                onClick={handleCloseNavMenu}
+                sx={{
+                  my: 2,
+                  color: 'white',
+                  display: 'block',
+                }}
+              >
+                <Link
+                  to='/addCoupon'
+                  style={{ color: 'white', textDecoration: 'none' }}
+                >
+                  Add Coupon
                 </Link>
               </Button>
             )}

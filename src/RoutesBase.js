@@ -51,6 +51,24 @@ const ROUTES = [
         admin: true,
       },
       {
+        path: '/coupons',
+        Component: lazy(() => import('./pages/Coupons')),
+        protected: true,
+        admin: true,
+      },
+      {
+        path: '/addCoupon',
+        Component: lazy(() => import('./pages/AddEditCoupon')),
+        protected: true,
+        admin: true,
+      },
+      {
+        path: '/editCoupon/:id',
+        Component: lazy(() => import('./pages/AddEditCoupon')),
+        protected: true,
+        admin: true,
+      },
+      {
         path: '/dashboard',
         Component: lazy(() => import('./pages/Dashboard')),
         protected: true,

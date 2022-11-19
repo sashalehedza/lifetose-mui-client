@@ -16,12 +16,12 @@ import { clearCart } from '../redux/features/postSlice'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import {
-  addCoupon,
-  deleteCoupon,
+  addAppliedCoupon,
+  deleteAppliedCoupon,
   createOrder,
 } from '../redux/features/orderSlice'
 import { discountCalc, subtotalCalc, wholesale } from '../utility'
-import { getCoupons } from '../redux/api'
+import { getAllCoupons } from '../redux/api'
 
 const radioValues = [
   { id: 1, text: 'Flat rate $10', value: 10 },
@@ -54,7 +54,7 @@ function CartPage() {
 
   useEffect(() => {
     const fetchPost = async () => {
-      const coupons = await getCoupons()
+      const coupons = await getAllCoupons()
       setCoupons(coupons.data)
     }
     fetchPost()
@@ -87,7 +87,7 @@ function CartPage() {
     }
     dispatch(createOrder({ orderData, navigate }))
     dispatch(clearCart())
-    dispatch(deleteCoupon())
+    dispatch(deleteAppliedCoupon())
   }
 
   function applyCouponFunc() {
@@ -96,7 +96,7 @@ function CartPage() {
       console.log(findCoupon)
       if (findCoupon.length === 1) {
         dispatch(
-          addCoupon({
+          addAppliedCoupon({
             name: findCoupon[0].name,
             percent: findCoupon[0].percent,
           })

@@ -56,4 +56,8 @@ export const orderDelivered = (updatedOrderData, id) =>
 
 export const createCoupon = (couponData) =>
   API.post('/coupons/create', couponData)
-export const getCoupons = () => API.get('/coupons')
+export const deleteCoupon = (id) => API.delete(`/coupons/${id}`)
+export const updateCoupon = (updatedCouponData, id) =>
+  API.patch(`/coupons/${id}`, updatedCouponData)
+export const getAllCoupons = () => API.get('/coupons')
+export const getCoupon = (id) => API.get(`/coupons/${id}`)
