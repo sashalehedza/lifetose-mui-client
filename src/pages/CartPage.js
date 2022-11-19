@@ -227,7 +227,7 @@ function CartPage() {
                   </Box>
                 </Box>
                 <Box>
-                  <Typography>{subtotalPrice}</Typography>
+                  <Typography variant='h5'>{subtotalPrice}</Typography>
                 </Box>
               </Box>
               <Box>
@@ -272,7 +272,7 @@ function CartPage() {
                   <Typography>ORDER TOTAL: </Typography>
                 </Box>
                 <Box>
-                  <Typography>{totalPrice}</Typography>
+                  <Typography variant='h5'>{totalPrice}</Typography>
                 </Box>
                 <Box>
                   <Button variant='contained' onClick={makeOrder}>
