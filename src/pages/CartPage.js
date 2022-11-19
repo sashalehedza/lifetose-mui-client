@@ -104,7 +104,7 @@ function CartPage() {
       }
     } else {
       setCouponState('')
-      console.log('You already applied an coupon')
+      console.log('You already applied a coupon')
     }
   }
 
