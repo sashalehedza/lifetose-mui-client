@@ -216,9 +216,9 @@ function CartPage() {
                 </Box>
                 <Box>
                   {couponname ? (
-                    <>
+                    <Typography variant='h5'>
                       {couponname} is applied ({couponpercent}% discount)
-                    </>
+                    </Typography>
                   ) : null}
                 </Box>
                 <Box>
