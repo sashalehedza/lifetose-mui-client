@@ -19,7 +19,7 @@ export const discountCalc = (title, price, discount, count) => {
           Number(count) *
           ((100 - findItem.saleDiscount) / 100)
         : (Number(price) - Number(discount)) * Number(count)
-      : Number(count) > Number(findItem.saleCount)
+      : Number(count) >= Number(findItem.saleCount)
       ? Number(price) * Number(count) * ((100 - findItem.saleDiscount) / 100)
       : Number(price) * Number(count)
     : Number(discount) && Number(discount) !== 0
