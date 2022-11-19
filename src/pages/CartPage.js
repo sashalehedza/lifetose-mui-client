@@ -46,7 +46,7 @@ function CartPage() {
   useEffect(() => {
     setSubtotalPrice(subtotalCalc(couponname, couponpercent, carts))
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [carts])
+  }, [carts, couponname])
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -90,9 +90,6 @@ function CartPage() {
       let findCoupon = coupons.filter((item) => item.name === couponState)
       console.log(findCoupon)
       if (findCoupon.length === 1) {
-        let subtotalPriceWithCoupon =
-          subtotalPrice * ((100 - findCoupon[0].percent) / 100)
-        setSubtotalPrice(subtotalPriceWithCoupon)
         dispatch(
           addCoupon({
             name: findCoupon[0].name,
@@ -107,7 +104,7 @@ function CartPage() {
       }
     } else {
       setCouponState('')
-      console.log('already applied')
+      console.log('You already applied an coupon')
     }
   }
 
@@ -217,7 +214,13 @@ function CartPage() {
                     Apply
                   </Button>
                 </Box>
-                <Box>{couponname ? <>{couponname} is applied</> : null}</Box>
+                <Box>
+                  {couponname ? (
+                    <>
+                      {couponname} is applied ({couponpercent}% discount)
+                    </>
+                  ) : null}
+                </Box>
                 <Box>
                   <Box>
                     <Typography>Cart Subtotal: </Typography>
