@@ -102,6 +102,20 @@ function Counter({ cart }) {
           />
         </IconButton>
       </Box>
+      {/* <Box>
+        {Number(cart.saleCount) > 0 && Number(cart.saleDiscount) > 0 ? (
+          <>
+            {cart.count >= cart.saleCount ? (
+              <></>
+            ) : (
+              <>
+                Get discount {cart.saleDiscount}% with {cart.saleCount} or more
+                items
+              </>
+            )}
+          </>
+        ) : null}
+      </Box> */}
       <Box>
         <Typography>
           {cart.saleCount > 0 && cart.saleDiscount > 0

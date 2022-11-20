@@ -34,15 +34,7 @@ export const discountCalc = (
   discount,
   count
 ) => {
-  return Number(saleCount) > 0 && Number(saleDiscount) > 0
-    ? Number(discount) && Number(discount) !== 0
-      ? Number(count) >= Number(saleCount)
-        ? (Number(price) - Number(discount)) * Number(count)
-        : (Number(price) - Number(discount)) * Number(count)
-      : Number(count) >= Number(saleCount)
-      ? Number(price) * Number(count)
-      : Number(price) * Number(count)
-    : Number(discount) && Number(discount) !== 0
+  return Number(discount) && Number(discount) !== 0
     ? (Number(price) - Number(discount)) * Number(count)
     : Number(price) * Number(count)
 }

@@ -84,6 +84,7 @@ function CartPage() {
         item.discount,
         item.count
       ),
+      // count: item.count,
       count:
         item.saleCount !== 0 && item.saleDiscount !== 0
           ? item.count +
@@ -193,21 +194,6 @@ function CartPage() {
                 </CardContent>
 
                 <Counter cart={cart} />
-                {/* <Box>
-                  {Number(cart.saleCount) > 0 &&
-                  Number(cart.saleDiscount) > 0 ? (
-                    <>
-                      {cart.count >= cart.saleCount ? (
-                        <></>
-                      ) : (
-                        <>
-                          Get discount {cart.saleDiscount}% with{' '}
-                          {cart.saleCount} or more items
-                        </>
-                      )}
-                    </>
-                  ) : null}
-                </Box> */}
               </Box>
               <CardMedia
                 component='img'
