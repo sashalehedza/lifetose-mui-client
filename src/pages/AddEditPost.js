@@ -41,6 +41,8 @@ const validationSchema = yup.object({
     .required('Description is required'),
   price: yup.number().min(0).required('Price is required'),
   discount: yup.number(),
+  saleCount: yup.number(),
+  saleDiscount: yup.number(),
 })
 
 function AddEditPost() {
@@ -53,6 +55,8 @@ function AddEditPost() {
     description: '',
     price: 0,
     discount: 0,
+    saleCount: 0,
+    saleDiscount: 0,
   })
   const [receivers, setReceivers] = useState([])
   const [file, setFile] = useState('')
@@ -92,6 +96,8 @@ function AddEditPost() {
         description: '',
         price: 0,
         discount: 0,
+        saleCount: 0,
+        saleDiscount: 0,
       })
       setReceivers([])
       setFile(DefaultFilmImage)
@@ -186,6 +192,16 @@ function AddEditPost() {
                         name='discount'
                         placeholder='Enter your discount'
                         label='discount'
+                      />
+                      <InputField
+                        name='saleCount'
+                        placeholder='Enter your saleCount'
+                        label='saleCount'
+                      />
+                      <InputField
+                        name='saleDiscount'
+                        placeholder='Enter your saleDiscount'
+                        label='saleDiscount'
                       />
                       <Autocomplete
                         onChange={(e, value) => setReceivers((state) => value)}

@@ -20,7 +20,7 @@ import {
   deleteAppliedCoupon,
   createOrder,
 } from '../redux/features/orderSlice'
-import { discountCalc, subtotalCalc, wholesale } from '../utility'
+import { discountCalc, subtotalCalc } from '../utility'
 import { getAllCoupons } from '../redux/api'
 
 const radioValues = [
@@ -74,7 +74,13 @@ function CartPage() {
     const filteredItems = carts.map((item) => ({
       _id: item._id,
       title: item.title,
-      price: discountCalc(item.title, item.price, item.discount, item.count),
+      price: discountCalc(
+        item.saleCount,
+        item.saleDiscount,
+        item.price,
+        item.discount,
+        item.count
+      ),
       count: item.count,
     }))
     let orderData = {
@@ -180,25 +186,15 @@ function CartPage() {
 
                 <Counter cart={cart} />
                 <Box>
-                  {wholesale.find((item) => item.title === cart.title) ? (
+                  {Number(cart.saleCount) > 0 &&
+                  Number(cart.saleDiscount) > 0 ? (
                     <>
-                      {cart.count >=
-                      wholesale.find((item) => item.title === cart.title)
-                        .saleCount ? (
+                      {cart.count >= cart.saleCount ? (
                         <></>
                       ) : (
                         <>
-                          Get discount{' '}
-                          {
-                            wholesale.find((item) => item.title === cart.title)
-                              .saleDiscount
-                          }
-                          % with{' '}
-                          {
-                            wholesale.find((item) => item.title === cart.title)
-                              .saleCount
-                          }{' '}
-                          or more items
+                          Get discount {cart.saleDiscount}% with{' '}
+                          {cart.saleCount} or more items
                         </>
                       )}
                     </>
