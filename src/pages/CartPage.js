@@ -42,6 +42,7 @@ function CartPage() {
   const navigate = useNavigate()
   const [coupons, setCoupons] = useState(null)
   const [couponState, setCouponState] = useState('')
+  const [couponErrorState, setCouponErrorState] = useState('')
   const [checkedShipping, setCheckedShipping] = useState(2)
   const [subtotalPrice, setSubtotalPrice] = useState(
     subtotalCalc(couponname, couponpercent, carts)
@@ -108,14 +109,14 @@ function CartPage() {
           })
         )
         setCouponState('')
-        console.log('success')
+        setCouponErrorState('')
       } else {
         setCouponState('')
-        console.log('no coupon found')
+        setCouponErrorState('no coupon found')
       }
     } else {
       setCouponState('')
-      console.log('You already applied a coupon')
+      setCouponErrorState('You already applied a coupon')
     }
   }
 
@@ -238,6 +239,9 @@ function CartPage() {
                     <Typography variant='h5'>
                       {couponname} is applied ({couponpercent}% discount)
                     </Typography>
+                  ) : null}
+                  {couponErrorState ? (
+                    <Typography variant='h5'>{couponErrorState}</Typography>
                   ) : null}
                 </Box>
                 <Box>
