@@ -85,8 +85,11 @@ function CartPage() {
         item.count
       ),
       count:
-        item.count +
-        Math.trunc(Number(item.count) / item.saleCount) * item.saleDiscount,
+        item.saleCount !== 0 && item.saleDiscount !== 0
+          ? item.count +
+            Math.trunc(Number(item.count) / Number(item.saleCount)) *
+              Number(item.saleDiscount)
+          : item.count,
     }))
     let orderData = {
       orderItems: filteredItems,
