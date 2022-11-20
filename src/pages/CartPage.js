@@ -122,9 +122,12 @@ function CartPage() {
         setCouponState('')
         setCouponErrorState('no coupon found')
       }
-    } else {
+    } else if (couponname) {
       setCouponState('')
       setCouponErrorState('You already applied a coupon')
+    } else if (!couponname) {
+      setCouponState('')
+      setCouponErrorState('Something went wrong')
     }
   }
 

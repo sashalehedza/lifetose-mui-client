@@ -117,7 +117,7 @@ function Counter({ cart }) {
         ) : null}
       </Box> */}
       <Box>
-        <Typography>
+        <Box>
           {cart.saleCount > 0 && cart.saleDiscount > 0 ? (
             <>
               <Box>
@@ -131,7 +131,7 @@ function Counter({ cart }) {
               </Typography>
             </>
           ) : null}
-        </Typography>
+        </Box>
       </Box>
     </>
   )
