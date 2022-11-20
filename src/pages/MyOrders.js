@@ -128,7 +128,17 @@ function MyOrders() {
               ))}
             </>
           ) : (
-            <Box>You have no orders yet</Box>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center',
+                mt: '20px',
+              }}
+            >
+              <Typography variant='h5'>You have no orders yet</Typography>
+            </Box>
           )}
         </Box>
       )}

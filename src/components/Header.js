@@ -192,19 +192,28 @@ function Header() {
                   <Typography textAlign='center'>
                     Logged in as: {user?.result?.name}
                   </Typography>
-                  <Button
-                    variant='contained'
-                    color='error'
-                    onClick={handleCloseNavMenu}
-                    style={{ margin: '10px' }}
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
                   >
-                    <Link
-                      to='/my-orders'
-                      style={{ color: 'white', textDecoration: 'none' }}
+                    <Button
+                      variant='contained'
+                      color='primary'
+                      onClick={handleCloseNavMenu}
+                      style={{ margin: '10px' }}
                     >
-                      <Typography textAlign='center'>My Orders</Typography>
-                    </Link>
-                  </Button>
+                      <Link
+                        to='/my-orders'
+                        style={{ color: 'white', textDecoration: 'none' }}
+                      >
+                        <Typography textAlign='center'>My Orders</Typography>
+                      </Link>
+                    </Button>
+                  </Box>
                 </Box>
               )}
               {user?.result?._id && user?.result?.isAdmin && (
@@ -215,11 +224,13 @@ function Header() {
                       sx={{
                         display: 'flex',
                         flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'center',
                       }}
                     >
                       <Button
                         variant='contained'
-                        color='error'
+                        color='primary'
                         onClick={handleCloseNavMenu}
                         style={{ margin: '10px' }}
                       >
@@ -228,32 +239,6 @@ function Header() {
                           style={{ color: 'white', textDecoration: 'none' }}
                         >
                           <Typography textAlign='center'>Orders</Typography>
-                        </Link>
-                      </Button>
-                      <Button
-                        variant='contained'
-                        color='error'
-                        onClick={handleCloseNavMenu}
-                        style={{ margin: '10px' }}
-                      >
-                        <Link
-                          to='/coupons'
-                          style={{ color: 'white', textDecoration: 'none' }}
-                        >
-                          <Typography textAlign='center'>Coupons</Typography>
-                        </Link>
-                      </Button>
-                      <Button
-                        variant='contained'
-                        color='purple'
-                        onClick={handleCloseNavMenu}
-                        style={{ margin: '10px' }}
-                      >
-                        <Link
-                          to='/addCoupon'
-                          style={{ color: 'white', textDecoration: 'none' }}
-                        >
-                          <Typography textAlign='center'>Add Coupon</Typography>
                         </Link>
                       </Button>
                     </Box>
@@ -265,7 +250,40 @@ function Header() {
                     >
                       <Button
                         variant='contained'
-                        color='purple'
+                        color='success'
+                        onClick={handleCloseNavMenu}
+                        style={{ margin: '10px' }}
+                      >
+                        <Link
+                          to='/addCoupon'
+                          style={{ color: 'white', textDecoration: 'none' }}
+                        >
+                          <Typography textAlign='center'>Add Coupon</Typography>
+                        </Link>
+                      </Button>
+                      <Button
+                        variant='contained'
+                        color='primary'
+                        onClick={handleCloseNavMenu}
+                        style={{ margin: '10px' }}
+                      >
+                        <Link
+                          to='/coupons'
+                          style={{ color: 'white', textDecoration: 'none' }}
+                        >
+                          <Typography textAlign='center'>Coupons</Typography>
+                        </Link>
+                      </Button>
+                    </Box>
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                      }}
+                    >
+                      <Button
+                        variant='contained'
+                        color='success'
                         onClick={handleCloseNavMenu}
                         style={{ margin: '10px' }}
                       >
@@ -278,7 +296,7 @@ function Header() {
                       </Button>
                       <Button
                         variant='contained'
-                        color='success'
+                        color='primary'
                         onClick={handleCloseNavMenu}
                         style={{ margin: '10px' }}
                       >

@@ -136,9 +136,19 @@ function Dashboard() {
                   </Card>
                 ))
               ) : (
-                <Typography sx={{ marginTop: '20px', marginBottom: '20px' }}>
-                  No post available with the user: {user?.result?.name}
-                </Typography>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    mt: '20px',
+                  }}
+                >
+                  <Typography variant='h5'>
+                    No post available with the user: {user?.result?.name}
+                  </Typography>
+                </Box>
               )}
             </>
           )}

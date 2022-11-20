@@ -105,9 +105,17 @@ function Coupons() {
                   </Card>
                 ))
               ) : (
-                <Typography sx={{ marginTop: '20px', marginBottom: '20px' }}>
-                  No coupons available
-                </Typography>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    mt: '20px',
+                  }}
+                >
+                  <Typography variant='h5'>No coupons yet!</Typography>
+                </Box>
               )}
             </>
           )}
