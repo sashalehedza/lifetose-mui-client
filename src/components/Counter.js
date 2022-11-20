@@ -18,6 +18,9 @@ import { discountCalc } from '../utility'
 function Counter({ cart }) {
   const dispatch = useDispatch()
 
+  let extraCount =
+    Math.trunc(Number(cart.count) / cart.saleCount) * cart.saleDiscount
+
   const addToCartFunc = () => {
     dispatch(addToCart({ postId: cart._id, count: 1 }))
   }
@@ -92,11 +95,19 @@ function Counter({ cart }) {
             cart.count
           )}
         </Typography>
+
         <IconButton color='error' onClick={() => removeFromCartFunc()}>
           <TiDeleteOutline
             style={{ cursor: 'pointer', width: '30px', height: '30px' }}
           />
         </IconButton>
+      </Box>
+      <Box>
+        <Typography>
+          {cart.saleCount > 0 && cart.saleDiscount > 0
+            ? `You will get extra ${cart.saleDiscount} items for every ${cart.saleCount} items. For now you have  ${extraCount} extra items`
+            : null}
+        </Typography>
       </Box>
     </>
   )

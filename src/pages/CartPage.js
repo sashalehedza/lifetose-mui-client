@@ -43,7 +43,9 @@ function CartPage() {
   const [coupons, setCoupons] = useState(null)
   const [couponState, setCouponState] = useState('')
   const [couponErrorState, setCouponErrorState] = useState('')
+
   const [checkedShipping, setCheckedShipping] = useState(2)
+
   const [subtotalPrice, setSubtotalPrice] = useState(
     subtotalCalc(couponname, couponpercent, carts)
   )
@@ -82,7 +84,9 @@ function CartPage() {
         item.discount,
         item.count
       ),
-      count: item.count,
+      count:
+        item.count +
+        Math.trunc(Number(item.count) / item.saleCount) * item.saleDiscount,
     }))
     let orderData = {
       orderItems: filteredItems,
@@ -186,7 +190,7 @@ function CartPage() {
                 </CardContent>
 
                 <Counter cart={cart} />
-                <Box>
+                {/* <Box>
                   {Number(cart.saleCount) > 0 &&
                   Number(cart.saleDiscount) > 0 ? (
                     <>
@@ -200,7 +204,7 @@ function CartPage() {
                       )}
                     </>
                   ) : null}
-                </Box>
+                </Box> */}
               </Box>
               <CardMedia
                 component='img'
