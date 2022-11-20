@@ -118,9 +118,19 @@ function Counter({ cart }) {
       </Box> */}
       <Box>
         <Typography>
-          {cart.saleCount > 0 && cart.saleDiscount > 0
-            ? `You will get extra ${cart.saleDiscount} items for every ${cart.saleCount} items. For now you have  ${extraCount} extra items`
-            : null}
+          {cart.saleCount > 0 && cart.saleDiscount > 0 ? (
+            <>
+              <Box>
+                <Typography>
+                  You will get extra {cart.saleDiscount} items for every{' '}
+                  {cart.saleCount} items.
+                </Typography>
+              </Box>
+              <Typography>
+                For now you have {extraCount} extra items.
+              </Typography>
+            </>
+          ) : null}
         </Typography>
       </Box>
     </>

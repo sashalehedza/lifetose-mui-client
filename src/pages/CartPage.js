@@ -142,7 +142,7 @@ function CartPage() {
                 justifyContent: 'space-between',
                 alignItems: 'flex-start',
                 width: '100%',
-                height: '200px',
+                minHeight: '200px',
                 marginBottom: '20px',
               }}
               key={cart._id}
