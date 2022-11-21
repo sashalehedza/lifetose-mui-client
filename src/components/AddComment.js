@@ -26,7 +26,7 @@ const AddComment = ({ setComments }) => {
           <textarea
             id='addComment'
             className='addcomment__control'
-            value={text || ''}
+            value={text}
             onChange={(e) => setText(e.target.value)}
           />
           <button
