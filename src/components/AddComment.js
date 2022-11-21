@@ -13,6 +13,7 @@ const AddComment = ({ setComments }) => {
     try {
       const res = await createComment(id, { text })
       setComments((prevComments) => [res.data, ...prevComments])
+      setText('')
     } catch (err) {}
   }
   return (
