@@ -128,7 +128,6 @@ function Header() {
                   </Typography>
                   <Box
                     sx={{
-                      // flexGrow: 1,
                       display: 'flex',
                       justifyContent: 'center',
                     }}

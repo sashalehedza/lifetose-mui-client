@@ -2,11 +2,7 @@ import React, { useEffect } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import {
-  deletePost,
-  getPosts,
-  getPostsByUser,
-} from '../redux/features/postSlice'
+import { deletePost, getPosts } from '../redux/features/postSlice'
 
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
@@ -22,23 +18,16 @@ import Spinner from '../components/Spinner'
 
 function Dashboard() {
   const { user } = useSelector((state) => ({ ...state.auth }))
-  const { posts, userPosts, error } = useSelector((state) => ({
+  const { posts, error } = useSelector((state) => ({
     ...state.post,
   }))
-  // const userId = user?.result?._id
+
   const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(getPosts())
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
-  // useEffect(() => {
-  //   if (userId) {
-  //     dispatch(getPostsByUser(userId))
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [userId])
 
   const excerpt = (str) => {
     if (str.length > 40) {

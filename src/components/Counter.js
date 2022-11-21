@@ -85,7 +85,6 @@ function Counter({ cart }) {
           alignItems: 'center',
         }}
       >
-        {/* <Typography variant='h5'> ${cart.count * cart.price}</Typography> */}
         <Typography variant='h5'>
           {discountCalc(
             cart.saleCount,
@@ -102,20 +101,6 @@ function Counter({ cart }) {
           />
         </IconButton>
       </Box>
-      {/* <Box>
-        {Number(cart.saleCount) > 0 && Number(cart.saleDiscount) > 0 ? (
-          <>
-            {cart.count >= cart.saleCount ? (
-              <></>
-            ) : (
-              <>
-                Get discount {cart.saleDiscount}% with {cart.saleCount} or more
-                items
-              </>
-            )}
-          </>
-        ) : null}
-      </Box> */}
       <Box>
         <Box>
           {cart.saleCount > 0 && cart.saleDiscount > 0 ? (

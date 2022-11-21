@@ -303,7 +303,17 @@ function CartPage() {
           </Box>
         </>
       ) : (
-        <Box>Your cart is currently empty!</Box>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+            mt: '20px',
+          }}
+        >
+          <Typography variant='h5'>Your cart is currently empty!</Typography>
+        </Box>
       )}
     </Container>
   )

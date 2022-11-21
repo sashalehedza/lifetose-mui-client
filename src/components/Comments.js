@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 
 import Comment from './Comment'
 import AddComment from './AddComment'
 import { getPostComments } from '../redux/api'
-import { useParams } from 'react-router-dom'
+
 import Spinner from './Spinner'
+
 import { Box } from '@mui/system'
 
 const Comments = () => {

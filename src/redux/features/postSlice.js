@@ -272,7 +272,6 @@ const postSlice = createSlice({
         arg: { id },
       } = action.meta
       if (id) {
-        // state.userPosts = state.userPosts.filter((item) => item._id !== id)
         state.posts = state.posts.filter((item) => item._id !== id)
       }
     },
