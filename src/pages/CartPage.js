@@ -107,13 +107,13 @@ function CartPage() {
 
   function applyCouponFunc() {
     if (!couponname && coupons) {
-      let findCoupon = coupons.filter((item) => item.name === couponState)
+      let findCoupon = coupons.find((item) => item.name === couponState)
       console.log(findCoupon)
-      if (findCoupon.length === 1) {
+      if (findCoupon) {
         dispatch(
           addAppliedCoupon({
-            name: findCoupon[0].name,
-            percent: findCoupon[0].percent,
+            name: findCoupon.name,
+            percent: findCoupon.percent,
           })
         )
         setCouponState('')
