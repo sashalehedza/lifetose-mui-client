@@ -20,7 +20,7 @@ import { createCoupon, updateCoupon } from '../redux/features/orderSlice'
 const validationSchema = yup.object({
   name: yup
     .string('Enter coupon name')
-    .min(1, 'Coupon name should be of minimum 2 characters length')
+    .min(1, 'Coupon name should be of minimum 1 characters length')
     .required('Coupon name is required'),
   percent: yup.number().min(0).required('Percente is required'),
 })

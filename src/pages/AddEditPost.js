@@ -40,9 +40,9 @@ const validationSchema = yup.object({
     .min(1, 'Description should be of minimum 1 characters length')
     .required('Description is required'),
   price: yup.number().min(0).required('Price is required'),
-  discount: yup.number(),
-  saleCount: yup.number(),
-  saleDiscount: yup.number(),
+  discount: yup.number().min(0),
+  saleCount: yup.number().min(0),
+  saleDiscount: yup.number().min(0),
 })
 
 function AddEditPost() {
