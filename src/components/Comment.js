@@ -126,6 +126,7 @@ const Comment = ({ comment, depth }) => {
         commentId={data?._id}
         setReplies={setReplies}
         collapsedReply={collapsedReply}
+        setCollapsedReply={setCollapsedReply}
       />
       {!collapsed && (
         <div style={{ marginLeft: `${depth * 2}rem` }}>
@@ -142,21 +143,25 @@ const Comment = ({ comment, depth }) => {
   )
 }
 
-const ReplyToComment = ({ commentId, setReplies, collapsedReply }) => {
+const ReplyToComment = ({
+  commentId,
+  setReplies,
+  collapsedReply,
+  setCollapsedReply,
+}) => {
   const { user } = useSelector((state) => ({ ...state.auth }))
   const [text, setText] = useState('')
-  const [show, setShow] = useState(true)
 
   const replyClickHandler = async () => {
     try {
       const res = await reply({ text }, commentId)
       setReplies((prevReplies) => [res.data, ...prevReplies])
-      setShow(!show)
+      setCollapsedReply(!collapsedReply)
     } catch (err) {}
   }
   return (
     <div>
-      {user?.result?._id && collapsedReply && show ? (
+      {user?.result?._id && collapsedReply ? (
         <div className='reply'>
           <input
             type='text'
