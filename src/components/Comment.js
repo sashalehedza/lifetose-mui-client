@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react'
 import Moment from 'react-moment'
 import { useSelector } from 'react-redux'
 import Button from '@mui/material/Button'
+import IconButton from '@mui/material/IconButton'
+
+import { FaEdit, FaReply, FaTrash } from 'react-icons/fa'
 
 import { getAllReply, reply, updateComment } from '../redux/api'
 import Spinner from './Spinner'
@@ -89,13 +92,23 @@ const Comment = ({ comment, depth }) => {
           )}
           <div className='comment__links'>
             {user?.result?._id === data?.commentedBy?._id && (
-              <Button
+              <IconButton
                 variant='contained'
                 color='success'
-                onClick={() => setEditComment(true)}
+                onClick={() => setEditComment(!editComment)}
               >
-                Edit
-              </Button>
+                <FaEdit />
+              </IconButton>
+            )}
+
+            {user?.result?._id && (
+              <IconButton
+                variant='contained'
+                color='error'
+                onClick={() => setCollapsedReply(!collapsedReply)}
+              >
+                <FaReply />
+              </IconButton>
             )}
             {collapsed ? (
               <Button variant='contained' onClick={replyClickHandler}>
@@ -108,15 +121,6 @@ const Comment = ({ comment, depth }) => {
                 onClick={() => setCollapsed(true)}
               >
                 Hide Replies
-              </Button>
-            )}
-            {user?.result?._id && (
-              <Button
-                variant='contained'
-                color='error'
-                onClick={() => setCollapsedReply(!collapsedReply)}
-              >
-                Reply
               </Button>
             )}
           </div>
@@ -176,7 +180,7 @@ const ReplyToComment = ({
             disabled={!text}
             onClick={replyClickHandler}
           >
-            Submit
+            Reply
           </button>
         </div>
       ) : (
