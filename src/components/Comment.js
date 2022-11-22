@@ -9,6 +9,7 @@ import { VscTriangleUp, VscTriangleDown } from 'react-icons/vsc'
 
 import { getAllReply, reply, updateComment } from '../redux/api'
 import Spinner from './Spinner'
+import { Typography } from '@mui/material'
 
 const Comment = ({ comment, depth }) => {
   const { user } = useSelector((state) => ({ ...state.auth }))
@@ -206,15 +207,23 @@ const Replies = ({ commentId, loggedInUser, depth, replies, setReplies }) => {
   return (
     <ul className='comments__list'>
       {!loading ? (
-        replies.map((comment) => (
-          <li key={comment._id} className='comments__item'>
-            <Comment
-              comment={comment.replyComment}
-              loggedInUser={loggedInUser}
-              depth={depth + 1}
-            />
-          </li>
-        ))
+        <>
+          {replies.length !== 0 ? (
+            <>
+              {replies.map((comment) => (
+                <li key={comment._id} className='comments__item'>
+                  <Comment
+                    comment={comment.replyComment}
+                    loggedInUser={loggedInUser}
+                    depth={depth + 1}
+                  />
+                </li>
+              ))}
+            </>
+          ) : (
+            <Typography>Replies not found</Typography>
+          )}
+        </>
       ) : (
         <Spinner />
       )}
