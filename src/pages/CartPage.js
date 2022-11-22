@@ -160,7 +160,6 @@ function CartPage() {
                   <Typography component='div' variant='h5'>
                     {cart.title}
                   </Typography>
-
                   <Box
                     sx={{
                       display: 'flex',

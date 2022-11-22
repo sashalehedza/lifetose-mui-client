@@ -123,7 +123,16 @@ function AddEditPost() {
       ) : (
         <>
           {loading ? (
-            <Spinner />
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: '200px',
+              }}
+            >
+              <Spinner />
+            </Box>
           ) : (
             <>
               <Divider sx={{ marginTop: '20px', marginBottom: '20px' }}>

@@ -53,7 +53,16 @@ function SinglePost() {
       ) : (
         <>
           {!post ? (
-            <Spinner />
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: '200px',
+              }}
+            >
+              <Spinner />
+            </Box>
           ) : (
             <Box>
               <Divider sx={{ marginTop: '20px', marginBottom: '20px' }}>

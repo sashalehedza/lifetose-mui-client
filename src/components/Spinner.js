@@ -5,7 +5,7 @@ import Box from '@mui/material/Box'
 function Spinner() {
   return (
     <Box
-      style={{
+      sx={{
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
