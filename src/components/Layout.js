@@ -6,7 +6,7 @@ function Layout({ children }) {
   return (
     <>
       <Header />
-      <Box>{children}</Box>
+      <Box sx={{ mb: '50px' }}>{children}</Box>
     </>
   )
 }
