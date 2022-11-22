@@ -54,15 +54,6 @@ function CartPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [carts, couponname])
 
-  // useEffect(() => {
-  //   const fetchPost = async () => {
-  //     const coupons = await getAllCoupons()
-  //     setCoupons(coupons.data)
-  //   }
-  //   fetchPost()
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [])
-
   const checkedMethodValue = radioValues[checkedShipping - 1].value
   const checkedMethodText = radioValues[checkedShipping - 1].text
 
@@ -83,7 +74,6 @@ function CartPage() {
         item.discount,
         item.count
       ),
-      // count: item.count,
       count:
         item.saleCount !== 0 && item.saleDiscount !== 0
           ? item.count +
@@ -108,7 +98,6 @@ function CartPage() {
     if (!couponname) {
       try {
         let findCoupon = await getCouponByName({ name: couponState })
-        console.log(findCoupon)
         if (findCoupon) {
           dispatch(
             addAppliedCoupon({
