@@ -127,6 +127,7 @@ const Comment = ({ comment, depth }) => {
         setReplies={setReplies}
         collapsedReply={collapsedReply}
         setCollapsedReply={setCollapsedReply}
+        setCollapsed={setCollapsed}
       />
       {!collapsed && (
         <div style={{ marginLeft: `${depth * 2}rem` }}>
@@ -148,6 +149,7 @@ const ReplyToComment = ({
   setReplies,
   collapsedReply,
   setCollapsedReply,
+  setCollapsed,
 }) => {
   const { user } = useSelector((state) => ({ ...state.auth }))
   const [text, setText] = useState('')
@@ -157,6 +159,7 @@ const ReplyToComment = ({
       const res = await reply({ text }, commentId)
       setReplies((prevReplies) => [res.data, ...prevReplies])
       setCollapsedReply(!collapsedReply)
+      setCollapsed(false)
     } catch (err) {}
   }
   return (
