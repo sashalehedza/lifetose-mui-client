@@ -4,7 +4,8 @@ import { useSelector } from 'react-redux'
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
 
-import { FaEdit, FaReply, FaTrash } from 'react-icons/fa'
+import { FaEdit, FaReply } from 'react-icons/fa'
+import { VscTriangleUp, VscTriangleDown } from 'react-icons/vsc'
 
 import { getAllReply, reply, updateComment } from '../redux/api'
 import Spinner from './Spinner'
@@ -111,16 +112,13 @@ const Comment = ({ comment, depth }) => {
               </IconButton>
             )}
             {collapsed ? (
-              <Button variant='contained' onClick={replyClickHandler}>
-                Open Replies
+              <Button onClick={replyClickHandler}>
+                <VscTriangleUp />
+                replies
               </Button>
             ) : (
-              <Button
-                variant='contained'
-                color='warning'
-                onClick={() => setCollapsed(true)}
-              >
-                Hide Replies
+              <Button onClick={() => setCollapsed(true)}>
+                <VscTriangleDown /> replies
               </Button>
             )}
           </div>
