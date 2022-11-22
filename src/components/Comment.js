@@ -174,13 +174,13 @@ const ReplyToComment = ({
             className='form__control'
             onChange={(e) => setText(e.target.value)}
           />
-          <button
-            className='btn reply__btn'
+          <Button
+            variant='contained'
             disabled={!text}
             onClick={replyClickHandler}
           >
             Reply
-          </button>
+          </Button>
         </div>
       ) : (
         <></>
