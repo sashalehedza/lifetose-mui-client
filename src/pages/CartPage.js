@@ -21,7 +21,7 @@ import {
   createOrder,
 } from '../redux/features/orderSlice'
 import { discountCalc, subtotalCalc } from '../utility'
-import { getAllCoupons } from '../redux/api'
+import { getCouponByName } from '../redux/api'
 
 const radioValues = [
   { id: 1, text: 'Flat rate $10', value: 10 },
@@ -40,7 +40,6 @@ function CartPage() {
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const [coupons, setCoupons] = useState(null)
   const [couponState, setCouponState] = useState('')
   const [couponErrorState, setCouponErrorState] = useState('')
 
@@ -55,14 +54,14 @@ function CartPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [carts, couponname])
 
-  useEffect(() => {
-    const fetchPost = async () => {
-      const coupons = await getAllCoupons()
-      setCoupons(coupons.data)
-    }
-    fetchPost()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  // useEffect(() => {
+  //   const fetchPost = async () => {
+  //     const coupons = await getAllCoupons()
+  //     setCoupons(coupons.data)
+  //   }
+  //   fetchPost()
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [])
 
   const checkedMethodValue = radioValues[checkedShipping - 1].value
   const checkedMethodText = radioValues[checkedShipping - 1].text
@@ -105,29 +104,28 @@ function CartPage() {
     dispatch(deleteAppliedCoupon())
   }
 
-  function applyCouponFunc() {
-    if (!couponname && coupons) {
-      let findCoupon = coupons.find((item) => item.name === couponState)
-      console.log(findCoupon)
-      if (findCoupon) {
-        dispatch(
-          addAppliedCoupon({
-            name: findCoupon.name,
-            percent: findCoupon.percent,
-          })
-        )
-        setCouponState('')
-        setCouponErrorState('')
-      } else {
+  async function applyCouponFunc() {
+    if (!couponname) {
+      try {
+        let findCoupon = await getCouponByName({ name: couponState })
+        console.log(findCoupon)
+        if (findCoupon) {
+          dispatch(
+            addAppliedCoupon({
+              name: findCoupon.data.name,
+              percent: findCoupon.data.percent,
+            })
+          )
+          setCouponState('')
+          setCouponErrorState('')
+        }
+      } catch (err) {
         setCouponState('')
         setCouponErrorState('no coupon found')
       }
     } else if (couponname) {
       setCouponState('')
       setCouponErrorState('You already applied a coupon')
-    } else if (!couponname) {
-      setCouponState('')
-      setCouponErrorState('Something went wrong')
     }
   }
 

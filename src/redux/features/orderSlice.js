@@ -123,6 +123,19 @@ export const deleteCoupon = createAsyncThunk(
   }
 )
 
+// export const getCouponByName = createAsyncThunk(
+//   'order/getCouponByName',
+//   async (name, { rejectWithValue }) => {
+//     try {
+//       const response = await api.getCouponByName(name)
+//       return response.data
+//     } catch (err) {
+//       toast.error(extractErrorMessage(err))
+//       return rejectWithValue(extractErrorMessage(err))
+//     }
+//   }
+// )
+
 const orderSlice = createSlice({
   name: 'order',
   initialState: {

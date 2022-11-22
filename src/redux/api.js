@@ -61,3 +61,4 @@ export const updateCoupon = (updatedCouponData, id) =>
   API.patch(`/coupons/${id}`, updatedCouponData)
 export const getAllCoupons = () => API.get('/coupons')
 export const getCoupon = (id) => API.get(`/coupons/${id}`)
+export const getCouponByName = (name) => API.post(`/coupons/search`, name)
