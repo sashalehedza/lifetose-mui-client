@@ -38,6 +38,7 @@ export const likePost = (id) => API.patch(`/post/like/${id}`)
 export const getPostComments = (id) => API.get(`/comments/${id}`)
 export const createComment = (id, commentData) =>
   API.post(`/comments/${id}`, commentData)
+export const deleteComment = (id) => API.delete(`/comments/${id}`)
 export const updateComment = (commentData, id) =>
   API.put(`/comments/${id}`, commentData)
 export const reply = (commentData, commentId) =>

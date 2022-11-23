@@ -36,7 +36,12 @@ const Comments = () => {
                 <ul className='comments__list'>
                   {comments.map((comment) => (
                     <li className='comments__item' key={comment._id}>
-                      <Comment comment={comment} depth={1} />
+                      <Comment
+                        comment={comment}
+                        depth={1}
+                        comments={comments}
+                        setComments={setComments}
+                      />
                     </li>
                   ))}
                 </ul>

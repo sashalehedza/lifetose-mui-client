@@ -4,14 +4,14 @@ import { useSelector } from 'react-redux'
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
 
-import { FaEdit, FaReply } from 'react-icons/fa'
+import { FaEdit, FaReply, FaTrash } from 'react-icons/fa'
 import { VscTriangleUp, VscTriangleDown } from 'react-icons/vsc'
 
-import { getAllReply, reply, updateComment } from '../redux/api'
+import { deleteComment, getAllReply, reply, updateComment } from '../redux/api'
 import Spinner from './Spinner'
 import { Typography } from '@mui/material'
 
-const Comment = ({ comment, depth }) => {
+const Comment = ({ comment, depth, comments, setComments }) => {
   const { user } = useSelector((state) => ({ ...state.auth }))
   const [collapsed, setCollapsed] = useState(true)
   const [collapsedReply, setCollapsedReply] = useState(false)
@@ -36,6 +36,11 @@ const Comment = ({ comment, depth }) => {
       setData(res.data)
       setEditComment(false)
     } catch (err) {}
+  }
+
+  const handleDelete = (id) => {
+    deleteComment(id)
+    setComments(comments.filter((item) => String(item._id) !== String(id)))
   }
 
   const getCommentAudit = () => {
@@ -100,6 +105,15 @@ const Comment = ({ comment, depth }) => {
                 onClick={() => setEditComment(!editComment)}
               >
                 <FaEdit />
+              </IconButton>
+            )}
+            {user?.result?._id === data?.commentedBy?._id && (
+              <IconButton
+                variant='contained'
+                color='error'
+                onClick={() => handleDelete(data._id)}
+              >
+                <FaTrash />
               </IconButton>
             )}
 
