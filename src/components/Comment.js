@@ -112,25 +112,30 @@ const Comment = ({ comment, depth }) => {
                 <FaReply />
               </IconButton>
             )}
-            {collapsed ? (
-              <Button onClick={replyClickHandler}>
-                <VscTriangleUp />
-                replies
-              </Button>
-            ) : (
-              <Button onClick={() => setCollapsed(true)}>
-                <VscTriangleDown /> replies
-              </Button>
-            )}
+            {data.childrenCount !== 0 ? (
+              collapsed ? (
+                <Button onClick={replyClickHandler}>
+                  <VscTriangleUp />
+                  {data.childrenCount} replies
+                </Button>
+              ) : (
+                <Button onClick={() => setCollapsed(true)}>
+                  <VscTriangleDown /> {data.childrenCount} replies
+                </Button>
+              )
+            ) : null}
           </div>
         </div>
       )}
+
       <ReplyToComment
         commentId={data?._id}
         setReplies={setReplies}
         collapsedReply={collapsedReply}
         setCollapsedReply={setCollapsedReply}
         setCollapsed={setCollapsed}
+        setData={setData}
+        data={data}
       />
       {!collapsed && (
         <div style={{ marginLeft: `${depth * 2}rem` }}>
@@ -153,6 +158,8 @@ const ReplyToComment = ({
   collapsedReply,
   setCollapsedReply,
   setCollapsed,
+  setData,
+  data,
 }) => {
   const { user } = useSelector((state) => ({ ...state.auth }))
   const [text, setText] = useState('')
@@ -162,6 +169,7 @@ const ReplyToComment = ({
       const res = await reply({ text }, commentId)
       setReplies((prevReplies) => [res.data, ...prevReplies])
       setCollapsedReply(!collapsedReply)
+      setData({ ...data, childrenCount: data.childrenCount + 1 })
       setCollapsed(false)
     } catch (err) {}
   }
