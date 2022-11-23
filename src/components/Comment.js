@@ -120,7 +120,7 @@ const Comment = ({ comment, depth, comments, setComments }) => {
             {user?.result?._id && (
               <IconButton
                 variant='contained'
-                color='error'
+                color='primary'
                 onClick={() => setCollapsedReply(!collapsedReply)}
               >
                 <FaReply />
