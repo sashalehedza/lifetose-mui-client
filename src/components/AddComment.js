@@ -22,30 +22,32 @@ const AddComment = ({ setComments }) => {
   return (
     <Box sx={{ width: '100%', m: 0, p: 2 }}>
       {user?.result?._id ? (
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'center',
-          }}
-        >
-          <TextareaAutosize
-            style={{ width: '100%' }}
-            minRows={3}
-            placeholder='Input comment text...'
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-          />
-          <Rate rating={rating} onRating={(rate) => setRating(rate)} />
-          <Button
-            variant='contained'
-            color='primary'
-            disabled={!text}
-            onClick={addCommentHandler}
+        <>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'center',
+            }}
           >
-            Add Comment
-          </Button>
-        </Box>
+            <TextareaAutosize
+              style={{ width: '100%' }}
+              minRows={3}
+              placeholder='Input comment text...'
+              value={text}
+              onChange={(e) => setText(e.target.value)}
+            />
+            <Button
+              variant='contained'
+              color='primary'
+              disabled={!text}
+              onClick={addCommentHandler}
+            >
+              Add Comment
+            </Button>
+          </Box>
+          <Rate rating={rating} onRating={(rate) => setRating(rate)} />
+        </>
       ) : (
         <Box>To comment you need to be logged in!</Box>
       )}

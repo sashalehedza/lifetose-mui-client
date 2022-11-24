@@ -9,6 +9,7 @@ import { FaEdit, FaTrash } from 'react-icons/fa'
 import { deleteComment, updateComment } from '../redux/api'
 import { Box, Paper, TextareaAutosize, Typography } from '@mui/material'
 import Rate from './Rate'
+import RateStatic from './RateStatic'
 
 const Comment = ({ comment, comments, setComments }) => {
   const { user } = useSelector((state) => ({ ...state.auth }))
@@ -110,13 +111,7 @@ const Comment = ({ comment, comments, setComments }) => {
             </Box>
           )}
           <Box>
-            {user?.result?._id && (
-              <Rate
-                rating={updatedRating}
-                onRating={(rate) => setUpdatedRating(rate)}
-              />
-            )}
-            <p>Rating - {updatedRating}</p>
+            <RateStatic rating={comment.rating} />
             {user?.result?._id === comment?.commentedBy?._id && (
               <IconButton
                 variant='contained'
