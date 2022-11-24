@@ -38,7 +38,6 @@ const Comments = () => {
                     <li className='comments__item' key={comment._id}>
                       <Comment
                         comment={comment}
-                        depth={1}
                         comments={comments}
                         setComments={setComments}
                       />

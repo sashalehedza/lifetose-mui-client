@@ -4,72 +4,73 @@ import { useSelector } from 'react-redux'
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
 
-import { FaEdit, FaReply, FaTrash } from 'react-icons/fa'
+import { FaEdit, FaTrash } from 'react-icons/fa'
 import { VscTriangleUp, VscTriangleDown } from 'react-icons/vsc'
 
-import { deleteComment, getAllReply, reply, updateComment } from '../redux/api'
+import { deleteComment, updateComment } from '../redux/api'
 import Spinner from './Spinner'
 import { Typography } from '@mui/material'
 
-const Comment = ({ comment, depth, comments, setComments }) => {
+const Comment = ({ comment, comments, setComments }) => {
   const { user } = useSelector((state) => ({ ...state.auth }))
-  const [collapsed, setCollapsed] = useState(true)
-  const [collapsedReply, setCollapsedReply] = useState(false)
-  const [replies, setReplies] = useState([])
+
   const [editComment, setEditComment] = useState(false)
-  const [data, setData] = useState(null)
   const [updatedText, setUpdatedText] = useState('')
 
   useEffect(() => {
-    setData(comment)
     setUpdatedText(comment.text)
   }, [comment])
 
-  const replyClickHandler = () => {
-    setCollapsed(false)
-  }
-
   const editCommentHandler = async () => {
     try {
-      const res = await updateComment({ text: updatedText }, data._id)
-      setUpdatedText(res.data.text)
-      setData(res.data)
+      const res = await updateComment(comment._id, { text: updatedText })
+      setComments((prevState) =>
+        [...prevState].map((item) =>
+          String(item._id) === String(comment._id) ? res.data : item
+        )
+      )
       setEditComment(false)
-    } catch (err) {}
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   const handleDelete = (id) => {
     deleteComment(id)
-    setComments(comments.filter((item) => String(item._id) !== String(id)))
+    if (window.confirm('Are you sure you want to delete this comment?')) {
+      if (comments) {
+        setComments(comments.filter((item) => String(item._id) !== String(id)))
+      }
+    }
   }
 
   const getCommentAudit = () => {
-    if (data.createdAt === data.updatedAt) {
+    if (comment.createdAt === comment.updatedAt) {
       return (
         <span>
           <span>Created At </span>{' '}
-          <Moment format='DD-MM-YYYY HH:mm'>{data.createdAt}</Moment>
+          <Moment format='DD-MM-YYYY HH:mm'>{comment.createdAt}</Moment>
         </span>
       )
     } else
       return (
         <span>
           <span>Last Updated </span>{' '}
-          <Moment format='DD-MM-YYYY HH:mm'>{data.updatedAt}</Moment>
+          <Moment format='DD-MM-YYYY HH:mm'>{comment.updatedAt}</Moment>
         </span>
       )
   }
 
   return (
     <>
-      {data && (
+      {comment && (
         <div className='comment'>
           <div className='comment__top'>
-            <h2 className='comment__by'>{data?.commentedBy?.name}</h2>
+            <h2 className='comment__by'>{comment?.commentedBy?.name}</h2>
             <span className='comment__at'>{getCommentAudit()}</span>
           </div>
           {!editComment ? (
-            <p className='comment__text'>{data.text}</p>
+            <p className='comment__text'>{comment.text}</p>
           ) : (
             <div className='edit-comment'>
               <input
@@ -81,7 +82,7 @@ const Comment = ({ comment, depth, comments, setComments }) => {
               <Button
                 variant='contained'
                 color='secondary'
-                disabled={updatedText === data.text}
+                disabled={updatedText === comment.text}
                 onClick={editCommentHandler}
               >
                 Update
@@ -90,15 +91,16 @@ const Comment = ({ comment, depth, comments, setComments }) => {
                 variant='contained'
                 onClick={() => {
                   setEditComment(false)
-                  setUpdatedText(data.text)
+                  setUpdatedText(comment.text)
                 }}
               >
                 Cancel
               </Button>
             </div>
           )}
+          <div>{comment._id}</div>
           <div className='comment__links'>
-            {user?.result?._id === data?.commentedBy?._id && (
+            {user?.result?._id === comment?.commentedBy?._id && (
               <IconButton
                 variant='contained'
                 color='success'
@@ -107,149 +109,19 @@ const Comment = ({ comment, depth, comments, setComments }) => {
                 <FaEdit />
               </IconButton>
             )}
-            {user?.result?._id === data?.commentedBy?._id && (
+            {user?.result?._id === comment?.commentedBy?._id && (
               <IconButton
                 variant='contained'
                 color='error'
-                onClick={() => handleDelete(data._id)}
+                onClick={() => handleDelete(comment._id)}
               >
                 <FaTrash />
               </IconButton>
             )}
-
-            {user?.result?._id && (
-              <IconButton
-                variant='contained'
-                color='primary'
-                onClick={() => setCollapsedReply(!collapsedReply)}
-              >
-                <FaReply />
-              </IconButton>
-            )}
-            {data.childrenCount !== 0 ? (
-              collapsed ? (
-                <Button onClick={replyClickHandler}>
-                  <VscTriangleUp />
-                  {data.childrenCount} replies
-                </Button>
-              ) : (
-                <Button onClick={() => setCollapsed(true)}>
-                  <VscTriangleDown /> {data.childrenCount} replies
-                </Button>
-              )
-            ) : null}
           </div>
         </div>
       )}
-
-      <ReplyToComment
-        commentId={data?._id}
-        setReplies={setReplies}
-        collapsedReply={collapsedReply}
-        setCollapsedReply={setCollapsedReply}
-        setCollapsed={setCollapsed}
-        setData={setData}
-        data={data}
-      />
-      {!collapsed && (
-        <div style={{ marginLeft: `${depth * 2}rem` }}>
-          <Replies
-            commentId={data?._id}
-            loggedInUser={!!user?.result?._id}
-            depth={depth}
-            replies={replies}
-            setReplies={setReplies}
-          />
-        </div>
-      )}
     </>
-  )
-}
-
-const ReplyToComment = ({
-  commentId,
-  setReplies,
-  collapsedReply,
-  setCollapsedReply,
-  setCollapsed,
-  setData,
-  data,
-}) => {
-  const { user } = useSelector((state) => ({ ...state.auth }))
-  const [text, setText] = useState('')
-
-  const replyClickHandler = async () => {
-    try {
-      const res = await reply({ text }, commentId)
-      setReplies((prevReplies) => [res.data, ...prevReplies])
-      setCollapsedReply(!collapsedReply)
-      setData({ ...data, childrenCount: data.childrenCount + 1 })
-      setCollapsed(false)
-    } catch (err) {}
-  }
-  return (
-    <div>
-      {user?.result?._id && collapsedReply ? (
-        <div className='reply'>
-          <input
-            type='text'
-            className='form__control'
-            onChange={(e) => setText(e.target.value)}
-          />
-          <Button
-            variant='contained'
-            disabled={!text}
-            onClick={replyClickHandler}
-          >
-            Reply
-          </Button>
-        </div>
-      ) : (
-        <></>
-      )}
-    </div>
-  )
-}
-
-const Replies = ({ commentId, loggedInUser, depth, replies, setReplies }) => {
-  const [loading, setLoading] = useState(true)
-  useEffect(() => {
-    const fetchAllReplies = async () => {
-      try {
-        const res = await getAllReply(commentId)
-        setLoading(false)
-        setReplies(res.data)
-      } catch (err) {
-        setLoading(false)
-      }
-    }
-
-    if (commentId) fetchAllReplies()
-  }, [commentId, setReplies])
-  return (
-    <ul className='comments__list'>
-      {!loading ? (
-        <>
-          {replies.length !== 0 ? (
-            <>
-              {replies.map((comment) => (
-                <li key={comment._id} className='comments__item'>
-                  <Comment
-                    comment={comment.replyComment}
-                    loggedInUser={loggedInUser}
-                    depth={depth + 1}
-                  />
-                </li>
-              ))}
-            </>
-          ) : (
-            <Typography>Replies not found</Typography>
-          )}
-        </>
-      ) : (
-        <Spinner />
-      )}
-    </ul>
   )
 }
 

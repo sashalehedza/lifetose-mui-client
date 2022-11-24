@@ -39,12 +39,8 @@ export const getPostComments = (id) => API.get(`/comments/${id}`)
 export const createComment = (id, commentData) =>
   API.post(`/comments/${id}`, commentData)
 export const deleteComment = (id) => API.delete(`/comments/${id}`)
-export const updateComment = (commentData, id) =>
+export const updateComment = (id, commentData) =>
   API.put(`/comments/${id}`, commentData)
-export const reply = (commentData, commentId) =>
-  API.post(`/comments/${commentId}/reply`, commentData)
-export const getAllReply = (commentId) =>
-  API.get(`/comments/${commentId}/reply`)
 
 export const createOrder = (orderData) => API.post('/orders/create', orderData)
 export const getOrders = () => API.get('/orders')
