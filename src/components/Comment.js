@@ -98,7 +98,6 @@ const Comment = ({ comment, comments, setComments }) => {
               </Button>
             </div>
           )}
-          <div>{comment._id}</div>
           <div className='comment__links'>
             {user?.result?._id === comment?.commentedBy?._id && (
               <IconButton
