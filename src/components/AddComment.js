@@ -4,15 +4,17 @@ import { useParams } from 'react-router-dom'
 import { createComment } from '../redux/api'
 import { useSelector } from 'react-redux'
 import { Box, Button, TextareaAutosize } from '@mui/material'
+import Rate from './Rate'
 
 const AddComment = ({ setComments }) => {
   const { user } = useSelector((state) => ({ ...state.auth }))
   const { id } = useParams()
   const [text, setText] = useState('')
+  const [rating, setRating] = useState(0)
 
   const addCommentHandler = async () => {
     try {
-      const res = await createComment(id, { text })
+      const res = await createComment(id, { text, rating })
       setComments((prevComments) => [res.data, ...prevComments])
       setText('')
     } catch (err) {}
@@ -34,6 +36,7 @@ const AddComment = ({ setComments }) => {
             value={text}
             onChange={(e) => setText(e.target.value)}
           />
+          <Rate rating={rating} onRating={(rate) => setRating(rate)} />
           <Button
             variant='contained'
             color='primary'

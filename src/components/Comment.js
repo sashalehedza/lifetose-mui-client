@@ -8,25 +8,32 @@ import { FaEdit, FaTrash } from 'react-icons/fa'
 
 import { deleteComment, updateComment } from '../redux/api'
 import { Box, Paper, TextareaAutosize, Typography } from '@mui/material'
+import Rate from './Rate'
 
 const Comment = ({ comment, comments, setComments }) => {
   const { user } = useSelector((state) => ({ ...state.auth }))
 
   const [editComment, setEditComment] = useState(false)
   const [updatedText, setUpdatedText] = useState('')
+  const [updatedRating, setUpdatedRating] = useState(0)
 
   useEffect(() => {
     setUpdatedText(comment.text)
+    setUpdatedRating(comment.rating)
   }, [comment])
 
   const editCommentHandler = async () => {
     try {
-      const res = await updateComment(comment._id, { text: updatedText })
+      const res = await updateComment(comment._id, {
+        text: updatedText,
+        rating: updatedRating,
+      })
       setComments((prevState) =>
         [...prevState].map((item) =>
           String(item._id) === String(comment._id) ? res.data : item
         )
       )
+      setUpdatedRating(0)
       setEditComment(false)
     } catch (err) {
       console.log(err)
@@ -79,11 +86,18 @@ const Comment = ({ comment, comments, setComments }) => {
               <Button
                 variant='contained'
                 color='secondary'
-                disabled={updatedText === comment.text}
+                disabled={
+                  updatedText === comment.text &&
+                  updatedRating === comment.rating
+                }
                 onClick={editCommentHandler}
               >
                 Update
               </Button>
+              <Rate
+                rating={updatedRating}
+                onRating={(rate) => setUpdatedRating(rate)}
+              />
               <Button
                 variant='contained'
                 onClick={() => {
@@ -96,6 +110,13 @@ const Comment = ({ comment, comments, setComments }) => {
             </Box>
           )}
           <Box>
+            {user?.result?._id && (
+              <Rate
+                rating={updatedRating}
+                onRating={(rate) => setUpdatedRating(rate)}
+              />
+            )}
+            <p>Rating - {updatedRating}</p>
             {user?.result?._id === comment?.commentedBy?._id && (
               <IconButton
                 variant='contained'
