@@ -5,11 +5,9 @@ import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
 
 import { FaEdit, FaTrash } from 'react-icons/fa'
-import { VscTriangleUp, VscTriangleDown } from 'react-icons/vsc'
 
 import { deleteComment, updateComment } from '../redux/api'
-import Spinner from './Spinner'
-import { Typography } from '@mui/material'
+import { Box, Paper, TextareaAutosize, Typography } from '@mui/material'
 
 const Comment = ({ comment, comments, setComments }) => {
   const { user } = useSelector((state) => ({ ...state.auth }))
@@ -47,35 +45,34 @@ const Comment = ({ comment, comments, setComments }) => {
   const getCommentAudit = () => {
     if (comment.createdAt === comment.updatedAt) {
       return (
-        <span>
-          <span>Created At </span>{' '}
+        <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+          <Box>Created At </Box>{' '}
           <Moment format='DD-MM-YYYY HH:mm'>{comment.createdAt}</Moment>
-        </span>
+        </Box>
       )
     } else
       return (
-        <span>
-          <span>Last Updated </span>{' '}
+        <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+          <Box>Last Updated </Box>{' '}
           <Moment format='DD-MM-YYYY HH:mm'>{comment.updatedAt}</Moment>
-        </span>
+        </Box>
       )
   }
 
   return (
     <>
       {comment && (
-        <div className='comment'>
-          <div className='comment__top'>
-            <h2 className='comment__by'>{comment?.commentedBy?.name}</h2>
-            <span className='comment__at'>{getCommentAudit()}</span>
-          </div>
+        <Paper sx={{ width: '100%' }}>
+          <Box>
+            <Typography variant='h5'>{comment?.commentedBy?.name}</Typography>
+            <Box>{getCommentAudit()}</Box>
+          </Box>
           {!editComment ? (
-            <p className='comment__text'>{comment.text}</p>
+            <Typography>{comment.text}</Typography>
           ) : (
-            <div className='edit-comment'>
-              <input
+            <Box>
+              <TextareaAutosize
                 type='text'
-                className='form__control'
                 value={updatedText}
                 onChange={(e) => setUpdatedText(e.target.value)}
               />
@@ -96,9 +93,9 @@ const Comment = ({ comment, comments, setComments }) => {
               >
                 Cancel
               </Button>
-            </div>
+            </Box>
           )}
-          <div className='comment__links'>
+          <Box>
             {user?.result?._id === comment?.commentedBy?._id && (
               <IconButton
                 variant='contained'
@@ -117,8 +114,8 @@ const Comment = ({ comment, comments, setComments }) => {
                 <FaTrash />
               </IconButton>
             )}
-          </div>
-        </div>
+          </Box>
+        </Paper>
       )}
     </>
   )

@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 
 import { createComment } from '../redux/api'
 import { useSelector } from 'react-redux'
+import { Box, Button, TextareaAutosize } from '@mui/material'
 
 const AddComment = ({ setComments }) => {
   const { user } = useSelector((state) => ({ ...state.auth }))
@@ -17,30 +18,35 @@ const AddComment = ({ setComments }) => {
     } catch (err) {}
   }
   return (
-    <div className='paper addcomment__paper'>
+    <Box sx={{ width: '100%', mt: 2, pb: 2 }}>
       {user?.result?._id ? (
-        <div className='addcomment'>
-          <label htmlFor='addComment' className='addcomment__label'>
-            Add Comment
-          </label>
-          <textarea
-            id='addComment'
-            className='addcomment__control'
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+          }}
+        >
+          <TextareaAutosize
+            style={{ width: '100%' }}
+            minRows={3}
+            placeholder='Input comment text...'
             value={text}
             onChange={(e) => setText(e.target.value)}
           />
-          <button
-            className='btn addcomment__btn'
+          <Button
+            variant='contained'
+            color='primary'
             disabled={!text}
             onClick={addCommentHandler}
           >
             Add Comment
-          </button>
-        </div>
+          </Button>
+        </Box>
       ) : (
-        <div>To comment you need to be logged in!</div>
+        <Box>To comment you need to be logged in!</Box>
       )}
-    </div>
+    </Box>
   )
 }
 

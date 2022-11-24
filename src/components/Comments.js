@@ -8,6 +8,7 @@ import { getPostComments } from '../redux/api'
 import Spinner from './Spinner'
 
 import { Box } from '@mui/system'
+import { List, ListItem, Paper } from '@mui/material'
 
 const Comments = () => {
   const { id } = useParams()
@@ -25,32 +26,32 @@ const Comments = () => {
 
   return (
     <>
-      <div className='main-content'>
+      <Paper>
         <AddComment setComments={setComments} />
-        <div className='paper'>
+        <Box sx={{ width: '100%', mt: 2 }}>
           {!comments ? (
             <Spinner />
           ) : (
             <>
               {comments.length !== 0 ? (
-                <ul className='comments__list'>
+                <List>
                   {comments.map((comment) => (
-                    <li className='comments__item' key={comment._id}>
+                    <ListItem key={comment._id}>
                       <Comment
                         comment={comment}
                         comments={comments}
                         setComments={setComments}
                       />
-                    </li>
+                    </ListItem>
                   ))}
-                </ul>
+                </List>
               ) : (
                 <Box>No comments here yet</Box>
               )}
             </>
           )}
-        </div>
-      </div>
+        </Box>
+      </Paper>
     </>
   )
 }
