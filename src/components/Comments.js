@@ -26,17 +26,17 @@ const Comments = () => {
 
   return (
     <>
-      <Paper>
+      <Paper sx={{ mt: 2, p: 0 }}>
         <AddComment setComments={setComments} />
-        <Box sx={{ width: '100%', mt: 2 }}>
+        <Box sx={{ width: '100%', m: 0, p: 0 }}>
           {!comments ? (
             <Spinner />
           ) : (
             <>
               {comments.length !== 0 ? (
-                <List>
+                <List sx={{ mt: 0, pt: 0 }}>
                   {comments.map((comment) => (
-                    <ListItem key={comment._id}>
+                    <ListItem sx={{ mb: 0 }} key={comment._id}>
                       <Comment
                         comment={comment}
                         comments={comments}

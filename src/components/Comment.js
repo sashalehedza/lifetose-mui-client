@@ -45,24 +45,24 @@ const Comment = ({ comment, comments, setComments }) => {
   const getCommentAudit = () => {
     if (comment.createdAt === comment.updatedAt) {
       return (
-        <Box sx={{ display: 'flex', flexDirection: 'row' }}>
-          <Box>Created At </Box>{' '}
+        <Typography>
+          Created At{' '}
           <Moment format='DD-MM-YYYY HH:mm'>{comment.createdAt}</Moment>
-        </Box>
+        </Typography>
       )
     } else
       return (
-        <Box sx={{ display: 'flex', flexDirection: 'row' }}>
-          <Box>Last Updated </Box>{' '}
+        <Typography>
+          Last Updated{' '}
           <Moment format='DD-MM-YYYY HH:mm'>{comment.updatedAt}</Moment>
-        </Box>
+        </Typography>
       )
   }
 
   return (
     <>
       {comment && (
-        <Paper sx={{ width: '100%' }}>
+        <Paper sx={{ width: '100%', m: 0, p: 0 }}>
           <Box>
             <Typography variant='h5'>{comment?.commentedBy?.name}</Typography>
             <Box>{getCommentAudit()}</Box>

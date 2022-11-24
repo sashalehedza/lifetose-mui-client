@@ -18,7 +18,7 @@ const AddComment = ({ setComments }) => {
     } catch (err) {}
   }
   return (
-    <Box sx={{ width: '100%', mt: 2, pb: 2 }}>
+    <Box sx={{ width: '100%', m: 0, p: 2 }}>
       {user?.result?._id ? (
         <Box
           sx={{
