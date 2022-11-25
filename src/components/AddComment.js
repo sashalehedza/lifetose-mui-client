@@ -1,21 +1,22 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 
-import { createComment } from '../redux/api'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Box, Button, TextareaAutosize } from '@mui/material'
 import Rate from './Rate'
+import { createPostReview } from '../redux/features/postSlice'
 
-const AddComment = ({ setComments }) => {
+const AddComment = () => {
   const { user } = useSelector((state) => ({ ...state.auth }))
+  const dispatch = useDispatch()
   const { id } = useParams()
   const [text, setText] = useState('')
   const [rating, setRating] = useState(0)
 
   const addCommentHandler = async () => {
     try {
-      const res = await createComment(id, { text, rating })
-      setComments((prevComments) => [res.data, ...prevComments])
+      let updatedPostData = { text, rating }
+      dispatch(createPostReview({ id, updatedPostData }))
       setText('')
     } catch (err) {}
   }

@@ -112,7 +112,7 @@ function SinglePost() {
                 </CardContent>
               </Card>
               <Box>
-                <Comments />
+                <Comments comments={post.reviews} />
               </Box>
               {!relatedPosts || !post ? (
                 <Spinner />

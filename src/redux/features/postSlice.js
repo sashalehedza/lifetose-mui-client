@@ -142,6 +142,32 @@ export const getRelatedPosts = createAsyncThunk(
   }
 )
 
+export const createPostReview = createAsyncThunk(
+  'post/createPostReview',
+  async ({ id, updatedPostData }, { rejectWithValue }) => {
+    try {
+      const response = await api.createPostReview(id, updatedPostData)
+      return response.data
+    } catch (err) {
+      toast.error(extractErrorMessage(err))
+      return rejectWithValue(extractErrorMessage(err))
+    }
+  }
+)
+
+export const deletePostReview = createAsyncThunk(
+  'post/deletePostReview',
+  async ({ id, reviewId }, { rejectWithValue }) => {
+    try {
+      const response = await api.deletePostReview(id, reviewId)
+      return response.data
+    } catch (err) {
+      toast.error(extractErrorMessage(err))
+      return rejectWithValue(extractErrorMessage(err))
+    }
+  }
+)
+
 const postSlice = createSlice({
   name: 'post',
   initialState: {
@@ -317,6 +343,32 @@ const postSlice = createSlice({
       state.relatedPosts = action.payload
     },
     [getRelatedPosts.rejected]: (state, action) => {},
+
+    [createPostReview.pending]: (state, action) => {},
+    [createPostReview.fulfilled]: (state, action) => {
+      // const {
+      //   arg: { id },
+      // } = action.meta
+      // if (id) {
+      //   state.posts = state.posts.map((item) =>
+      //     item._id === id ? action.payload : item
+      //   )
+      // }
+      state.post = action.payload
+    },
+    [createPostReview.rejected]: (state, action) => {},
+
+    [deletePostReview.pending]: (state, action) => {},
+    [deletePostReview.fulfilled]: (state, action) => {
+      // const {
+      //   arg: { id },
+      // } = action.meta
+      // if (id) {
+      //   state.posts = state.posts.filter((item) => item._id !== id)
+      // }
+      state.post = action.payload
+    },
+    [deletePostReview.rejected]: (state, action) => {},
   },
 })
 

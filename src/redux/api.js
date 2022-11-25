@@ -34,6 +34,10 @@ export const getPostsBySearch = (searchQuery) =>
 export const getTagPosts = (tag) => API.get(`/post/tag/${tag}`)
 export const getRelatedPosts = (tags) => API.post(`/post/relatedPosts`, tags)
 export const likePost = (id) => API.patch(`/post/like/${id}`)
+export const createPostReview = (id, reviewData) =>
+  API.post(`/post/${id}/reviews`, reviewData)
+export const deletePostReview = (id, reviewId) =>
+  API.post(`/post/${id}/${reviewId}/reviews`)
 
 export const getPostComments = (id) => API.get(`/comments/${id}`)
 export const createComment = (id, commentData) =>

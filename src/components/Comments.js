@@ -1,33 +1,18 @@
-import React, { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import React from 'react'
 
 import Comment from './Comment'
 import AddComment from './AddComment'
-import { getPostComments } from '../redux/api'
 
 import Spinner from './Spinner'
 
 import { Box } from '@mui/system'
 import { List, ListItem, Paper } from '@mui/material'
 
-const Comments = () => {
-  const { id } = useParams()
-  const [comments, setComments] = useState(null)
-
-  useEffect(() => {
-    async function fetchAllComments() {
-      try {
-        const res = await getPostComments(id)
-        setComments(res.data)
-      } catch (err) {}
-    }
-    fetchAllComments()
-  }, [id])
-
+const Comments = ({ comments }) => {
   return (
     <>
       <Paper sx={{ mt: 2, p: 0 }}>
-        <AddComment setComments={setComments} />
+        <AddComment />
         <Box sx={{ width: '100%', m: 0, p: 0 }}>
           {!comments ? (
             <Spinner />
@@ -40,7 +25,7 @@ const Comments = () => {
                       <Comment
                         comment={comment}
                         comments={comments}
-                        setComments={setComments}
+                        key={comment._id}
                       />
                     </ListItem>
                   ))}

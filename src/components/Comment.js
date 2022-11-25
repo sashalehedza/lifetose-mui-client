@@ -1,18 +1,22 @@
 import React, { useState, useEffect } from 'react'
 import Moment from 'react-moment'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
 
 import { FaEdit, FaTrash } from 'react-icons/fa'
 
-import { deleteComment, updateComment } from '../redux/api'
+import { updateComment } from '../redux/api'
 import { Box, Paper, TextareaAutosize, Typography } from '@mui/material'
 import Rate from './Rate'
 import RateStatic from './RateStatic'
+import { deletePostReview } from '../redux/features/postSlice'
+import { useParams } from 'react-router-dom'
 
 const Comment = ({ comment, comments, setComments }) => {
   const { user } = useSelector((state) => ({ ...state.auth }))
+  const dispatch = useDispatch()
+  const { id } = useParams()
 
   const [editComment, setEditComment] = useState(false)
   const [updatedText, setUpdatedText] = useState('')
@@ -41,13 +45,8 @@ const Comment = ({ comment, comments, setComments }) => {
     }
   }
 
-  const handleDelete = (id) => {
-    deleteComment(id)
-    if (window.confirm('Are you sure you want to delete this comment?')) {
-      if (comments) {
-        setComments(comments.filter((item) => String(item._id) !== String(id)))
-      }
-    }
+  const handleDelete = (reviewId) => {
+    dispatch(deletePostReview({ id, reviewId }))
   }
 
   const getCommentAudit = () => {
@@ -72,7 +71,7 @@ const Comment = ({ comment, comments, setComments }) => {
       {comment && (
         <Paper sx={{ width: '100%', m: 0, p: 0 }}>
           <Box>
-            <Typography variant='h5'>{comment?.commentedBy?.name}</Typography>
+            <Typography variant='h5'>{comment.name}</Typography>
             <Box>{getCommentAudit()}</Box>
           </Box>
           {!editComment ? (
@@ -112,7 +111,7 @@ const Comment = ({ comment, comments, setComments }) => {
           )}
           <Box>
             <RateStatic rating={comment.rating} />
-            {user?.result?._id === comment?.commentedBy?._id && (
+            {user?.result?._id === comment.user && (
               <IconButton
                 variant='contained'
                 color='success'
@@ -121,7 +120,7 @@ const Comment = ({ comment, comments, setComments }) => {
                 <FaEdit />
               </IconButton>
             )}
-            {user?.result?._id === comment?.commentedBy?._id && (
+            {user?.result?._id === comment.user && (
               <IconButton
                 variant='contained'
                 color='error'
