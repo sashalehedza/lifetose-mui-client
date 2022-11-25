@@ -41,13 +41,6 @@ export const deletePostReview = (id, reviewId) =>
 export const updatePostReview = (id, reviewId, reviewData) =>
   API.post(`/post/${id}/reviews/update/${reviewId}`, reviewData)
 
-export const getPostComments = (id) => API.get(`/comments/${id}`)
-export const createComment = (id, commentData) =>
-  API.post(`/comments/${id}`, commentData)
-export const deleteComment = (id) => API.delete(`/comments/${id}`)
-export const updateComment = (id, commentData) =>
-  API.put(`/comments/${id}`, commentData)
-
 export const createOrder = (orderData) => API.post('/orders/create', orderData)
 export const getOrders = () => API.get('/orders')
 export const getMyOrders = () => API.get('/orders/userOrders')
