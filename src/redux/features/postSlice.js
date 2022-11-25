@@ -144,9 +144,9 @@ export const getRelatedPosts = createAsyncThunk(
 
 export const createPostReview = createAsyncThunk(
   'post/createPostReview',
-  async ({ id, updatedPostData }, { rejectWithValue }) => {
+  async ({ id, reviewData }, { rejectWithValue }) => {
     try {
-      const response = await api.createPostReview(id, updatedPostData)
+      const response = await api.createPostReview(id, reviewData)
       return response.data
     } catch (err) {
       toast.error(extractErrorMessage(err))
@@ -160,6 +160,19 @@ export const deletePostReview = createAsyncThunk(
   async ({ id, reviewId }, { rejectWithValue }) => {
     try {
       const response = await api.deletePostReview(id, reviewId)
+      return response.data
+    } catch (err) {
+      toast.error(extractErrorMessage(err))
+      return rejectWithValue(extractErrorMessage(err))
+    }
+  }
+)
+
+export const updatePostReview = createAsyncThunk(
+  'post/updatePostReview',
+  async ({ id, reviewId, reviewData }, { rejectWithValue }) => {
+    try {
+      const response = await api.updatePostReview(id, reviewId, reviewData)
       return response.data
     } catch (err) {
       toast.error(extractErrorMessage(err))
@@ -346,29 +359,21 @@ const postSlice = createSlice({
 
     [createPostReview.pending]: (state, action) => {},
     [createPostReview.fulfilled]: (state, action) => {
-      // const {
-      //   arg: { id },
-      // } = action.meta
-      // if (id) {
-      //   state.posts = state.posts.map((item) =>
-      //     item._id === id ? action.payload : item
-      //   )
-      // }
       state.post = action.payload
     },
     [createPostReview.rejected]: (state, action) => {},
 
     [deletePostReview.pending]: (state, action) => {},
     [deletePostReview.fulfilled]: (state, action) => {
-      // const {
-      //   arg: { id },
-      // } = action.meta
-      // if (id) {
-      //   state.posts = state.posts.filter((item) => item._id !== id)
-      // }
       state.post = action.payload
     },
     [deletePostReview.rejected]: (state, action) => {},
+
+    [updatePostReview.pending]: (state, action) => {},
+    [updatePostReview.fulfilled]: (state, action) => {
+      state.post = action.payload
+    },
+    [updatePostReview.rejected]: (state, action) => {},
   },
 })
 

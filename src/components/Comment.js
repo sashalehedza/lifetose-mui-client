@@ -6,14 +6,13 @@ import IconButton from '@mui/material/IconButton'
 
 import { FaEdit, FaTrash } from 'react-icons/fa'
 
-import { updateComment } from '../redux/api'
 import { Box, Paper, TextareaAutosize, Typography } from '@mui/material'
 import Rate from './Rate'
 import RateStatic from './RateStatic'
-import { deletePostReview } from '../redux/features/postSlice'
+import { deletePostReview, updatePostReview } from '../redux/features/postSlice'
 import { useParams } from 'react-router-dom'
 
-const Comment = ({ comment, comments, setComments }) => {
+const Comment = ({ comment }) => {
   const { user } = useSelector((state) => ({ ...state.auth }))
   const dispatch = useDispatch()
   const { id } = useParams()
@@ -29,24 +28,15 @@ const Comment = ({ comment, comments, setComments }) => {
 
   const editCommentHandler = async () => {
     try {
-      const res = await updateComment(comment._id, {
-        text: updatedText,
-        rating: updatedRating,
-      })
-      setComments((prevState) =>
-        [...prevState].map((item) =>
-          String(item._id) === String(comment._id) ? res.data : item
-        )
-      )
+      let reviewData = { text: updatedText, rating: updatedRating }
+      dispatch(updatePostReview({ id, reviewId: comment._id, reviewData }))
       setUpdatedRating(0)
       setEditComment(false)
-    } catch (err) {
-      console.log(err)
-    }
+    } catch (err) {}
   }
 
-  const handleDelete = (reviewId) => {
-    dispatch(deletePostReview({ id, reviewId }))
+  const handleDelete = () => {
+    dispatch(deletePostReview({ id, reviewId: comment._id }))
   }
 
   const getCommentAudit = () => {
@@ -124,7 +114,7 @@ const Comment = ({ comment, comments, setComments }) => {
               <IconButton
                 variant='contained'
                 color='error'
-                onClick={() => handleDelete(comment._id)}
+                onClick={handleDelete}
               >
                 <FaTrash />
               </IconButton>
