@@ -5,9 +5,9 @@ import { toast } from 'react-toastify'
 
 export const getPosts = createAsyncThunk(
   'post/getPosts',
-  async (_, { rejectWithValue }) => {
+  async ({ page }, { rejectWithValue }) => {
     try {
-      const response = await api.getPosts()
+      const response = await api.getPosts(page)
       return response.data
     } catch (err) {
       toast.error(extractErrorMessage(err))
@@ -186,6 +186,8 @@ const postSlice = createSlice({
   initialState: {
     post: null,
     posts: null,
+    limit: null,
+    total: null,
     userPosts: null,
     tagPosts: null,
     relatedPosts: null,
@@ -251,7 +253,9 @@ const postSlice = createSlice({
       state.error = ''
     },
     [getPosts.fulfilled]: (state, action) => {
-      state.posts = action.payload
+      state.posts = action.payload.posts
+      state.limit = action.payload.limit
+      state.total = action.payload.total
       state.error = ''
     },
     [getPosts.rejected]: (state, action) => {

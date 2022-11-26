@@ -17,57 +17,65 @@ import Paper from '@mui/material/Paper'
 import InputBase from '@mui/material/InputBase'
 import IconButton from '@mui/material/IconButton'
 import SearchIcon from '@mui/icons-material/Search'
+import Pagination from '../components/Pagination'
 
 function useQuery() {
   return new URLSearchParams(useLocation().search)
 }
 
 function Home() {
-  const { posts, error } = useSelector((state) => ({
+  const { posts, limit, total, error } = useSelector((state) => ({
     ...state.post,
   }))
-
-  const [search, setSearch] = useState('')
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const location = useLocation()
 
-  const query = useQuery()
-  const searchQuery = query.get('searchQuery')
+  const [search, setSearch] = useState('')
+  const [page, setPage] = useState(1)
 
   useEffect(() => {
-    if (searchQuery) {
-      dispatch(searchPosts(searchQuery))
-    } else {
-      dispatch(getPosts())
-    }
+    dispatch(getPosts({ page }))
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [page])
 
-  const handleSubmit = (e) => {
-    if (search) {
-      dispatch(searchPosts(search))
-      navigate(`/posts/search?searchQuery=${search}`)
-      setSearch('')
-    } else {
-      dispatch(searchPosts(''))
-      navigate('/')
-    }
-  }
+  // const query = useQuery()
+  // const searchQuery = query.get('searchQuery')
 
-  const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
-      if (search) {
-        dispatch(searchPosts(search))
-        navigate(`/posts/search?searchQuery=${search}`)
-        setSearch('')
-      } else {
-        dispatch(searchPosts(''))
-        navigate('/')
-      }
-    }
-  }
+  // useEffect(() => {
+  //   if (searchQuery) {
+  //     dispatch(searchPosts(searchQuery))
+  //   } else {
+  //     dispatch(getPosts())
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [])
+
+  // const handleSubmit = (e) => {
+  //   if (search) {
+  //     dispatch(searchPosts(search))
+  //     navigate(`/posts/search?searchQuery=${search}`)
+  //     setSearch('')
+  //   } else {
+  //     dispatch(searchPosts(''))
+  //     navigate('/')
+  //   }
+  // }
+
+  // const handleKeyDown = (e) => {
+  //   if (e.key === 'Enter') {
+  //     if (search) {
+  //       dispatch(searchPosts(search))
+  //       navigate(`/posts/search?searchQuery=${search}`)
+  //       setSearch('')
+  //     } else {
+  //       dispatch(searchPosts(''))
+  //       navigate('/')
+  //     }
+  //   }
+  // }
   return (
     <Container>
       {error ? (
@@ -100,7 +108,7 @@ function Home() {
               <Divider sx={{ marginTop: '20px', marginBottom: '20px' }}>
                 Home
               </Divider>
-              <Box
+              {/* <Box
                 sx={{
                   flexGrow: 1,
                   display: 'flex',
@@ -133,15 +141,15 @@ function Home() {
                     <SearchIcon />
                   </IconButton>
                 </Paper>
-              </Box>
+              </Box> */}
               {posts.length === 0 && location.pathname === '/' && (
                 <Typography>No Posts Found</Typography>
               )}
-              {posts.length === 0 && location.pathname !== '/' && (
+              {/* {posts.length === 0 && location.pathname !== '/' && (
                 <Typography>
                   We couldn't find any matches for "{searchQuery}"
                 </Typography>
-              )}
+              )} */}
               {posts.length !== 0 && (
                 <Grid container spacing={4}>
                   {posts.map((post) => (
@@ -151,6 +159,12 @@ function Home() {
                   ))}
                 </Grid>
               )}
+              <Pagination
+                page={page}
+                limit={limit ? limit : 0}
+                total={total ? total : 0}
+                setPage={(page) => setPage(page)}
+              />
             </>
           )}
         </>
