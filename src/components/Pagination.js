@@ -1,3 +1,6 @@
+import { Button } from '@mui/material'
+import Box from '@mui/material/Box'
+
 const Pagination = ({ page, total, limit, setPage }) => {
   const totalPages = Math.ceil(total / limit)
 
@@ -6,22 +9,26 @@ const Pagination = ({ page, total, limit, setPage }) => {
   }
 
   return (
-    <div>
+    <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        mt: 2,
+      }}
+    >
       {totalPages > 0 &&
         [...Array(totalPages)].map((val, index) => (
-          <button
+          <Button
+            variant='contained'
             onClick={() => onClick(index)}
-            // className={
-            //   page === index + 1
-            //     ? `${styles.page_btn} ${styles.active}`
-            //     : styles.page_btn
-            // }
+            color={page === index + 1 ? 'success' : 'primary'}
             key={index}
           >
             {index + 1}
-          </button>
+          </Button>
         ))}
-    </div>
+    </Box>
   )
 }
 
