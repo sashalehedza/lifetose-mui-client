@@ -15,6 +15,7 @@ import { Box } from '@mui/system'
 
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt'
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt'
+import RateStatic from './RateStatic'
 
 function CardPost({
   imageFile,
@@ -25,6 +26,8 @@ function CardPost({
   _id,
   likes,
   discount,
+  rating,
+  numReviews,
 }) {
   const { user } = useSelector((state) => ({ ...state.auth }))
   const [postCount] = useState(1)
@@ -81,21 +84,43 @@ function CardPost({
         sx={{ objectFit: 'fill' }}
       />
       <CardContent>
-        <Typography gutterBottom variant='h5' component='div'>
-          {title}
-        </Typography>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+          }}
+        >
+          <Typography gutterBottom variant='h5'>
+            {title}
+          </Typography>
+
+          <Typography
+            gutterBottom
+            variant='h5'
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}
+          >
+            <Typography variant='h5' sx={{ color: 'red', mr: '5px' }}>
+              {rating}
+            </Typography>
+            <RateStatic rating={rating} />
+            <Typography variant='h6' sx={{ color: 'gray', ml: '5px' }}>
+              ({numReviews})
+            </Typography>
+          </Typography>
+        </Box>
+
         <Box
           sx={{
             display: 'flex',
           }}
         >
           {discount && Number(discount) !== 0 ? (
-            <Typography
-              gutterBottom
-              variant='h5'
-              component='div'
-              sx={{ mr: '10px' }}
-            >
+            <Typography gutterBottom variant='h5' sx={{ mr: '10px' }}>
               {discount
                 ? `$${Number(price) - Number(discount)}`
                 : `$${Number(price)}`}

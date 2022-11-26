@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
-import { Box } from '@mui/material'
 
 const RateStatic = ({ count, rating, color }) => {
   const getColor = (index) => {
@@ -27,7 +26,7 @@ const RateStatic = ({ count, rating, color }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [count, rating])
 
-  return <Box>{starRating}</Box>
+  return <>{starRating}</>
 }
 
 RateStatic.defaultProps = {

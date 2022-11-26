@@ -11,7 +11,7 @@ const AddComment = ({ comments }) => {
   const dispatch = useDispatch()
   const { id } = useParams()
   const [text, setText] = useState('')
-  const [rating, setRating] = useState(0)
+  const [rating, setRating] = useState(5)
 
   const alreadyReviewed = comments.find(
     (r) => r.user.toString() === user.result._id.toString()
