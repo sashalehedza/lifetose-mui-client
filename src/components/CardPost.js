@@ -95,9 +95,7 @@ function CardPost({
             {title}
           </Typography>
 
-          <Typography
-            gutterBottom
-            variant='h5'
+          <Box
             sx={{
               display: 'flex',
               flexDirection: 'row',
@@ -105,13 +103,13 @@ function CardPost({
             }}
           >
             <Typography variant='h5' sx={{ color: 'red', mr: '5px' }}>
-              {rating}
+              {rating.toFixed(1)}
             </Typography>
             <RateStatic rating={rating} />
             <Typography variant='h6' sx={{ color: 'gray', ml: '5px' }}>
               ({numReviews})
             </Typography>
-          </Typography>
+          </Box>
         </Box>
 
         <Box
