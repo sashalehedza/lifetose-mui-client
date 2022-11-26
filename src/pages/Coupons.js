@@ -20,7 +20,6 @@ function Coupons() {
   const { coupons } = useSelector((state) => ({
     ...state.order,
   }))
-  // const userId = user?.result?._id
   const dispatch = useDispatch()
 
   useEffect(() => {
