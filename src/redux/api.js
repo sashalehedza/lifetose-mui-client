@@ -21,7 +21,8 @@ export const signIn = (formData) => API.post('/users/signin', formData)
 export const signUp = (formData) => API.post('/users/signup', formData)
 
 export const createPost = (postData) => API.post('/post', postData)
-export const getPosts = (page) => API.get(`/post?page=${page}`)
+export const getPosts = (page, search) =>
+  API.get(`/post?page=${page}&search=${search}`)
 export const getPost = (id) => API.get(`/post/${id}`)
 export const deletePost = (id) => API.delete(`/post/${id}`)
 export const updatePost = (updatedPostData, id) =>

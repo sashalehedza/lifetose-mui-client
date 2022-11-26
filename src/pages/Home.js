@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { getPosts, searchPosts } from '../redux/features/postSlice'
+import { getPosts } from '../redux/features/postSlice'
 
 import CardPost from '../components/CardPost'
 
@@ -19,63 +19,23 @@ import IconButton from '@mui/material/IconButton'
 import SearchIcon from '@mui/icons-material/Search'
 import Pagination from '../components/Pagination'
 
-function useQuery() {
-  return new URLSearchParams(useLocation().search)
-}
-
 function Home() {
   const { posts, limit, total, error } = useSelector((state) => ({
     ...state.post,
   }))
 
   const dispatch = useDispatch()
-  const navigate = useNavigate()
   const location = useLocation()
 
   const [search, setSearch] = useState('')
   const [page, setPage] = useState(1)
 
   useEffect(() => {
-    dispatch(getPosts({ page }))
+    dispatch(getPosts({ page, search }))
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page])
+  }, [page, search])
 
-  // const query = useQuery()
-  // const searchQuery = query.get('searchQuery')
-
-  // useEffect(() => {
-  //   if (searchQuery) {
-  //     dispatch(searchPosts(searchQuery))
-  //   } else {
-  //     dispatch(getPosts())
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [])
-
-  // const handleSubmit = (e) => {
-  //   if (search) {
-  //     dispatch(searchPosts(search))
-  //     navigate(`/posts/search?searchQuery=${search}`)
-  //     setSearch('')
-  //   } else {
-  //     dispatch(searchPosts(''))
-  //     navigate('/')
-  //   }
-  // }
-
-  // const handleKeyDown = (e) => {
-  //   if (e.key === 'Enter') {
-  //     if (search) {
-  //       dispatch(searchPosts(search))
-  //       navigate(`/posts/search?searchQuery=${search}`)
-  //       setSearch('')
-  //     } else {
-  //       dispatch(searchPosts(''))
-  //       navigate('/')
-  //     }
-  //   }
-  // }
   return (
     <Container>
       {error ? (
@@ -108,7 +68,7 @@ function Home() {
               <Divider sx={{ marginTop: '20px', marginBottom: '20px' }}>
                 Home
               </Divider>
-              {/* <Box
+              <Box
                 sx={{
                   flexGrow: 1,
                   display: 'flex',
@@ -130,18 +90,18 @@ function Home() {
                     placeholder='Search posts'
                     inputProps={{ 'aria-label': 'search posts' }}
                     onChange={(e) => setSearch(e.target.value)}
-                    onKeyDown={handleKeyDown}
+                    // onKeyDown={handleKeyDown}
                   />
                   <IconButton
                     type='button'
                     sx={{ p: '10px' }}
                     aria-label='search'
-                    onClick={handleSubmit}
+                    // onClick={handleSubmit}
                   >
                     <SearchIcon />
                   </IconButton>
                 </Paper>
-              </Box> */}
+              </Box>
               {posts.length === 0 && location.pathname === '/' && (
                 <Typography>No Posts Found</Typography>
               )}

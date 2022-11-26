@@ -5,9 +5,9 @@ import { toast } from 'react-toastify'
 
 export const getPosts = createAsyncThunk(
   'post/getPosts',
-  async ({ page }, { rejectWithValue }) => {
+  async ({ page, search }, { rejectWithValue }) => {
     try {
-      const response = await api.getPosts(page)
+      const response = await api.getPosts(page, search)
       return response.data
     } catch (err) {
       toast.error(extractErrorMessage(err))
