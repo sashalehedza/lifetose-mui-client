@@ -13,10 +13,6 @@ const AddComment = ({ comments }) => {
   const [text, setText] = useState('')
   const [rating, setRating] = useState(5)
 
-  const alreadyReviewed = comments.find(
-    (r) => r.user.toString() === user.result._id.toString()
-  )
-
   const addCommentHandler = async () => {
     try {
       let reviewData = { text, rating }
@@ -24,11 +20,14 @@ const AddComment = ({ comments }) => {
       setText('')
     } catch (err) {}
   }
+
   return (
     <Box sx={{ width: '100%', m: 0, p: 2 }}>
       {user?.result?._id ? (
         <>
-          {!alreadyReviewed ? (
+          {!comments.find(
+            (r) => r.user.toString() === user?.result?._id.toString()
+          ) ? (
             <>
               <Box
                 sx={{
