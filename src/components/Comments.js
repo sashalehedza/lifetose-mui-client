@@ -6,7 +6,7 @@ import AddComment from './AddComment'
 import Spinner from './Spinner'
 
 import { Box } from '@mui/system'
-import { List, ListItem, Paper } from '@mui/material'
+import { List, ListItem, Paper, Typography } from '@mui/material'
 
 const Comments = ({ comments }) => {
   return (
@@ -27,7 +27,16 @@ const Comments = ({ comments }) => {
                   ))}
                 </List>
               ) : (
-                <Box>No comments here yet</Box>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Typography variant='h6'> No comments here yet.</Typography>
+                </Box>
               )}
             </>
           )}
