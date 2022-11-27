@@ -7,10 +7,7 @@ export const getPosts = createAsyncThunk(
   'post/getPosts',
   async ({ page, search }, { rejectWithValue }) => {
     try {
-      let response
-      search
-        ? (response = await api.getPosts(1, search))
-        : (response = await api.getPosts(page, search))
+      let response = await api.getPosts(page, search)
       return response.data
     } catch (err) {
       toast.error(extractErrorMessage(err))

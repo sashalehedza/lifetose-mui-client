@@ -17,7 +17,7 @@ const Pagination = ({ page, total, limit, setPage }) => {
         mt: 2,
       }}
     >
-      {totalPages > 0 &&
+      {totalPages > 1 &&
         [...Array(totalPages)].map((val, index) => (
           <Button
             variant='contained'

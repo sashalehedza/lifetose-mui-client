@@ -105,11 +105,6 @@ function Home() {
               {posts.length === 0 && location.pathname === '/' && (
                 <Typography>No Posts Found</Typography>
               )}
-              {/* {posts.length === 0 && location.pathname !== '/' && (
-                <Typography>
-                  We couldn't find any matches for "{searchQuery}"
-                </Typography>
-              )} */}
               {posts.length !== 0 && (
                 <Grid container spacing={4}>
                   {posts.map((post) => (
