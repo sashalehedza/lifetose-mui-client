@@ -59,13 +59,31 @@ const Comment = ({ comment }) => {
   return (
     <>
       {comment && (
-        <Paper sx={{ width: '100%', m: 0, p: 0 }}>
-          <Box>
-            <Typography variant='h5'>{comment.name}</Typography>
-            <Box>{getCommentAudit()}</Box>
+        <Paper sx={{ width: '100%', m: 0, p: 1 }}>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
+            <Box>
+              <Typography variant='h5'>{comment.name}</Typography>
+            </Box>
+            <Box>
+              <RateStatic rating={comment.rating} />
+            </Box>
           </Box>
           {!editComment ? (
-            <Typography>{comment.text}</Typography>
+            <Box
+              sx={{
+                width: '50%',
+                wordWrap: 'break-word',
+              }}
+            >
+              <Typography>{comment.text}</Typography>
+            </Box>
           ) : (
             <Box>
               <TextareaAutosize
@@ -99,26 +117,35 @@ const Comment = ({ comment }) => {
               </Button>
             </Box>
           )}
-          <Box>
-            <RateStatic rating={comment.rating} />
-            {user?.result?._id === comment.user && (
-              <IconButton
-                variant='contained'
-                color='success'
-                onClick={() => setEditComment(!editComment)}
-              >
-                <FaEdit />
-              </IconButton>
-            )}
-            {user?.result?._id === comment.user && (
-              <IconButton
-                variant='contained'
-                color='error'
-                onClick={handleDelete}
-              >
-                <FaTrash />
-              </IconButton>
-            )}
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
+            <Box>
+              {user?.result?._id === comment.user && (
+                <IconButton
+                  variant='contained'
+                  color='success'
+                  onClick={() => setEditComment(!editComment)}
+                >
+                  <FaEdit />
+                </IconButton>
+              )}
+              {user?.result?._id === comment.user && (
+                <IconButton
+                  variant='contained'
+                  color='error'
+                  onClick={handleDelete}
+                >
+                  <FaTrash />
+                </IconButton>
+              )}
+            </Box>
+            <Box>{getCommentAudit()}</Box>
           </Box>
         </Paper>
       )}
