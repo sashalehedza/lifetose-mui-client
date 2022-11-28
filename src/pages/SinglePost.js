@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
@@ -10,10 +10,16 @@ import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
-import { Box, Container, Divider } from '@mui/material'
+import { Box, Button, Container, Divider, Grid, Tooltip } from '@mui/material'
 
 import Comments from '../components/Comments'
 import Spinner from '../components/Spinner'
+import RateStatic from '../components/RateStatic'
+
+import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt'
+import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt'
+
+import { addToCart, likePost } from '../redux/features/postSlice'
 
 function SinglePost() {
   const { id } = useParams()
@@ -22,7 +28,10 @@ function SinglePost() {
   const { post, relatedPosts, error } = useSelector((state) => ({
     ...state.post,
   }))
+  const { user } = useSelector((state) => ({ ...state.auth }))
   const tags = post?.tags
+  const userId = user?.result?._id
+  const [postCount] = useState(1)
 
   useEffect(() => {
     tags && dispatch(getRelatedPosts(tags))
@@ -35,6 +44,39 @@ function SinglePost() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id])
+
+  const Likes = () => {
+    if (post.likes.length > 0) {
+      return post.likes.find((like) => like === userId) ? (
+        <>
+          <ThumbUpAltIcon />
+          &nbsp;
+          {post.likes.length > 2
+            ? `${post.likes.length} Likes`
+            : `${post.likes.length} Like${post.likes.length > 1 ? 's' : ''}`}
+        </>
+      ) : (
+        <>
+          <ThumbUpOffAltIcon />
+          &nbsp;{post.likes.length} {post.likes.length === 1 ? 'Like' : 'Likes'}
+        </>
+      )
+    }
+    return (
+      <>
+        <ThumbUpOffAltIcon />
+        &nbsp;Like
+      </>
+    )
+  }
+
+  const handleLike = (id) => {
+    dispatch(likePost({ _id: id }))
+  }
+
+  const addToCartFunc = (postId) => {
+    dispatch(addToCart({ postId: postId, count: postCount }))
+  }
 
   return (
     <Container>
@@ -76,41 +118,155 @@ function SinglePost() {
                   mb: '10px',
                 }}
               >
-                <Card sx={{ minWidth: 345 }}>
-                  <CardMedia
-                    component='img'
-                    height='140'
-                    image={post.imageFile}
-                    alt='green iguana'
-                    sx={{ objectFit: 'fill' }}
-                  />
-                  <CardContent>
-                    <Typography gutterBottom variant='h5' component='div'>
-                      {post.title}
-                    </Typography>
-                    {tags.map((tag, index) => (
-                      <Link
-                        key={index}
-                        to={`/posts/tag/${tag}`}
-                        style={{
-                          color: 'blue',
-                          textDecoration: 'none',
-                          marginRight: '10px',
+                <Grid
+                  container
+                  spacing={{ xs: 2, md: 3 }}
+                  columns={{ xs: 4, sm: 8, md: 8 }}
+                >
+                  <Grid item xs={4} sm={4} md={4}>
+                    <Card>
+                      <CardMedia
+                        component='img'
+                        height='140'
+                        image={post.imageFile}
+                        alt='green iguana'
+                        sx={{ objectFit: 'fill' }}
+                      />
+                      <Box
+                        sx={{
+                          display: 'flex',
+                          flexDirection: 'row',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                          margin: '20px',
                         }}
                       >
-                        #{tag}
-                      </Link>
-                    ))}
-                  </CardContent>
-                </Card>
+                        {!user?.result ? (
+                          <Tooltip title='Please login to like post'>
+                            <Button
+                              onClick={() =>
+                                !user?.result ? null : handleLike(id)
+                              }
+                              size='small'
+                            >
+                              <Likes />
+                            </Button>
+                          </Tooltip>
+                        ) : (
+                          <Button
+                            onClick={() =>
+                              !user?.result ? null : handleLike(id)
+                            }
+                            size='small'
+                          >
+                            <Likes />
+                          </Button>
+                        )}
+                        <Box
+                          sx={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                          }}
+                        >
+                          <Typography
+                            variant='h5'
+                            sx={{ color: 'red', mr: '5px' }}
+                          >
+                            {post.rating.toFixed(1)}
+                          </Typography>
+                          <RateStatic rating={post.rating} />
+                          <Typography
+                            variant='h6'
+                            sx={{ color: 'gray', ml: '5px' }}
+                          >
+                            ({post.numReviews})
+                          </Typography>
+                        </Box>
+                        <Box>
+                          <Button
+                            variant='contained'
+                            color='success'
+                            onClick={() => {
+                              addToCartFunc(String(id))
+                            }}
+                          >
+                            add to cart
+                          </Button>
+                        </Box>
+                      </Box>
+                    </Card>
+                  </Grid>
+                  <Grid item xs={4} sm={4} md={4}>
+                    <Card>
+                      <CardContent>
+                        <Typography gutterBottom variant='h5' component='div'>
+                          Title: {post.title}
+                        </Typography>
+                        <Typography gutterBottom variant='h5' component='div'>
+                          Tags:{' '}
+                          {tags.map((tag, index) => (
+                            <Link
+                              key={index}
+                              to={`/posts/tag/${tag}`}
+                              style={{
+                                color: 'blue',
+                                textDecoration: 'none',
+                                marginRight: '10px',
+                              }}
+                            >
+                              #{tag}
+                            </Link>
+                          ))}
+                        </Typography>
+                        <Typography gutterBottom variant='h5' component='div'>
+                          Description: {post.description}
+                        </Typography>
+                        <Box
+                          sx={{
+                            display: 'flex',
+                          }}
+                        >
+                          <Typography
+                            gutterBottom
+                            variant='h5'
+                            sx={{ mr: '10px' }}
+                          >
+                            Price:
+                          </Typography>
+                          {post.discount && Number(post.discount) !== 0 ? (
+                            <Typography variant='h5' sx={{ mr: '10px' }}>
+                              {post.discount
+                                ? `$${
+                                    Number(post.price) - Number(post.discount)
+                                  }`
+                                : `$${Number(post.price)}`}
+                            </Typography>
+                          ) : null}
+                          <Typography
+                            gutterBottom
+                            variant='h5'
+                            component='div'
+                            sx={{
+                              color:
+                                post.discount && Number(post.discount) !== 0
+                                  ? 'red'
+                                  : null,
+                              textDecoration:
+                                post.discount && Number(post.discount) !== 0
+                                  ? 'line-through'
+                                  : null,
+                            }}
+                          >
+                            ${Number(post.price)}
+                          </Typography>
+                        </Box>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                </Grid>
               </Box>
-              <Card sx={{ minWidth: 345 }}>
-                <CardContent>
-                  <Typography gutterBottom variant='h5' component='div'>
-                    Description: {post.description}
-                  </Typography>
-                </CardContent>
-              </Card>
+
               <Box>
                 <Comments comments={post.reviews} />
               </Box>

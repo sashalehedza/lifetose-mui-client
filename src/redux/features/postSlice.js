@@ -202,11 +202,17 @@ const postSlice = createSlice({
         )
         post.count += count
       } else {
-        const post = state.posts.find(
-          (post) => String(post._id) === String(postId)
-        )
-        post.count = count
-        state.cart.push(post)
+        if (state.post) {
+          const post = state.post
+          post.count = count
+          state.cart.push(post)
+        } else {
+          const post = state.posts.find(
+            (post) => String(post._id) === String(postId)
+          )
+          post.count = count
+          state.cart.push(post)
+        }
       }
     },
     minusFromCart: (state, action) => {
@@ -322,9 +328,13 @@ const postSlice = createSlice({
         arg: { _id },
       } = action.meta
       if (_id) {
-        state.posts = state.posts.map((item) =>
-          item._id === _id ? action.payload : item
-        )
+        if (state.post) {
+          state.post = action.payload
+        } else {
+          state.posts = state.posts.map((item) =>
+            item._id === _id ? action.payload : item
+          )
+        }
       }
     },
     [likePost.rejected]: (state, action) => {},
