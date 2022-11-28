@@ -306,8 +306,6 @@ const postSlice = createSlice({
         )
         state.cart = []
       }
-
-      console.log(id)
     },
     [updatePost.rejected]: (state, action) => {},
 
