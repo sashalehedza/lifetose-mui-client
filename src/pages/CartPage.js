@@ -280,9 +280,15 @@ function CartPage() {
                   <Typography variant='h5'>{totalPrice}</Typography>
                 </Box>
                 <Box>
-                  <Button variant='contained' onClick={makeOrder}>
-                    Make Order
-                  </Button>
+                  {user?.result?._id ? (
+                    <Button variant='contained' onClick={makeOrder}>
+                      Make Order
+                    </Button>
+                  ) : (
+                    <Typography>
+                      You need to be logged in to make an order!
+                    </Typography>
+                  )}
                 </Box>
               </Box>
             </Box>
