@@ -301,9 +301,6 @@ const postSlice = createSlice({
         arg: { id },
       } = action.meta
       if (id) {
-        // state.userPosts = state.userPosts.map((item) =>
-        //   item._id === id ? action.payload : item
-        // )
         state.posts = state.posts.map((item) =>
           item._id === id ? action.payload : item
         )
@@ -321,6 +318,7 @@ const postSlice = createSlice({
       } = action.meta
       if (id) {
         state.posts = state.posts.filter((item) => item._id !== id)
+        state.cart = []
       }
     },
     [deletePost.rejected]: (state, action) => {},
