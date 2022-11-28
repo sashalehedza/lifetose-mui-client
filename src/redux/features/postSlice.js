@@ -301,13 +301,16 @@ const postSlice = createSlice({
         arg: { id },
       } = action.meta
       if (id) {
-        state.userPosts = state.userPosts.map((item) =>
-          item._id === id ? action.payload : item
-        )
+        // state.userPosts = state.userPosts.map((item) =>
+        //   item._id === id ? action.payload : item
+        // )
         state.posts = state.posts.map((item) =>
           item._id === id ? action.payload : item
         )
+        state.cart = []
       }
+
+      console.log(id)
     },
     [updatePost.rejected]: (state, action) => {},
 
