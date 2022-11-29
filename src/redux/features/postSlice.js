@@ -288,10 +288,7 @@ const postSlice = createSlice({
       state.error = action.payload
     },
 
-    [createPost.pending]: (state, action) => {
-      state.posts = null
-      state.userPosts = null
-    },
+    [createPost.pending]: (state, action) => {},
     [createPost.fulfilled]: (state, action) => {},
     [createPost.rejected]: (state, action) => {},
 
