@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { deletePost, getPosts } from '../redux/features/postSlice'
+import { clearCart, deletePost, getPosts } from '../redux/features/postSlice'
 
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
@@ -21,7 +21,6 @@ function Dashboard() {
   const { posts, error } = useSelector((state) => ({
     ...state.post,
   }))
-
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -40,6 +39,7 @@ function Dashboard() {
     if (window.confirm('Are you sure you want to delete this post ?')) {
       dispatch(deletePost({ id }))
     }
+    dispatch(clearCart())
   }
 
   return (

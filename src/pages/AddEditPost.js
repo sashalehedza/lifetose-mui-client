@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { createPost, updatePost } from '../redux/features/postSlice'
+import { clearCart, createPost, updatePost } from '../redux/features/postSlice'
 import { getPost } from '../redux/api'
 
 import Spinner from '../components/Spinner'
@@ -177,6 +177,7 @@ function AddEditPost() {
                           dispatch(
                             updatePost({ id, updatedPostData, navigate })
                           )
+                          dispatch(clearCart())
                         }
                       }
                     }}

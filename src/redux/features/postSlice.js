@@ -67,7 +67,7 @@ export const createPost = createAsyncThunk(
   async ({ updatedPostData, navigate }, { rejectWithValue }) => {
     try {
       const response = await api.createPost(updatedPostData)
-      navigate('/')
+      navigate('/dashboard')
       return response.data
     } catch (err) {
       toast.error(extractErrorMessage(err))
@@ -81,7 +81,7 @@ export const updatePost = createAsyncThunk(
   async ({ id, updatedPostData, navigate }, { rejectWithValue }) => {
     try {
       const response = await api.updatePost(updatedPostData, id)
-      navigate('/')
+      navigate('/dashboard')
       return response.data
     } catch (err) {
       toast.error(extractErrorMessage(err))
@@ -304,7 +304,6 @@ const postSlice = createSlice({
         state.posts = state.posts.map((item) =>
           item._id === id ? action.payload : item
         )
-        state.cart = []
       }
     },
     [updatePost.rejected]: (state, action) => {},
@@ -316,7 +315,6 @@ const postSlice = createSlice({
       } = action.meta
       if (id) {
         state.posts = state.posts.filter((item) => item._id !== id)
-        state.cart = []
       }
     },
     [deletePost.rejected]: (state, action) => {},
