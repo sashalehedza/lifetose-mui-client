@@ -1,5 +1,8 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react'
+
+import AddEditPost from '../AddEditPost'
+
+import Modal from '../../components/Modal/Modal'
 
 import { useDispatch } from 'react-redux'
 
@@ -18,6 +21,8 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
 
 function PostItem({ post }) {
+  const [modalActive, setModalActive] = useState(false)
+  const [id, setId] = useState(false)
   const dispatch = useDispatch()
 
   const excerpt = (str) => {
@@ -33,6 +38,12 @@ function PostItem({ post }) {
     }
     dispatch(clearCart())
   }
+
+  const handleOpenEditForm = (id) => {
+    setModalActive(true)
+    setId(id)
+  }
+
   return (
     <Card
       sx={{
@@ -74,9 +85,9 @@ function PostItem({ post }) {
           <Button onClick={() => handleDelete(post._id)}>
             <DeleteIcon />
           </Button>
-          <Link to={`/editPost/${post._id}`}>
+          <Button onClick={() => handleOpenEditForm(post._id)}>
             <EditIcon />
-          </Link>
+          </Button>
         </Box>
       </Box>
       <CardMedia
@@ -89,6 +100,9 @@ function PostItem({ post }) {
         image={post.imageFile}
         alt={post.title}
       />
+      <Modal active={modalActive} setActive={setModalActive}>
+        <AddEditPost id={id} setModalActive={setModalActive} />
+      </Modal>
     </Card>
   )
 }

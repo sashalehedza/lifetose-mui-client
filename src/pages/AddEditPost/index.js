@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   clearCart,
@@ -49,7 +49,7 @@ const validationSchema = yup.object({
   saleDiscount: yup.number().min(0),
 })
 
-function AddEditPost() {
+function AddEditPost({ id, setModalActive }) {
   const { user } = useSelector((state) => ({ ...state.auth }))
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -66,8 +66,6 @@ function AddEditPost() {
   const [file, setFile] = useState('')
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
-
-  const { id } = useParams()
 
   useEffect(() => {
     if (id) {
@@ -177,11 +175,13 @@ function AddEditPost() {
                         }
                         if (!id) {
                           dispatch(createPost({ updatedPostData, navigate }))
+                          setModalActive(false)
                         } else {
                           dispatch(
                             updatePost({ id, updatedPostData, navigate })
                           )
                           dispatch(clearCart())
+                          setModalActive(false)
                         }
                       }
                     }}

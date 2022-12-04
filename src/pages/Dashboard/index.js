@@ -1,5 +1,9 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import PostItem from './PostItem'
+
+import AddEditPost from '../AddEditPost'
+
+import Modal from '../../components/Modal/Modal'
 
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -7,9 +11,10 @@ import { getPosts } from '../../redux/features/postSlice'
 
 import Spinner from '../../components/Spinner'
 
-import { Box, Typography, Container, Divider } from '@mui/material'
+import { Box, Typography, Container, Divider, Button } from '@mui/material'
 
 function Dashboard() {
+  const [modalActive, setModalActive] = useState(false)
   const { user } = useSelector((state) => ({ ...state.auth }))
   const { posts, error } = useSelector((state) => ({
     ...state.post,
@@ -53,6 +58,14 @@ function Dashboard() {
               <Divider sx={{ marginTop: '20px', marginBottom: '20px' }}>
                 Dashboard: {user?.result?.name}
               </Divider>
+              <Box>
+                <Button
+                  variant='contained'
+                  onClick={() => setModalActive(true)}
+                >
+                  Add Coupon
+                </Button>
+              </Box>
               {posts.length ? (
                 posts.map((post) => <PostItem key={post._id} post={post} />)
               ) : (
@@ -74,6 +87,9 @@ function Dashboard() {
           )}
         </>
       )}
+      <Modal active={modalActive} setActive={setModalActive}>
+        <AddEditPost setModalActive={setModalActive} />
+      </Modal>
     </Container>
   )
 }
