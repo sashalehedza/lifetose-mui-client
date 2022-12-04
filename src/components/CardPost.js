@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { addToCart, likePost } from '../redux/features/postSlice'
+import { addToCart, likePost, selectAllCart } from '../redux/features/postSlice'
 
 import Card from '@mui/material/Card'
 import CardActions from '@mui/material/CardActions'
@@ -31,7 +31,9 @@ function CardPost({
 }) {
   const { user } = useSelector((state) => ({ ...state.auth }))
   const [postCount] = useState(1)
+
   const userId = user?.result?._id
+  const carts = useSelector(selectAllCart)
 
   const dispatch = useDispatch()
   const excerpt = (str) => {
@@ -145,8 +147,9 @@ function CardPost({
             onClick={() => {
               addToCartFunc(String(_id))
             }}
+            disabled={carts.some((item) => item._id === _id)}
           >
-            add to cart
+            {carts.some((item) => item._id === _id) ? 'in card' : 'add to card'}
           </Button>
         </Box>
         <Box style={{ paddingTop: '10px' }}>
