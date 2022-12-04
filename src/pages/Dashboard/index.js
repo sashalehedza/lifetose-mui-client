@@ -54,7 +54,7 @@ function Dashboard() {
                 Dashboard: {user?.result?.name}
               </Divider>
               {posts.length ? (
-                posts.map((post) => <PostItem post={post} />)
+                posts.map((post) => <PostItem key={post._id} post={post} />)
               ) : (
                 <Box
                   sx={{

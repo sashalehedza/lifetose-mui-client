@@ -128,7 +128,7 @@ function CartPage() {
       {carts.length !== 0 ? (
         <>
           {carts.map((cart) => (
-            <CartItem cart={cart} />
+            <CartItem key={cart._id} cart={cart} />
           ))}
           <Box>
             <Box>

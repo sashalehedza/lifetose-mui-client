@@ -54,7 +54,9 @@ function Coupons() {
                 Dashboard: {user?.result?.name}
               </Divider>
               {coupons.length ? (
-                coupons.map((coupon) => <CouponItem coupon={coupon} />)
+                coupons.map((coupon) => (
+                  <CouponItem key={coupon._id} coupon={coupon} />
+                ))
               ) : (
                 <Box
                   sx={{

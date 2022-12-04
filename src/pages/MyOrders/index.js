@@ -37,7 +37,7 @@ function MyOrders() {
                 Orders
               </Divider>
               {myorders.map((order) => (
-                <OrderItem order={order} />
+                <OrderItem key={order._id} order={order} />
               ))}
             </>
           ) : (

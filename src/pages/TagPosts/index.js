@@ -58,7 +58,8 @@ function TagPosts() {
                   No Posts Found with tag: {tag}
                 </Typography>
               )}
-              {tagPosts && tagPosts.map((post) => <PostItem post={post} />)}
+              {tagPosts &&
+                tagPosts.map((post) => <PostItem key={post._id} post={post} />)}
             </>
           )}
         </>
