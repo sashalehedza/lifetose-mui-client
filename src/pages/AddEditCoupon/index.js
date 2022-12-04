@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react'
 
 import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { getCoupon } from '../redux/api'
+import { getCoupon } from '../../redux/api'
 
-import Spinner from '../components/Spinner'
+import Spinner from '../../components/Spinner'
 
 import { Box, Button, Container, Divider, Typography } from '@mui/material'
 
@@ -12,10 +12,10 @@ import { toast } from 'react-toastify'
 
 import { Formik, Form } from 'formik'
 import * as yup from 'yup'
-import InputField from '../components/InputField'
+import InputField from '../../components/InputField'
 
-import { extractErrorMessage } from '../redux/utils'
-import { createCoupon, updateCoupon } from '../redux/features/orderSlice'
+import { extractErrorMessage } from '../../redux/utils'
+import { createCoupon, updateCoupon } from '../../redux/features/orderSlice'
 
 const validationSchema = yup.object({
   name: yup

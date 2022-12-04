@@ -2,22 +2,29 @@ import React, { useState } from 'react'
 
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { addToCart, likePost, selectAllCart } from '../redux/features/postSlice'
+import {
+  addToCart,
+  likePost,
+  selectAllCart,
+} from '../../redux/features/postSlice'
 
-import Card from '@mui/material/Card'
-import CardActions from '@mui/material/CardActions'
-import CardContent from '@mui/material/CardContent'
-import CardMedia from '@mui/material/CardMedia'
-import Button from '@mui/material/Button'
-import Typography from '@mui/material/Typography'
-import Tooltip from '@mui/material/Tooltip'
-import { Box } from '@mui/system'
+import RateStatic from '../../components/RateStatic'
+
+import {
+  Box,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Button,
+  Typography,
+  Tooltip,
+} from '@mui/material'
 
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt'
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt'
-import RateStatic from './RateStatic'
 
-function CardPost({
+function PostItem({
   imageFile,
   description,
   title,
@@ -149,7 +156,7 @@ function CardPost({
             }}
             disabled={carts.some((item) => item._id === _id)}
           >
-            {carts.some((item) => item._id === _id) ? 'in card' : 'add to card'}
+            {carts.some((item) => item._id === _id) ? 'in cart' : 'add to cart'}
           </Button>
         </Box>
         <Box style={{ paddingTop: '10px' }}>
@@ -200,4 +207,4 @@ function CardPost({
   )
 }
 
-export default CardPost
+export default PostItem

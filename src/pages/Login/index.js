@@ -1,19 +1,14 @@
 import { useNavigate } from 'react-router-dom'
 
 import { useDispatch } from 'react-redux'
-import { login } from '../redux/features/authSlice'
+import { login } from '../../redux/features/authSlice'
 
 import { Formik, Form } from 'formik'
 import * as yup from 'yup'
-import InputField from '../components/InputField'
+import InputField from '../../components/InputField'
 
-import Avatar from '@mui/material/Avatar'
-import Button from '@mui/material/Button'
-import Grid from '@mui/material/Grid'
-import Box from '@mui/material/Box'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
-import Typography from '@mui/material/Typography'
-import Container from '@mui/material/Container'
+import { Avatar, Button, Box, Grid, Typography, Container } from '@mui/material'
 
 const validationSchema = yup.object({
   email: yup

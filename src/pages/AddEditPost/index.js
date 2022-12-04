@@ -2,10 +2,14 @@ import React, { useEffect, useState } from 'react'
 
 import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { clearCart, createPost, updatePost } from '../redux/features/postSlice'
-import { getPost } from '../redux/api'
+import {
+  clearCart,
+  createPost,
+  updatePost,
+} from '../../redux/features/postSlice'
+import { getPost } from '../../redux/api'
 
-import Spinner from '../components/Spinner'
+import Spinner from '../../components/Spinner'
 
 import {
   Box,
@@ -25,10 +29,10 @@ import { toast } from 'react-toastify'
 
 import { Formik, Form } from 'formik'
 import * as yup from 'yup'
-import InputField from '../components/InputField'
+import InputField from '../../components/InputField'
 
-import DefaultFilmImage from '../images/default_film_image.jpeg'
-import { extractErrorMessage } from '../redux/utils'
+import DefaultFilmImage from '../../images/default_film_image.jpeg'
+import { extractErrorMessage } from '../../redux/utils'
 
 const validationSchema = yup.object({
   title: yup

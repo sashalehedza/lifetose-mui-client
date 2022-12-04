@@ -32,7 +32,7 @@ const ROUTES = [
       },
       {
         path: '/cart',
-        Component: lazy(() => import('./pages/CartPage')),
+        Component: lazy(() => import('./pages/Cart')),
       },
       {
         path: '/post/:id',

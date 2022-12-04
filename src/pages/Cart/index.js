@@ -1,27 +1,29 @@
 import React, { useEffect, useState } from 'react'
+import CartItem from './CartItem'
 
-import Box from '@mui/material/Box'
-import Card from '@mui/material/Card'
-import CardContent from '@mui/material/CardContent'
-import CardMedia from '@mui/material/CardMedia'
-import Typography from '@mui/material/Typography'
-import { Button, Container, Divider, TextField } from '@mui/material'
-
-import { useSelector } from 'react-redux'
-import { selectAllCart } from '../redux/features/postSlice'
-import Counter from '../components/Counter'
-
-import { clearCart } from '../redux/features/postSlice'
-
-import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+
+import { useSelector, useDispatch } from 'react-redux'
+
+import { selectAllCart, clearCart } from '../../redux/features/postSlice'
 import {
   addAppliedCoupon,
   deleteAppliedCoupon,
   createOrder,
-} from '../redux/features/orderSlice'
-import { discountCalc, subtotalCalc } from '../utility'
-import { getCouponByName } from '../redux/api'
+} from '../../redux/features/orderSlice'
+
+import { getCouponByName } from '../../redux/api'
+
+import { discountCalc, subtotalCalc } from '../../utility'
+
+import {
+  Box,
+  Button,
+  Container,
+  Divider,
+  TextField,
+  Typography,
+} from '@mui/material'
 
 const radioValues = [
   { id: 1, text: 'Flat rate $10', value: 10 },
@@ -126,75 +128,7 @@ function CartPage() {
       {carts.length !== 0 ? (
         <>
           {carts.map((cart) => (
-            <Card
-              sx={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'flex-start',
-                width: '100%',
-                minHeight: '200px',
-                marginBottom: '20px',
-              }}
-              key={cart._id}
-            >
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                }}
-              >
-                <CardContent>
-                  <Typography component='div' variant='h5'>
-                    {cart.title}
-                  </Typography>
-                  <Box
-                    sx={{
-                      display: 'flex',
-                    }}
-                  >
-                    {cart.discount && Number(cart.discount) !== 0 ? (
-                      <Typography
-                        gutterBottom
-                        variant='h5'
-                        component='div'
-                        sx={{ mr: '10px' }}
-                      >
-                        {cart.discount && Number(cart.discount)
-                          ? `$${Number(cart.price) - Number(cart.discount)}`
-                          : `$${Number(cart.price)}`}
-                      </Typography>
-                    ) : null}
-                    <Typography
-                      gutterBottom
-                      variant='h5'
-                      component='div'
-                      sx={{
-                        color:
-                          cart.discount && Number(cart.discount) ? 'red' : null,
-                        textDecoration:
-                          cart.discount && Number(cart.discount)
-                            ? 'line-through'
-                            : null,
-                      }}
-                    >
-                      ${Number(cart.price)}
-                    </Typography>
-                  </Box>
-                </CardContent>
-
-                <Counter cart={cart} />
-              </Box>
-              <CardMedia
-                component='img'
-                sx={{
-                  width: 171,
-                  height: '100%',
-                  objectFit: 'fill',
-                }}
-                image={cart.imageFile}
-                alt={cart.title}
-              />
-            </Card>
+            <CartItem cart={cart} />
           ))}
           <Box>
             <Box>

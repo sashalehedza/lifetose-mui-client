@@ -2,21 +2,21 @@ import React, { useEffect, useState } from 'react'
 
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { getPosts, searchPosts } from '../redux/features/postSlice'
-
-import CardPost from '../components/CardPost'
+import { getPosts, searchPosts } from '../../redux/features/postSlice'
 
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
 import { Divider, Typography } from '@mui/material'
 
 import { Container } from '@mui/system'
-import Spinner from '../components/Spinner'
+import Spinner from '../../components/Spinner'
 
 import Paper from '@mui/material/Paper'
 import InputBase from '@mui/material/InputBase'
 import IconButton from '@mui/material/IconButton'
 import SearchIcon from '@mui/icons-material/Search'
+
+import PostItem from './PostItem'
 
 function useQuery() {
   return new URLSearchParams(useLocation().search)
@@ -146,7 +146,7 @@ function Home() {
                 <Grid container spacing={4}>
                   {posts.map((post) => (
                     <Grid item xs={12} sm={6} md={4} key={post._id}>
-                      <CardPost {...post} />
+                      <PostItem {...post} />
                     </Grid>
                   ))}
                 </Grid>

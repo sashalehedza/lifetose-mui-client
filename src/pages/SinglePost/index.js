@@ -2,24 +2,35 @@ import React, { useEffect, useState } from 'react'
 
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { getRelatedPosts, getPost } from '../redux/features/postSlice'
+import {
+  getRelatedPosts,
+  getPost,
+  selectAllCart,
+} from '../../redux/features/postSlice'
 
-import RelatedPosts from '../components/RelatedPosts'
+import RelatedPosts from '../../components/RelatedPosts'
 
-import Card from '@mui/material/Card'
-import CardContent from '@mui/material/CardContent'
-import CardMedia from '@mui/material/CardMedia'
-import Typography from '@mui/material/Typography'
-import { Box, Button, Container, Divider, Grid, Tooltip } from '@mui/material'
+import {
+  Card,
+  CardContent,
+  CardMedia,
+  Typography,
+  Box,
+  Button,
+  Container,
+  Divider,
+  Grid,
+  Tooltip,
+} from '@mui/material'
 
-import Comments from '../components/Comments'
-import Spinner from '../components/Spinner'
-import RateStatic from '../components/RateStatic'
+import Comments from '../../components/Comments'
+import Spinner from '../../components/Spinner'
+import RateStatic from '../../components/RateStatic'
 
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt'
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt'
 
-import { addToCart, likePost } from '../redux/features/postSlice'
+import { addToCart, likePost } from '../../redux/features/postSlice'
 
 function SinglePost() {
   const { id } = useParams()
@@ -29,6 +40,7 @@ function SinglePost() {
     ...state.post,
   }))
   const { user } = useSelector((state) => ({ ...state.auth }))
+  const carts = useSelector(selectAllCart)
   const tags = post?.tags
   const userId = user?.result?._id
   const [postCount] = useState(1)
@@ -190,8 +202,13 @@ function SinglePost() {
                             onClick={() => {
                               addToCartFunc(String(id))
                             }}
+                            disabled={carts.some(
+                              (item) => item._id === post._id
+                            )}
                           >
-                            add to cart
+                            {carts.some((item) => item._id === post._id)
+                              ? 'in cart'
+                              : 'add to cart'}
                           </Button>
                         </Box>
                       </Box>
