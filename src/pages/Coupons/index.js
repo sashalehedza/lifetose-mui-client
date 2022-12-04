@@ -1,5 +1,7 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import CouponItem from './CouponItem'
+
+import AddEditCoupon from '../AddEditCoupon'
 
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -7,9 +9,11 @@ import Spinner from '../../components/Spinner'
 
 import { getAllCoupons } from '../../redux/features/orderSlice'
 
-import { Box, Typography, Container, Divider } from '@mui/material'
+import { Box, Typography, Container, Divider, Button } from '@mui/material'
+import Modal from '../../components/Modal/Modal'
 
 function Coupons() {
+  const [modalActive, setModalActive] = useState(false)
   const { user, error } = useSelector((state) => ({ ...state.auth }))
   const { coupons } = useSelector((state) => ({
     ...state.order,
@@ -53,6 +57,14 @@ function Coupons() {
               <Divider sx={{ marginTop: '20px', marginBottom: '20px' }}>
                 Dashboard: {user?.result?.name}
               </Divider>
+              <Box>
+                <Button
+                  variant='contained'
+                  onClick={() => setModalActive(true)}
+                >
+                  Add Coupon
+                </Button>
+              </Box>
               {coupons.length ? (
                 coupons.map((coupon) => (
                   <CouponItem key={coupon._id} coupon={coupon} />
@@ -74,6 +86,9 @@ function Coupons() {
           )}
         </>
       )}
+      <Modal active={modalActive} setActive={setModalActive}>
+        <AddEditCoupon setModalActive={setModalActive} />
+      </Modal>
     </Container>
   )
 }

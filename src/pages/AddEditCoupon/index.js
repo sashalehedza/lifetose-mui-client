@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { getCoupon } from '../../redux/api'
 
@@ -25,7 +25,7 @@ const validationSchema = yup.object({
   percent: yup.number().min(0).required('Percente is required'),
 })
 
-function AddEditCoupon() {
+function AddEditCoupon({ id, setModalActive }) {
   const { user } = useSelector((state) => ({ ...state.auth }))
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -36,8 +36,6 @@ function AddEditCoupon() {
   })
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
-
-  const { id } = useParams()
 
   useEffect(() => {
     if (id) {
@@ -137,10 +135,12 @@ function AddEditCoupon() {
                           dispatch(
                             createCoupon({ updatedCouponData, navigate })
                           )
+                          setModalActive(false)
                         } else {
                           dispatch(
                             updateCoupon({ id, updatedCouponData, navigate })
                           )
+                          setModalActive(false)
                         }
                       }
                     }}

@@ -1,5 +1,6 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react'
+
+import AddEditCoupon from '../AddEditCoupon'
 
 import { useDispatch } from 'react-redux'
 import { deleteCoupon } from '../../redux/features/orderSlice'
@@ -8,14 +9,22 @@ import { Box, Card, CardContent, Typography, Button } from '@mui/material'
 
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
+import Modal from '../../components/Modal/Modal'
 
 function CouponItem({ coupon }) {
+  const [modalActive, setModalActive] = useState(false)
+  const [id, setId] = useState(false)
   const dispatch = useDispatch()
 
   const handleDelete = (id) => {
     if (window.confirm('Are you sure you want to delete this coupon ?')) {
       dispatch(deleteCoupon({ id }))
     }
+  }
+
+  const handleOpenEditForm = (id) => {
+    setModalActive(true)
+    setId(id)
   }
 
   return (
@@ -57,11 +66,14 @@ function CouponItem({ coupon }) {
           <Button onClick={() => handleDelete(coupon._id)}>
             <DeleteIcon />
           </Button>
-          <Link to={`/editCoupon/${coupon._id}`}>
+          <Button onClick={() => handleOpenEditForm(coupon._id)}>
             <EditIcon />
-          </Link>
+          </Button>
         </Box>
       </Box>
+      <Modal active={modalActive} setActive={setModalActive}>
+        <AddEditCoupon id={id} setModalActive={setModalActive} />
+      </Modal>
     </Card>
   )
 }
