@@ -57,7 +57,13 @@ function Coupons() {
               <Divider sx={{ marginTop: '20px', marginBottom: '20px' }}>
                 Dashboard: {user?.result?.name}
               </Divider>
-              <Box>
+              <Box
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'flex-end',
+                  marginBottom: '20px',
+                }}
+              >
                 <Button
                   variant='contained'
                   onClick={() => setModalActive(true)}
