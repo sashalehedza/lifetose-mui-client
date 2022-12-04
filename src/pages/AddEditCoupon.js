@@ -31,7 +31,7 @@ function AddEditCoupon() {
   const navigate = useNavigate()
 
   const [coupon, setCoupon] = useState({
-    title: '',
+    name: '',
     percent: 0,
   })
   const [loading, setLoading] = useState(true)
@@ -64,7 +64,7 @@ function AddEditCoupon() {
     }
     if (!id) {
       setCoupon({
-        title: '',
+        name: '',
         percent: 0,
       })
       setLoading(false)

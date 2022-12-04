@@ -207,15 +207,11 @@ const orderSlice = createSlice({
       state.error = action.payload
     },
 
-    [createCoupon.pending]: (state, action) => {
-      state.coupons = null
-    },
+    [createCoupon.pending]: (state, action) => {},
     [createCoupon.fulfilled]: (state, action) => {},
     [createCoupon.rejected]: (state, action) => {},
 
-    [updateCoupon.pending]: (state, action) => {
-      state.coupons = null
-    },
+    [updateCoupon.pending]: (state, action) => {},
     [updateCoupon.fulfilled]: (state, action) => {
       const {
         arg: { id },
