@@ -209,7 +209,7 @@ const orderSlice = createSlice({
 
     [createCoupon.pending]: (state, action) => {},
     [createCoupon.fulfilled]: (state, action) => {
-      state.coupons = state.coupons.map((item) => item)
+      state.coupons = [...state.coupons]
       state.coupons.push(action.payload)
     },
     [createCoupon.rejected]: (state, action) => {},
