@@ -25,6 +25,7 @@
   background-color: white;
   transform: scale(0.5);
   transition: 0.5s all;
+  overflow-y: auto;
 }
 
 .modal__content.active {
