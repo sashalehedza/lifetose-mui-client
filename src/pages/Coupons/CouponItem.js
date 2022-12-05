@@ -1,7 +1,5 @@
 import React, { useState } from 'react'
 
-import AddEditCoupon from '../AddEditCoupon'
-
 import { useDispatch } from 'react-redux'
 import { deleteCoupon } from '../../redux/features/orderSlice'
 
@@ -10,6 +8,7 @@ import { Box, Card, CardContent, Typography, Button } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
 import Modal from '../../components/Modal/Modal'
+import EditCoupon from './EditCoupon'
 
 function CouponItem({ coupon }) {
   const [modalActive, setModalActive] = useState(false)
@@ -72,7 +71,7 @@ function CouponItem({ coupon }) {
         </Box>
       </Box>
       <Modal active={modalActive} setActive={setModalActive}>
-        <AddEditCoupon id={id} setModalActive={setModalActive} />
+        <EditCoupon id={id} setModalActive={setModalActive} />
       </Modal>
     </Card>
   )

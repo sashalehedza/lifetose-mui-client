@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import CouponItem from './CouponItem'
 
-import AddEditCoupon from '../AddEditCoupon'
-
 import { useDispatch, useSelector } from 'react-redux'
 
 import Spinner from '../../components/Spinner'
@@ -11,6 +9,7 @@ import { getAllCoupons } from '../../redux/features/orderSlice'
 
 import { Box, Typography, Container, Divider, Button } from '@mui/material'
 import Modal from '../../components/Modal/Modal'
+import AddCoupon from './AddCoupon'
 
 function Coupons() {
   const [modalActive, setModalActive] = useState(false)
@@ -93,7 +92,7 @@ function Coupons() {
         </>
       )}
       <Modal active={modalActive} setActive={setModalActive}>
-        <AddEditCoupon setModalActive={setModalActive} />
+        <AddCoupon setModalActive={setModalActive} />
       </Modal>
     </Container>
   )

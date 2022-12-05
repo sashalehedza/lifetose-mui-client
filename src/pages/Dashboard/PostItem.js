@@ -1,7 +1,5 @@
 import React, { useState } from 'react'
 
-import AddEditPost from '../AddEditPost'
-
 import Modal from '../../components/Modal/Modal'
 
 import { useDispatch } from 'react-redux'
@@ -19,6 +17,7 @@ import {
 
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
+import EditPost from './EditPost'
 
 function PostItem({ post }) {
   const [modalActive, setModalActive] = useState(false)
@@ -101,7 +100,7 @@ function PostItem({ post }) {
         alt={post.title}
       />
       <Modal active={modalActive} setActive={setModalActive}>
-        <AddEditPost id={id} setModalActive={setModalActive} />
+        <EditPost id={id} setModalActive={setModalActive} />
       </Modal>
     </Card>
   )

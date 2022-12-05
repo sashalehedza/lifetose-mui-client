@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import PostItem from './PostItem'
 
-import AddEditPost from '../AddEditPost'
-
 import Modal from '../../components/Modal/Modal'
 
 import { useDispatch, useSelector } from 'react-redux'
@@ -12,6 +10,7 @@ import { getPosts } from '../../redux/features/postSlice'
 import Spinner from '../../components/Spinner'
 
 import { Box, Typography, Container, Divider, Button } from '@mui/material'
+import AddPost from './AddPost'
 
 function Dashboard() {
   const [modalActive, setModalActive] = useState(false)
@@ -94,7 +93,7 @@ function Dashboard() {
         </>
       )}
       <Modal active={modalActive} setActive={setModalActive}>
-        <AddEditPost setModalActive={setModalActive} />
+        <AddPost setModalActive={setModalActive} />
       </Modal>
     </Container>
   )
