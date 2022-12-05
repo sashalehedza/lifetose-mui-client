@@ -19,7 +19,7 @@ const validationSchema = yup.object({
   percent: yup.number().min(0).required('Percente is required'),
 })
 
-function AddCoupon({ id, setModalActive }) {
+function AddCoupon({ setModalActive }) {
   const { user } = useSelector((state) => ({ ...state.auth }))
   const dispatch = useDispatch()
   const navigate = useNavigate()
