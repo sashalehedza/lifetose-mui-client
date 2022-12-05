@@ -16,6 +16,8 @@ const InputField = ({ name, placeholder, label, type }) => {
       variant='outlined'
       fullWidth
       sx={{ mt: 1, mb: 1 }}
+      minRows={1}
+      multiline
     />
   )
 }
