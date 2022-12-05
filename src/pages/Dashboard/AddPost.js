@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { createPost } from '../../redux/features/postSlice'
 
-import { Box, Button, Container, Divider, TextField } from '@mui/material'
+import { Box, Button, Divider, TextField } from '@mui/material'
 
 import Autocomplete from '@mui/material/Autocomplete'
 import Chip from '@mui/material/Chip'
@@ -49,10 +49,10 @@ function AddPost({ setModalActive }) {
   const [file, setFile] = useState(DefaultFilmImage)
 
   return (
-    <Container>
+    <Box>
       <>
         <Divider sx={{ marginTop: '20px' }}>Add Post</Divider>
-        <Container
+        <Box
           sx={{
             display: 'flex',
             justifyContent: 'center',
@@ -167,9 +167,9 @@ function AddPost({ setModalActive }) {
               </Form>
             </Formik>
           </Box>
-        </Container>
+        </Box>
       </>
-    </Container>
+    </Box>
   )
 }
 

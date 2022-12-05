@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { Box, Button, Container, Divider } from '@mui/material'
+import { Box, Button, Divider } from '@mui/material'
 
 import { Formik, Form } from 'formik'
 import * as yup from 'yup'
@@ -30,10 +30,10 @@ function AddCoupon({ id, setModalActive }) {
   })
 
   return (
-    <Container>
+    <Box>
       <>
         <Divider sx={{ marginTop: '20px' }}>Add Coupon</Divider>
-        <Container
+        <Box
           sx={{
             display: 'flex',
             justifyContent: 'center',
@@ -91,9 +91,9 @@ function AddCoupon({ id, setModalActive }) {
               </Form>
             </Formik>
           </Box>
-        </Container>
+        </Box>
       </>
-    </Container>
+    </Box>
   )
 }
 

@@ -7,14 +7,7 @@ import { getPost } from '../../redux/api'
 
 import Spinner from '../../components/Spinner'
 
-import {
-  Box,
-  Button,
-  Container,
-  Divider,
-  TextField,
-  Typography,
-} from '@mui/material'
+import { Box, Button, Divider, TextField, Typography } from '@mui/material'
 
 import Autocomplete from '@mui/material/Autocomplete'
 import Chip from '@mui/material/Chip'
@@ -91,7 +84,7 @@ function EditPost({ id, setModalActive }) {
   }, [id])
 
   return (
-    <Container>
+    <Box>
       {error ? (
         <Box
           sx={{
@@ -120,7 +113,7 @@ function EditPost({ id, setModalActive }) {
           ) : (
             <>
               <Divider sx={{ marginTop: '20px' }}>Edit Post</Divider>
-              <Container
+              <Box
                 sx={{
                   display: 'flex',
                   justifyContent: 'center',
@@ -236,12 +229,12 @@ function EditPost({ id, setModalActive }) {
                     </Form>
                   </Formik>
                 </Box>
-              </Container>
+              </Box>
             </>
           )}
         </>
       )}
-    </Container>
+    </Box>
   )
 }
 

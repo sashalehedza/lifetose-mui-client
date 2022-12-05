@@ -17,7 +17,11 @@ function Modal({ active, setActive, children }) {
       >
         <Box>
           <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-            <IconButton color='error' onClick={() => setActive(false)}>
+            <IconButton
+              color='error'
+              style={{ padding: 0 }}
+              onClick={() => setActive(false)}
+            >
               <TiDeleteOutline
                 style={{ cursor: 'pointer', width: '30px', height: '30px' }}
               />

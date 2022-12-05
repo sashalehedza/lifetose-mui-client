@@ -6,7 +6,7 @@ import { getCoupon } from '../../redux/api'
 
 import Spinner from '../../components/Spinner'
 
-import { Box, Button, Container, Divider, Typography } from '@mui/material'
+import { Box, Button, Divider, Typography } from '@mui/material'
 
 import { toast } from 'react-toastify'
 
@@ -64,7 +64,7 @@ function EditCoupon({ id, setModalActive }) {
   }, [id])
 
   return (
-    <Container>
+    <Box>
       {error ? (
         <Box
           sx={{
@@ -93,7 +93,7 @@ function EditCoupon({ id, setModalActive }) {
           ) : (
             <>
               <Divider sx={{ marginTop: '20px' }}>Edit Coupon</Divider>
-              <Container
+              <Box
                 sx={{
                   display: 'flex',
                   justifyContent: 'center',
@@ -153,12 +153,12 @@ function EditCoupon({ id, setModalActive }) {
                     </Form>
                   </Formik>
                 </Box>
-              </Container>
+              </Box>
             </>
           )}
         </>
       )}
-    </Container>
+    </Box>
   )
 }
 
