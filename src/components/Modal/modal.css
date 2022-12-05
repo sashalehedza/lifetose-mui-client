@@ -6,11 +6,12 @@
   top: 0;
   left: 0;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
   opacity: 0;
   pointer-events: none;
   transition: 0.5s;
+  z-index: 1;
 }
 
 .modal.active {
@@ -25,6 +26,9 @@
   background-color: white;
   transform: scale(0.5);
   transition: 0.5s all;
+  z-index: 10;
+  height: 400px;
+  overflow-y: scroll;
 }
 
 .modal__content.active {
