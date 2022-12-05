@@ -21,7 +21,6 @@ import EditPost from './EditPost'
 
 function PostItem({ post }) {
   const [modalActive, setModalActive] = useState(false)
-  const [id, setId] = useState(false)
   const dispatch = useDispatch()
 
   const excerpt = (str) => {
@@ -38,9 +37,8 @@ function PostItem({ post }) {
     dispatch(clearCart())
   }
 
-  const handleOpenEditForm = (id) => {
+  const handleOpenEditForm = () => {
     setModalActive(true)
-    setId(id)
   }
 
   return (
@@ -84,7 +82,7 @@ function PostItem({ post }) {
           <Button onClick={() => handleDelete(post._id)}>
             <DeleteIcon />
           </Button>
-          <Button onClick={() => handleOpenEditForm(post._id)}>
+          <Button onClick={() => handleOpenEditForm()}>
             <EditIcon />
           </Button>
         </Box>
@@ -100,7 +98,7 @@ function PostItem({ post }) {
         alt={post.title}
       />
       <Modal active={modalActive} setActive={setModalActive}>
-        <EditPost id={id} setModalActive={setModalActive} />
+        <EditPost post={post} setModalActive={setModalActive} />
       </Modal>
     </Card>
   )

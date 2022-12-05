@@ -12,7 +12,6 @@ import EditCoupon from './EditCoupon'
 
 function CouponItem({ coupon }) {
   const [modalActive, setModalActive] = useState(false)
-  const [id, setId] = useState(false)
   const dispatch = useDispatch()
 
   const handleDelete = (id) => {
@@ -21,9 +20,8 @@ function CouponItem({ coupon }) {
     }
   }
 
-  const handleOpenEditForm = (id) => {
+  const handleOpenEditForm = () => {
     setModalActive(true)
-    setId(id)
   }
 
   return (
@@ -65,13 +63,13 @@ function CouponItem({ coupon }) {
           <Button onClick={() => handleDelete(coupon._id)}>
             <DeleteIcon />
           </Button>
-          <Button onClick={() => handleOpenEditForm(coupon._id)}>
+          <Button onClick={() => handleOpenEditForm()}>
             <EditIcon />
           </Button>
         </Box>
       </Box>
       <Modal active={modalActive} setActive={setModalActive}>
-        <EditCoupon id={id} setModalActive={setModalActive} />
+        <EditCoupon coupon={coupon} setModalActive={setModalActive} />
       </Modal>
     </Card>
   )
