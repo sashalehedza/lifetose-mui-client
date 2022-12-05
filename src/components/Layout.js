@@ -7,7 +7,6 @@ function Layout({ children }) {
     <>
       <Header />
       <Box>{children}</Box>
-      <Box sx={{ height: '50px' }}></Box>
     </>
   )
 }
