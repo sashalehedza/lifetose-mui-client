@@ -119,9 +119,7 @@ function EditPost({ id, setModalActive }) {
             </Box>
           ) : (
             <>
-              <Divider sx={{ marginTop: '20px', marginBottom: '20px' }}>
-                Edit Post
-              </Divider>
+              <Divider sx={{ marginTop: '20px' }}>Edit Post</Divider>
               <Container
                 sx={{
                   display: 'flex',
@@ -132,7 +130,7 @@ function EditPost({ id, setModalActive }) {
                 <Box
                   sx={{
                     width: '240px',
-                    marginTop: 6,
+                    marginTop: '10px',
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',

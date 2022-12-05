@@ -92,9 +92,7 @@ function EditCoupon({ id, setModalActive }) {
             </Box>
           ) : (
             <>
-              <Divider sx={{ marginTop: '20px', marginBottom: '20px' }}>
-                Edit Coupon
-              </Divider>
+              <Divider sx={{ marginTop: '20px' }}>Edit Coupon</Divider>
               <Container
                 sx={{
                   display: 'flex',
@@ -105,7 +103,7 @@ function EditCoupon({ id, setModalActive }) {
                 <Box
                   sx={{
                     width: '240px',
-                    marginTop: 6,
+                    marginTop: '10px',
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',

@@ -32,9 +32,7 @@ function AddCoupon({ id, setModalActive }) {
   return (
     <Container>
       <>
-        <Divider sx={{ marginTop: '20px', marginBottom: '20px' }}>
-          Add Coupon
-        </Divider>
+        <Divider sx={{ marginTop: '20px' }}>Add Coupon</Divider>
         <Container
           sx={{
             display: 'flex',
@@ -45,7 +43,7 @@ function AddCoupon({ id, setModalActive }) {
           <Box
             sx={{
               width: '240px',
-              marginTop: 6,
+              marginTop: '10px',
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
