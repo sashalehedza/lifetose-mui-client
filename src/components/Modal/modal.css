@@ -10,9 +10,7 @@
   display: none;
 }
 .modal.active {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
 }
 
 .modal__content {
