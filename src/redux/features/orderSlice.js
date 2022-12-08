@@ -87,7 +87,7 @@ export const createCoupon = createAsyncThunk(
   async ({ updatedCouponData, navigate }, { rejectWithValue }) => {
     try {
       const response = await api.createCoupon(updatedCouponData)
-      // navigate('/coupons')
+      navigate('/coupons')
       return response.data
     } catch (err) {
       toast.error(extractErrorMessage(err))
@@ -101,7 +101,7 @@ export const updateCoupon = createAsyncThunk(
   async ({ id, updatedCouponData, navigate }, { rejectWithValue }) => {
     try {
       const response = await api.updateCoupon(updatedCouponData, id)
-      //navigate('/coupons')
+      navigate('/coupons')
       return response.data
     } catch (err) {
       toast.error(extractErrorMessage(err))
