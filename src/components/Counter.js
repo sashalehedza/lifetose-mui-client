@@ -86,13 +86,7 @@ function Counter({ cart }) {
         }}
       >
         <Typography variant='h5'>
-          {discountCalc(
-            cart.saleCount,
-            cart.saleDiscount,
-            cart.price,
-            cart.discount,
-            cart.count
-          )}
+          {discountCalc(cart.price, cart.discount, cart.count)}
         </Typography>
 
         <IconButton color='error' onClick={() => removeFromCartFunc()}>

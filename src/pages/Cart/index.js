@@ -69,13 +69,7 @@ function CartPage() {
     const filteredItems = carts.map((item) => ({
       _id: item._id,
       title: item.title,
-      price: discountCalc(
-        item.saleCount,
-        item.saleDiscount,
-        item.price,
-        item.discount,
-        item.count
-      ),
+      price: discountCalc(item.price, item.discount, item.count),
       count:
         item.saleCount !== 0 && item.saleDiscount !== 0
           ? item.count +
