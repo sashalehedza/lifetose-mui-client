@@ -12,7 +12,6 @@ const Rate = ({ count, rating, color, onRating }) => {
     } else if (!hoverRating && rating >= index) {
       return color.filled
     }
-
     return color.unfilled
   }
 
