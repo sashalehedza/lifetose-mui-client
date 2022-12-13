@@ -141,10 +141,24 @@ function PostItem({
               color: discount && Number(discount) !== 0 ? 'red' : null,
               textDecoration:
                 discount && Number(discount) !== 0 ? 'line-through' : null,
+              mr: '10px',
             }}
           >
             ${Number(price)}
           </Typography>
+          {discount && Number(discount) !== 0 ? (
+            <Typography
+              gutterBottom
+              variant='h5'
+              sx={{ mr: '10px', backgroundColor: 'red', color: 'white' }}
+            >
+              {(
+                (100 * (Number(price) - (Number(price) - Number(discount)))) /
+                Number(price)
+              ).toFixed(0)}
+              %
+            </Typography>
+          ) : null}
         </Box>
 
         <Box>
