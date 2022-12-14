@@ -152,6 +152,7 @@ function PostItem({
               variant='h5'
               sx={{ mr: '10px', backgroundColor: 'red', color: 'white' }}
             >
+              -
               {(
                 (100 * (Number(price) - (Number(price) - Number(discount)))) /
                 Number(price)

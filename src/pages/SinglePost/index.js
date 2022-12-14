@@ -273,10 +273,32 @@ function SinglePost() {
                                 post.discount && Number(post.discount) !== 0
                                   ? 'line-through'
                                   : null,
+                              mr: '10px',
                             }}
                           >
                             ${Number(post.price)}
                           </Typography>
+                          {post.discount && Number(post.discount) !== 0 ? (
+                            <Typography
+                              gutterBottom
+                              variant='h5'
+                              sx={{
+                                mr: '10px',
+                                backgroundColor: 'red',
+                                color: 'white',
+                              }}
+                            >
+                              -
+                              {(
+                                (100 *
+                                  (Number(post.price) -
+                                    (Number(post.price) -
+                                      Number(post.discount)))) /
+                                Number(post.price)
+                              ).toFixed(0)}
+                              %
+                            </Typography>
+                          ) : null}
                         </Box>
                       </CardContent>
                     </Card>
