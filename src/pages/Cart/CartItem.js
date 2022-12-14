@@ -54,10 +54,31 @@ function CartItem({ cart }) {
                   cart.discount && Number(cart.discount)
                     ? 'line-through'
                     : null,
+                mr: '10px',
               }}
             >
               ${Number(cart.price)}
             </Typography>
+            {cart.discount && Number(cart.discount) !== 0 ? (
+              <Typography
+                gutterBottom
+                variant='h5'
+                sx={{
+                  mr: '10px',
+                  backgroundColor: 'red',
+                  color: 'white',
+                }}
+              >
+                -
+                {(
+                  (100 *
+                    (Number(cart.price) -
+                      (Number(cart.price) - Number(cart.discount)))) /
+                  Number(cart.price)
+                ).toFixed(0)}
+                %
+              </Typography>
+            ) : null}
           </Box>
         </CardContent>
 
