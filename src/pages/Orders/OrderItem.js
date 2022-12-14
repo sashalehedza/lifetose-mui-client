@@ -1,10 +1,6 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useDispatch } from 'react-redux'
-import {
-  getAllOrders,
-  orderDelivered,
-  orderPaid,
-} from '../../redux/features/orderSlice'
+import { orderDelivered, orderPaid } from '../../redux/features/orderSlice'
 import { Box, Grid } from '@mui/material'
 import Card from '@mui/material/Card'
 
@@ -13,11 +9,6 @@ import Button from '@mui/material/Button'
 
 function OrderItem({ order }) {
   const dispatch = useDispatch()
-
-  useEffect(() => {
-    dispatch(getAllOrders())
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   const handleOrderPaid = (id, order) => {
     const updatedOrderData = {
